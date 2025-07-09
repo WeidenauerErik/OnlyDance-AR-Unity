@@ -1,0 +1,2 @@
+/home/weidi/Documents/Github/OnlyDanceAR/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/CMakeLists.txt
+/home/weidi/Documents/Github/OnlyDanceAR/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/CMakeLists.txt
