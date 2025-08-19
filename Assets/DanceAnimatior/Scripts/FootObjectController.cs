@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class FootObjectController : MonoBehaviour
 {
@@ -8,12 +9,18 @@ public class FootObjectController : MonoBehaviour
 
     private GameObject _leftFootInstance;
     private GameObject _rightFootInstance;
+    
     private bool _startPositionSet;
 
     private Vector3[] _leftSteps;
     private Vector3[] _rightSteps;
 
     private int _currentStepIndex;
+
+    private Button previousBtn;
+    private Button playBtn;
+    private Button nextBtn;
+    private Button spawnBtn;
 
     public void Start()
     {
@@ -36,6 +43,19 @@ public class FootObjectController : MonoBehaviour
                 new Vector3(0.5f, 0, -0.2f),
                 new Vector3(0.2f, 0, 0)
             };
+
+            var uiDoc = FindObjectOfType<UIDocument>();
+            var root = uiDoc.rootVisualElement;
+
+            previousBtn = root.Q<Button>("previousBtn");
+            playBtn = root.Q<Button>("playBtn");
+            nextBtn = root.Q<Button>("nextBtn");
+            spawnBtn = root.Q<Button>("spawnBtn");
+
+            spawnBtn.clicked += SpawnFeet;
+            previousBtn.clicked += PreviousStep;
+            nextBtn.clicked += NextStep;
+            
         }
         catch (Exception e)
         {
@@ -49,8 +69,10 @@ public class FootObjectController : MonoBehaviour
         }
     }
     
+    
     public void SpawnFeet()
     {
+        Debug.Log("Spawnbutton was clicked.");
         if (_startPositionSet) return; // if the feet are already spawned
         var spawnPosition = new Vector3(0, 0, 0);
         _currentStepIndex = 0;
@@ -63,6 +85,7 @@ public class FootObjectController : MonoBehaviour
 
     public void NextStep()
     {
+        Debug.Log("Nextbutton was clicked.");
         if (!_startPositionSet || _currentStepIndex >= _leftSteps.Length - 1) return;
 
         _currentStepIndex++;
@@ -71,11 +94,13 @@ public class FootObjectController : MonoBehaviour
 
     public void PreviousStep()
     {
+        Debug.Log("Previousbutton was clicked.");
         if (!_startPositionSet || _currentStepIndex <= 0) return;
 
         _currentStepIndex--;
         UpdateFootPositions();
     }
+    
 
     private void UpdateFootPositions()
     {

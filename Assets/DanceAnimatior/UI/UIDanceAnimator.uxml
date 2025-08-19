@@ -1,0 +1,12 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="UpperSection" style="flex-grow: 1;">
+        <ui:Button text="+" name="spawnBtn" style="width: 45px; height: 45px; align-self: flex-end; margin-right: 10px; margin-top: 10px; background-color: rgb(107, 26, 190); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; border-bottom-right-radius: 50px; border-top-right-radius: 50px; border-top-left-radius: 50px; border-bottom-left-radius: 50px;" />
+    </ui:VisualElement>
+    <ui:VisualElement name="LowerSection" style="flex-grow: 1; flex-direction: row; justify-content: space-between; background-size: 100% 100%; height: auto; align-self: center; align-items: flex-end; margin-bottom: 30px; width: auto; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; background-color: rgba(0, 0, 0, 0); margin-top: 0;">
+        <ui:VisualElement name="DanceController" class="UIController" style="flex-grow: initial; flex-direction: row; background-size: 100% 100%; background-color: rgb(107, 26, 190); border-bottom-right-radius: 10px; padding-right: 10px; padding-left: 10px; padding-top: 3px; padding-bottom: 3px; border-right-width: 0; border-top-right-radius: 10px; border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
+            <ui:Button text="&lt;" name="previousBtn" class="UIController" style="height: 45px; width: 45px; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; background-color: rgb(107, 26, 190);" />
+            <ui:Button text="=" name="playBtn" class="UIController" style="width: 45px; height: 45px; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; background-color: rgb(107, 26, 190);" />
+            <ui:Button text="&gt;" name="nextBtn" style="width: 45px; height: 45px; border-bottom-right-radius: 0%; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; background-color: rgb(107, 26, 190);" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
