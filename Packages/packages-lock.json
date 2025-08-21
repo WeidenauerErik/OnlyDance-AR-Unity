@@ -38,6 +38,13 @@
       },
       "url": "https://packages.unity.com"
     },
+    "com.unity.device-simulator.devices": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
     "com.unity.editorcoroutines": {
       "version": "1.0.0",
       "depth": 1,
@@ -70,7 +77,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.inputsystem": {
-      "version": "1.14.0",
+      "version": "1.14.2",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -196,7 +203,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.timeline": {
-      "version": "1.8.8",
+      "version": "1.8.9",
       "depth": 0,
       "source": "registry",
       "dependencies": {

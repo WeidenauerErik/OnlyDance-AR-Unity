@@ -72,8 +72,8 @@ public class FootObjectController : MonoBehaviour
     
     public void SpawnFeet()
     {
-        Debug.Log("Spawnbutton was clicked.");
-        if (_startPositionSet) return; // if the feet are already spawned
+        //if (_startPositionSet) return; // if the feet are already spawned
+        spawnBtn.style.display = DisplayStyle.None;
         var spawnPosition = new Vector3(0, 0, 0);
         _currentStepIndex = 0;
 
@@ -85,7 +85,6 @@ public class FootObjectController : MonoBehaviour
 
     public void NextStep()
     {
-        Debug.Log("Nextbutton was clicked.");
         if (!_startPositionSet || _currentStepIndex >= _leftSteps.Length - 1) return;
 
         _currentStepIndex++;
@@ -94,7 +93,6 @@ public class FootObjectController : MonoBehaviour
 
     public void PreviousStep()
     {
-        Debug.Log("Previousbutton was clicked.");
         if (!_startPositionSet || _currentStepIndex <= 0) return;
 
         _currentStepIndex--;

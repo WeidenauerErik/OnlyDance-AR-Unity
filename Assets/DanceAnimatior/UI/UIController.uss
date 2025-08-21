@@ -1,0 +1,53 @@
+.uiController {
+    border-radius: 50px;
+    color: white;
+    background-color: rgb(79, 36, 107);
+    cursor: grab;
+    border-width: 0;
+    width: 30px;
+    height: 30px;
+}
+
+.uiController:hover {
+    color: black;
+    background-color: rgb(67, 36, 87);
+}
+
+.uiController:active {
+    color: black;
+    background-color: rgb(67, 36, 87);
+}
+
+#danceController {
+    background-color: rgb(79, 36, 107);
+    height: auto;
+    width: auto;
+    flex-shrink: 1;
+    flex-basis: auto;
+}
+
+#danceNameContainer {
+    background-color: rgb(79, 36, 107);
+    height: 30px;
+    border-radius: 10px;
+}
+
+#counterContainer {
+    background-color: rgb(79, 36, 107);
+    height: 30px;
+    border-radius: 10px;
+}
+
+#danceName {
+    color: white;
+}
+
+#counter {
+    color: white;
+}
+
+#spawnBtn {
+    height: 10px;
+    width: 10px;
+    background-color: rgb(79, 36, 107);
+}
