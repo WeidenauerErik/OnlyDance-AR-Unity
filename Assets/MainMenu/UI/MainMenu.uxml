@@ -1,0 +1,14 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/MainMenu/UI/MainMenu.uss?fileID=7433441132597879392&amp;guid=0efb940fccd43d877955863646a86717&amp;type=3#MainMenu" />
+    <ui:VisualElement name="background" style="flex-grow: 1;">
+        <ui:VisualElement name="navBar" style="flex-grow: 0; flex-direction: row; justify-content: space-between;">
+            <ui:Label text="Hauptmenü" name="mainMenuLabel" />
+            <ui:Button text="Account" name="userButton" style="align-items: auto; justify-content: space-around;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="danceSelector" style="flex-grow: 0; justify-content: flex-end; flex-direction: row; align-self: center; align-content: auto; align-items: auto;">
+            <ui:Button text="meine Tänze" name="myDances" />
+            <ui:Button text="online Tänze" name="onlineDances" />
+        </ui:VisualElement>
+        <ui:ScrollView name="danceContainer" style="flex-grow: 1;" />
+    </ui:VisualElement>
+</ui:UXML>
