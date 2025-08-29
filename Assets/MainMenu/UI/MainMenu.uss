@@ -5,6 +5,7 @@
 #mainMenuLabel {
     color: rgb(213, 180, 231);
     font-size: 15px;
+    margin: 5px;
 }
 
 #userButton {
@@ -25,13 +26,13 @@
 }
 
 #myDances, #onlineDances {
-    font-size: 10px;
+    font-size: 12px;
     background-color: rgb(213, 180, 231);
     border-top-width: 0;
     border-left-width: 0;
     border-right-width: 0;
     border-bottom-width: 0;
-    padding: 0;
+    padding: 2px;
     margin: 0;
 }
 
