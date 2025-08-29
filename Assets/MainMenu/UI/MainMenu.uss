@@ -1,3 +1,53 @@
 #background {
-    background-color: rgb(229, 190, 238);
+    background-color: rgb(48, 0, 73);
+}
+
+#mainMenuLabel {
+    color: rgb(213, 180, 231);
+    font-size: 15px;
+}
+
+#userButton {
+    border-radius: 50px;
+    background-color: rgb(213, 180, 231);
+    font-size: 15px;
+    margin: 5px;
+    padding: 5px;
+    width: 30px;
+    height: 30px;
+}
+
+#danceSelector {
+    background-color: rgb(213, 180, 231);
+    border-radius: 10px;
+    margin-top: 10px;
+    width: 90%;
+}
+
+#myDances, #onlineDances {
+    font-size: 10px;
+    background-color: rgb(213, 180, 231);
+    border-top-width: 0;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    padding: 0;
+    margin: 0;
+}
+
+.activeDancesContainer {
+    background-color: rgb(213, 180, 231) !important;
+    border-bottom-width: 2px;
+    border-bottom-color: rgb(48, 0, 73);
+    border-style: solid;
+}
+
+#myDancesContainer, #onlineDancesContainer {
+    border-width: 2px;
+    border-style: solid;
+    margin: 5px;
+}
+
+#danceContainer {
+    margin-top: 5px;
 }

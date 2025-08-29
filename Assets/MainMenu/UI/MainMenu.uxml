@@ -3,11 +3,15 @@
     <ui:VisualElement name="background" style="flex-grow: 1;">
         <ui:VisualElement name="navBar" style="flex-grow: 0; flex-direction: row; justify-content: space-between;">
             <ui:Label text="Hauptmenü" name="mainMenuLabel" />
-            <ui:Button text="Account" name="userButton" style="align-items: auto; justify-content: space-around;" />
+            <ui:Button text="U" name="userButton" style="align-items: auto; justify-content: space-around; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0;" />
         </ui:VisualElement>
         <ui:VisualElement name="danceSelector" style="flex-grow: 0; justify-content: flex-end; flex-direction: row; align-self: center; align-content: auto; align-items: auto;">
-            <ui:Button text="meine Tänze" name="myDances" />
-            <ui:Button text="online Tänze" name="onlineDances" />
+            <ui:VisualElement name="myDancesContainer" style="flex-grow: 1;">
+                <ui:Button text="meine Tänze" name="myDances" style="flex-shrink: 0;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="onlineDancesContainer" style="flex-grow: 1;">
+                <ui:Button text="online Tänze" name="onlineDances" />
+            </ui:VisualElement>
         </ui:VisualElement>
         <ui:ScrollView name="danceContainer" style="flex-grow: 1;" />
     </ui:VisualElement>
