@@ -54,8 +54,8 @@
 }
 
 .playBtnPlay {
-    background-image: resource("Free Flat Media Right Full Icon");
+    background-image: resource("UIControllerPlayIcon");
 }
 .playBtnPause {
-    background-image: resource("Free Flat Media Pause Icon");
+    background-image: resource("UIControllerPauseIcon");
 }

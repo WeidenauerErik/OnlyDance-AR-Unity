@@ -77,6 +77,8 @@
     border: none;
     border-radius: 50px;
     background-color: rgb(48, 0, 73);
+    background-image: resource("UIControllerPlayIcon");
+    background-size: 50% 50%;
     color: rgb(213, 180, 231);
     font-size: 15px;
     margin: 5px;

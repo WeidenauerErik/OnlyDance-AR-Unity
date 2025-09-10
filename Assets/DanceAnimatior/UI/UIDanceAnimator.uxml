@@ -2,7 +2,7 @@
     <Style src="project://database/Assets/DanceAnimatior/UI/UIController.uss?fileID=7433441132597879392&amp;guid=53ddb21218d3b4d24bf2aefcb6038bbc&amp;type=3#UIController" />
     <ui:VisualElement name="upperSection" style="flex-grow: 1; white-space: normal; flex-direction: row; background-size: 100% 100%; margin-top: 5px; justify-content: space-between;">
         <ui:VisualElement name="backToMenuContainer" style="flex-grow: 0; margin-top: 3px; margin-left: 3px;">
-            <ui:Button name="backToMenuBtn" class="uiController" style="padding-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; margin-top: 0; background-image: resource(&apos;Free Flat Move Out Icon&apos;); background-size: 50% 50%;" />
+            <ui:Button name="backToMenuBtn" class="uiController" style="padding-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; margin-top: 0; background-image: resource(&apos;BackIcon&apos;); background-size: 50% 50%; opacity: 0.7;" />
         </ui:VisualElement>
         <ui:VisualElement name="danceNameContainer" style="flex-grow: 0; margin-left: 0; flex-shrink: 0; margin-top: 3px; opacity: 0.7;">
             <ui:Label text="Walzer" name="danceName" style="padding-left: 2px; opacity: 1;" />
@@ -16,11 +16,11 @@
     </ui:VisualElement>
     <ui:VisualElement name="lowerSection" style="flex-grow: 1; flex-direction: row; justify-content: space-between; background-size: 100% 100%; height: auto; align-self: center; align-items: flex-end; margin-bottom: 10px; width: auto; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; background-color: rgba(0, 0, 0, 0); margin-top: 0;">
         <ui:VisualElement name="danceController" class="UIController" style="flex-grow: initial; flex-direction: row; background-size: 100% 100%; border-bottom-right-radius: 10px; padding-right: 10px; padding-left: 10px; padding-top: 3px; padding-bottom: 3px; border-right-width: 0; border-top-right-radius: 10px; border-top-left-radius: 10px; border-bottom-left-radius: 10px; opacity: 0.7;">
-            <ui:Button name="beginBtn" class="UIController uiController" style="opacity: 0.7; display: flex; background-image: resource(&apos;Free Flat Media Left Double Icon&apos;); background-size: 50% 50%;" />
-            <ui:Button name="previousBtn" class="UIController uiController" style="background-image: resource(&apos;Free Flat Media Left Icon&apos;); background-size: 50% 50%;" />
-            <ui:Button name="playBtn" class="UIController uiController playBtnPlay" style="background-size: 50% 50%;" />
-            <ui:Button name="nextBtn" class="UIController uiController" style="background-image: resource(&apos;Free Flat Media Right Icon&apos;); background-size: 50% 50%;" />
-            <ui:Button text="&#10;" name="endBtn" class="UIController uiController" style="background-image: resource(&apos;Free Flat Media Right Double Icon&apos;); background-size: 50% 50%;" />
+            <ui:Button name="beginBtn" class="UIController uiController" style="opacity: 1; display: flex; background-image: resource(&apos;UIControllerBeginIcon&apos;); background-size: 50% 50%;" />
+            <ui:Button name="previousBtn" class="UIController uiController" style="background-image: resource(&apos;UIControllerBackwardsIcon&apos;); background-size: 50% 50%; opacity: 1;" />
+            <ui:Button name="playBtn" class="UIController uiController playBtnPlay" style="background-size: 50% 50%; opacity: 1;" />
+            <ui:Button name="nextBtn" class="UIController uiController" style="background-image: resource(&apos;UIControllerForwardIcon&apos;); background-size: 50% 50%; -unity-background-image-tint-color: rgb(255, 255, 255); opacity: 1;" />
+            <ui:Button text="&#10;" name="endBtn" class="UIController uiController" style="background-image: resource(&apos;UIControllerEndIcon&apos;); background-size: 50% 50%; opacity: 1;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

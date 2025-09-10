@@ -12,7 +12,7 @@ public class UIManager : MonoBehaviour
     private VisualElement _danceContainer;
 
     readonly string[] _myDanceList = { "Waltzer"};
-    readonly string[] _onlineDanceList = { "Salsa", "Langsamer Walzer", "Slowfox", "Boogie", "Rumba", "Tango", "Cha Cha G", "Cha Cha", "Wiener Waltzer", "Servus"};
+    readonly string[] _onlineDanceList = { "Salsa", "Langsamer Walzer", "Slowfox", "Boogie", "Rumba", "Tango", "Cha Cha G", "Cha Cha", "Wiener Walzer", "Servus"};
 
     void Start()
     {
@@ -61,7 +61,6 @@ public class UIManager : MonoBehaviour
             container.Add(danceNameLabel);
             
             var dancePlayBtn = new Button();
-            dancePlayBtn.text = "+";
             dancePlayBtn.AddToClassList("dancePlayBtn");
             dancePlayBtn.clicked += () =>
             {
