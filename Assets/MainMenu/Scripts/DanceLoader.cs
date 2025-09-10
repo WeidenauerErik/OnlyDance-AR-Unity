@@ -11,7 +11,7 @@ public class DanceLoader : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject);  //if you switch scenes the object won't be destroyed
         }
         else
         {
@@ -19,7 +19,7 @@ public class DanceLoader : MonoBehaviour
         }
     }
 
-    public void SetDance(string danceName)
+    public void SetDanceName(string danceName)
     {
         SelectedDance = danceName;
     }

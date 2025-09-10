@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -16,20 +17,21 @@ public class DanceController : MonoBehaviour
 
     private int _currentStepIndex;
 
-    private Button beginBtn;
-    private Button previousBtn;
-    private Button playBtn;
-    private Button nextBtn;
-    private Button endBtn;
+    private Button _beginBtn;
+    private Button _previousBtn;
+    private Button _nextBtn;
+    private Button _endBtn;
+    private Button _playBtn;
+    private Image _playBtnImage;
+
+    private Button _backToMenuBtn;
+    private Button _spawnBtn;
+
+    private Label _counter;
+    private Label _danceName;
+
+    private VisualElement _danceController;
     
-    private Button backToMenuBtn;
-    private Button spawnBtn;
-
-    private Label counter;
-    private Label danceName;
-
-    private VisualElement danceController;
-
     public void Start()
     {
         _leftSteps = new Vector3[]
@@ -52,41 +54,41 @@ public class DanceController : MonoBehaviour
         var uiDoc = FindObjectOfType<UIDocument>();
         var root = uiDoc.rootVisualElement;
 
-        spawnBtn = root.Q<Button>("spawnBtn");
-        spawnBtn.clicked += SpawnFeet;
-        
-        backToMenuBtn = root.Q<Button>("backToMenuBtn");
-        backToMenuBtn.clicked += backToMenu;
+        _spawnBtn = root.Q<Button>("spawnBtn");
+        _spawnBtn.clicked += SpawnFeet;
 
-        beginBtn = root.Q<Button>("beginBtn");
-        beginBtn.clicked += BeginStep;
+        _backToMenuBtn = root.Q<Button>("backToMenuBtn");
+        _backToMenuBtn.clicked += BackToMenu;
 
-        previousBtn = root.Q<Button>("previousBtn");
-        previousBtn.clicked += PreviousStep;
+        _beginBtn = root.Q<Button>("beginBtn");
+        _beginBtn.clicked += BeginStep;
 
-        playBtn = root.Q<Button>("playBtn");
-        playBtn.clicked += PlayStep;
+        _previousBtn = root.Q<Button>("previousBtn");
+        _previousBtn.clicked += PreviousStep;
 
-        nextBtn = root.Q<Button>("nextBtn");
-        nextBtn.clicked += NextStep;
+        _playBtn = root.Q<Button>("playBtn");
+        _playBtn.clicked += PlayStep;
 
-        endBtn = root.Q<Button>("endBtn");
-        endBtn.clicked += EndStep;
+        _nextBtn = root.Q<Button>("nextBtn");
+        _nextBtn.clicked += NextStep;
 
-        counter = root.Q<Label>("counter");
-        counter.text = "1/" + _leftSteps.Length;
+        _endBtn = root.Q<Button>("endBtn");
+        _endBtn.clicked += EndStep;
 
-        danceName = root.Q<Label>("danceName");
-        danceName.text = DanceLoader.Instance.SelectedDance;
-        
-        danceController = root.Q<VisualElement>("danceController");
-        danceController.style.display = DisplayStyle.None;
+        _counter = root.Q<Label>("counter");
+        _counter.text = "1/" + _leftSteps.Length;
+
+        _danceName = root.Q<Label>("danceName");
+        _danceName.text = DanceLoader.Instance.SelectedDance;
+
+        _danceController = root.Q<VisualElement>("danceController");
+        _danceController.style.display = DisplayStyle.None;
     }
 
     private void SpawnFeet()
     {
-        spawnBtn.style.display = DisplayStyle.None;
-        danceController.style.display = DisplayStyle.Flex;
+        _spawnBtn.style.display = DisplayStyle.None;
+        _danceController.style.display = DisplayStyle.Flex;
         var spawnPosition = new Vector3(0, 0, 0);
         _currentStepIndex = 0;
 
@@ -94,7 +96,7 @@ public class DanceController : MonoBehaviour
         _rightFootInstance = Instantiate(rightFootPrefab, spawnPosition + new Vector3(0.2f, 0, 0), Quaternion.identity);
     }
 
-    private void backToMenu()
+    private static void BackToMenu()
     {
         SceneManager.LoadScene("MainMenu");
     }
@@ -115,27 +117,46 @@ public class DanceController : MonoBehaviour
         UpdateFootPositions();
     }
 
-    private bool isPlaying = false;
+    private bool _isPlaying = false;
 
-    public void PlayStep()
+    private void PlayStep()
     {
-        if (!isPlaying)
+        if (!_isPlaying)
+        {
+            if (_currentStepIndex == _leftSteps.Length)
+            {
+                _currentStepIndex = 0;
+            }
+            _playBtn.RemoveFromClassList("playBtnPlay");
+            _playBtn.AddToClassList("playBtnPause");
             StartCoroutine(PlayDanceRoutine());
+        }
+        else
+        {
+            _isPlaying = false;
+            _playBtn.RemoveFromClassList("playBtnPause");
+            _playBtn.AddToClassList("playBtnPlay");
+        }
     }
 
     private IEnumerator PlayDanceRoutine()
     {
-        isPlaying = true;
+        _isPlaying = true;
 
         while (_currentStepIndex < _leftSteps.Length)
         {
+            if (!_isPlaying)
+                break;
+
             UpdateFootPositions();
             _currentStepIndex++;
 
             yield return new WaitForSeconds(1f);
         }
 
-        isPlaying = false;
+        _isPlaying = false;
+        _playBtn.RemoveFromClassList("playBtnPause");
+        _playBtn.AddToClassList("playBtnPlay");
     }
 
 
@@ -159,6 +180,6 @@ public class DanceController : MonoBehaviour
     {
         _rightFootInstance.transform.localPosition = _rightSteps[_currentStepIndex];
         _leftFootInstance.transform.localPosition = _leftSteps[_currentStepIndex];
-        counter.text = (_currentStepIndex + 1) + "/" + _leftSteps.Length;
+        _counter.text = (_currentStepIndex + 1) + "/" + _leftSteps.Length;
     }
 }

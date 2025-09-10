@@ -3,7 +3,7 @@
     <ui:VisualElement name="background" style="flex-grow: 1;">
         <ui:VisualElement name="navBar" style="flex-grow: 0; flex-direction: row; justify-content: space-between;">
             <ui:Label text="Hauptmenü" name="mainMenuLabel" />
-            <ui:Button text="U" name="userButton" style="align-items: auto; justify-content: space-around; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0;" />
+            <ui:Button name="userButton" style="align-items: auto; justify-content: space-around; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; background-image: url(&quot;project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-1304905567622442630&amp;guid=167552b765a13a79e98ac6dddc8b75d3&amp;type=3#arrow-down@2x&quot;);" />
         </ui:VisualElement>
         <ui:VisualElement name="danceSelector" style="flex-grow: 0; justify-content: flex-end; flex-direction: row; align-self: center; align-content: auto; align-items: auto;">
             <ui:VisualElement name="myDancesContainer" style="flex-grow: 1;">
@@ -13,6 +13,6 @@
                 <ui:Button text="online Tänze" name="onlineDances" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:ScrollView name="danceContainer" style="flex-grow: 1;" />
+        <ui:VisualElement name="dancesContainer" style="flex-grow: 1; overflow: hidden;" />
     </ui:VisualElement>
 </ui:UXML>

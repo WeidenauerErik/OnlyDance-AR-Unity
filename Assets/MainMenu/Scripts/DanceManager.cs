@@ -4,76 +4,74 @@ using UnityEngine.UIElements;
 
 public class UIManager : MonoBehaviour
 {
-    private VisualElement myDancesContainer;
-    private Button myDances;
-    
-    private VisualElement onlineDancesContainer;
-    private Button onlineDances;
-    private ScrollView danceContainer;
-    
-    string[] myDanceList = { "Waltz", "Tango", "HipHop" };
-    string[] onlineDanceList = { "Salsa", "Bachata", "Charleston" };
+    private VisualElement _myDancesContainer;
+    private Button _myDances;
+
+    private VisualElement _onlineDancesContainer;
+    private Button _onlineDances;
+    private VisualElement _danceContainer;
+
+    readonly string[] _myDanceList = { "Waltzer"};
+    readonly string[] _onlineDanceList = { "Salsa", "Langsamer Walzer", "Slowfox", "Boogie", "Rumba", "Tango", "Cha Cha G", "Cha Cha", "Wiener Waltzer", "Servus"};
 
     void Start()
     {
         var uiDoc = FindObjectOfType<UIDocument>();
         var root = uiDoc.rootVisualElement;
-        
-        myDancesContainer = root.Q<VisualElement>("myDancesContainer");
-        myDances = root.Q<Button>("myDances");
-        myDances.clicked += FetchMyDances;
-        
-        onlineDancesContainer = root.Q<VisualElement>("onlineDancesContainer");
-        onlineDances = root.Q<Button>("onlineDances");
-        onlineDances.clicked += FetchOnlineDances;
-        
-        danceContainer = root.Q<ScrollView>("danceContainer");
-        
+
+        _myDancesContainer = root.Q<VisualElement>("myDancesContainer");
+        _myDances = root.Q<Button>("myDances");
+        _myDances.clicked += FetchMyDances;
+
+        _onlineDancesContainer = root.Q<VisualElement>("onlineDancesContainer");
+        _onlineDances = root.Q<Button>("onlineDances");
+        _onlineDances.clicked += FetchOnlineDances;
+
+        _danceContainer = root.Q<VisualElement>("dancesContainer");
+
         FetchMyDances();
     }
 
     private void FetchMyDances()
     {
-        danceContainer.Clear();
-        onlineDancesContainer.RemoveFromClassList("activeDancesContainer");
-        myDancesContainer.AddToClassList("activeDancesContainer");
-        
-        foreach (var dance in myDanceList)
-        {
-            var btn = new Button();
-            btn.text = dance;
-            
-            string selectedDance = dance;
-
-            btn.clicked += () =>
-            {
-                DanceLoader.Instance.SetDance(selectedDance);
-                SceneManager.LoadScene("DanceAnimator");
-            };
-
-            danceContainer.Add(btn);
-        }
+        _danceContainer.Clear();
+        _onlineDancesContainer.RemoveFromClassList("activeDancesContainer");
+        _myDancesContainer.AddToClassList("activeDancesContainer");
+        CreateDance(_myDanceList);
     }
 
     private void FetchOnlineDances()
     {
-        danceContainer.Clear();
-        myDancesContainer.RemoveFromClassList("activeDancesContainer");
-        onlineDancesContainer.AddToClassList("activeDancesContainer");
-        
-        foreach (var dance in onlineDanceList)
-        {
-            var btn = new Button();
-            btn.text = dance;
-            string selectedDance = dance;
+        _danceContainer.Clear();
+        _myDancesContainer.RemoveFromClassList("activeDancesContainer");
+        _onlineDancesContainer.AddToClassList("activeDancesContainer");
+        CreateDance(_onlineDanceList);
+    }
 
-            btn.clicked += () =>
+    private void CreateDance(string[] danceList)
+    {
+        foreach (var tmpDanceName in danceList)
+        {
+            var container = new VisualElement();
+            container.AddToClassList("danceContainer");
+            
+            var danceNameLabel = new Label();
+            danceNameLabel.text = tmpDanceName;
+            danceNameLabel.AddToClassList("danceName");
+            container.Add(danceNameLabel);
+            
+            var dancePlayBtn = new Button();
+            dancePlayBtn.text = "+";
+            dancePlayBtn.AddToClassList("dancePlayBtn");
+            dancePlayBtn.clicked += () =>
             {
-                DanceLoader.Instance.SetDance(selectedDance);
+                DanceLoader.Instance.SetDanceName(tmpDanceName);
                 SceneManager.LoadScene("DanceAnimator");
             };
+            
+            container.Add(dancePlayBtn);
 
-            danceContainer.Add(btn);
+            _danceContainer.Add(container);
         }
     }
 }

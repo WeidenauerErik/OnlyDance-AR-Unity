@@ -52,3 +52,10 @@
     width: 10px;
     background-color: rgb(79, 36, 107);
 }
+
+.playBtnPlay {
+    background-image: resource("Free Flat Media Right Full Icon");
+}
+.playBtnPause {
+    background-image: resource("Free Flat Media Pause Icon");
+}
