@@ -1,18 +1,19 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/MainMenu/UI/MainMenu.uss?fileID=7433441132597879392&amp;guid=0efb940fccd43d877955863646a86717&amp;type=3#MainMenu" />
-    <ui:VisualElement name="background" style="flex-grow: 1;">
-        <ui:VisualElement name="navBar" style="flex-grow: 0; flex-direction: row; justify-content: space-between;">
-            <ui:Label text="Hauptmenü" name="mainMenuLabel" />
-            <ui:Button name="userButton" style="align-items: auto; justify-content: space-around; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; background-image: resource(&apos;SettingsIcon&apos;);" />
-        </ui:VisualElement>
-        <ui:VisualElement name="danceSelector" style="flex-grow: 0; justify-content: flex-end; flex-direction: row; align-self: center; align-content: auto; align-items: auto;">
-            <ui:VisualElement name="myDancesContainer" style="flex-grow: 1;">
-                <ui:Button text="meine Tänze" name="myDances" style="flex-shrink: 0;" />
-            </ui:VisualElement>
-            <ui:VisualElement name="onlineDancesContainer" style="flex-grow: 1;">
-                <ui:Button text="online Tänze" name="onlineDances" />
-            </ui:VisualElement>
-        </ui:VisualElement>
-        <ui:VisualElement name="dancesContainer" style="flex-grow: 1; overflow: hidden;" />
+    <Style src="project://database/Assets/MainMenu/UI/navBar.uss?fileID=7433441132597879392&amp;guid=daa7d0795fd792e49b3cd7eea6d27abf&amp;type=3#navBar" />
+    <Style src="project://database/Assets/MainMenu/UI/mainContent.uss?fileID=7433441132597879392&amp;guid=c29ea112a69f15685844a769fb1c8107&amp;type=3" />
+    <ui:VisualElement name="mainContent" style="flex-grow: 1; flex-shrink: 0;" />
+    <ui:VisualElement name="navBar" style="flex-shrink: 0;">
+        <ui:Button name="myDancesBtn" class="navBarContainer navBarBtn navBarBtns activeScene">
+            <ui:VisualElement name="myDancesBtnIcon" class="navBarIcons myDancesIcon navBarIcon" style="flex-grow: 1;" />
+            <ui:Label text="meine Tänze" name="myDancesBtnLabel" class="navBarLabels" />
+        </ui:Button>
+        <ui:Button name="onlineDancesBtn" class="navBarBtn navBarBtns">
+            <ui:VisualElement name="onlineDancesBtnIcon" class="navBarIcons onlineDancesIcon navBarIcon" />
+            <ui:Label text="online Tänze" name="onlineDancesBtnLabel" class="navBarLabels" />
+        </ui:Button>
+        <ui:Button name="settingsBtn" class="navBarBtn navBarBtns">
+            <ui:VisualElement name="settingsBtnIcon" class="navBarIcons activeIconSettings settingsIcon navBarIcon" />
+            <ui:Label text="Einstellungen" name="settingsBtnLabel" class="navBarLabels" />
+        </ui:Button>
     </ui:VisualElement>
 </ui:UXML>
