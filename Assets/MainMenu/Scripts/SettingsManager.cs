@@ -1,13 +1,12 @@
 using UnityEngine;
 using UnityEngine.UIElements;
+using static TabSwitcher;
 
 public class SettingsManager : MonoBehaviour
 {
     public static void SetSettingsIntoView(VisualElement mainView)
     {
         mainView.Clear();
-        var label = new Label();
-        label.text = "Einstellungen";
-        mainView.Add(label);
+        mainView.Add(TabSwitcher.CreateHeading("Settings"));
     }
 }

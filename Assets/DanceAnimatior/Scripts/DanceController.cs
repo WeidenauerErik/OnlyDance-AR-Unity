@@ -89,7 +89,8 @@ public class DanceController : MonoBehaviour
     {
         _spawnBtn.style.display = DisplayStyle.None;
         _danceController.style.display = DisplayStyle.Flex;
-        var spawnPosition = new Vector3(0, 0, 0);
+        var spawnPosition = new Vector3(0,0,0);
+
         _currentStepIndex = 0;
 
         _leftFootInstance = Instantiate(leftFootPrefab, spawnPosition + new Vector3(-0.2f, 0, 0), Quaternion.identity);

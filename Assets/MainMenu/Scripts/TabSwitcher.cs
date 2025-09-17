@@ -82,4 +82,11 @@ public class TabSwitcher : MonoBehaviour
         _onlineDancesBtnIcon.RemoveFromClassList("activeOnlineDances");
         _settingsBtnIcon.AddToClassList("activeSettings");
     }
+
+    public static Label CreateHeading(string labelName)
+    {
+        var tmp = new Label(labelName);
+        tmp.AddToClassList("heading");
+        return tmp;
+    }
 }

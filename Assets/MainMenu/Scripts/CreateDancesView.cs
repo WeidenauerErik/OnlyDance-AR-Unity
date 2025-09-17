@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
+using static TabSwitcher;
 
 public class CreateDancesView : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class CreateDancesView : MonoBehaviour
 
             var dancePlayBtn = new Button();
             dancePlayBtn.AddToClassList("dancePlayBtn");
+            dancePlayBtn.RemoveFromClassList("unity-button");
             dancePlayBtn.clicked += () =>
             {
                 DanceLoader.Instance.SetDanceName(tmpDanceName);
@@ -34,7 +36,7 @@ public class CreateDancesView : MonoBehaviour
     {
         string[] myDanceList = { "Walzer" };
         mainView.Clear();
-        mainView.Add(new Label("Meine Tänze"));
+        mainView.Add(TabSwitcher.CreateHeading("Meine Tänze"));
         CreateDance(mainView, myDanceList);
     }
 
@@ -42,7 +44,7 @@ public class CreateDancesView : MonoBehaviour
     {
         string[] onlineDanceList = { "Salsa", "Langsamer Walzer", "Slowfox", "Boogie", "Rumba", "Tango"};
         mainView.Clear();
-        mainView.Add(new Label("Online Tänze"));
+        mainView.Add(TabSwitcher.CreateHeading("Online Tänze"));
         CreateDance(mainView, onlineDanceList);
     }
 }
