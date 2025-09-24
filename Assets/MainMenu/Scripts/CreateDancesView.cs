@@ -1,19 +1,88 @@
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
-using static TabSwitcher;
+
+[Serializable]
+public class Dance
+{
+    public int id;
+    public string name;
+}
+
+[Serializable]
+public class DanceWrapper
+{
+    public Dance[] dances;
+}
 
 public class CreateDancesView : MonoBehaviour
 {
-    private static void CreateDance(VisualElement mainView, string[] danceList)
+    
+    private class DevCertificateHandler : CertificateHandler
     {
-        foreach (var tmpDanceName in danceList)
+        protected override bool ValidateCertificate(byte[] certificateData) => true;
+    }
+    
+    public static void SetMyDancesIntoView(VisualElement mainView)
+    {
+        var myDanceList = new List<Dance>
+        {
+            new Dance { id = 1, name = "Walzer" }
+        };
+
+        mainView.Clear();
+        mainView.Add(TabSwitcher.CreateHeading("Meine Tänze"));
+        CreateDance(mainView, myDanceList);
+    }
+    
+    public async void SetOnlineDancesIntoView(VisualElement mainView)
+    {
+        mainView.Clear();
+        mainView.Add(TabSwitcher.CreateHeading("Online Tänze"));
+
+        try
+        {
+            List<Dance> dances = await FetchDances("https://localhost/getFiveDances");
+            CreateDance(mainView, dances);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Fehler beim Laden der Tänze: {e.Message}");
+        }
+    }
+    
+    private static async Task<List<Dance>> FetchDances(string url)
+    {
+        using (UnityWebRequest request = UnityWebRequest.Get(url))
+        {
+            request.certificateHandler = new DevCertificateHandler();
+
+            var operation = request.SendWebRequest();
+            while (!operation.isDone)
+                await Task.Yield();
+
+            if (request.result != UnityWebRequest.Result.Success) throw new Exception(request.error);
+
+            var json = request.downloadHandler.text;
+            var wrappedJson = "{\"dances\":" + json + "}";
+            DanceWrapper wrapper = JsonUtility.FromJson<DanceWrapper>(wrappedJson);
+
+            return new List<Dance>(wrapper.dances);
+        }
+    }
+    
+    private static void CreateDance(VisualElement mainView, IEnumerable<Dance> danceList)
+    {
+        foreach (var dance in danceList)
         {
             var container = new VisualElement();
             container.AddToClassList("danceContainer");
 
-            var danceNameLabel = new Label();
-            danceNameLabel.text = tmpDanceName;
+            var danceNameLabel = new Label(dance.name);
             danceNameLabel.AddToClassList("danceName");
             container.Add(danceNameLabel);
 
@@ -22,29 +91,12 @@ public class CreateDancesView : MonoBehaviour
             dancePlayBtn.RemoveFromClassList("unity-button");
             dancePlayBtn.clicked += () =>
             {
-                DanceLoader.Instance.SetDanceName(tmpDanceName);
+                DanceLoader.Instance.SetDanceCredentials(dance.name, dance.id);
                 SceneManager.LoadScene("DanceAnimator");
             };
 
             container.Add(dancePlayBtn);
-
             mainView.Add(container);
         }
-    }
-
-    public static void SetMyDancesIntoView(VisualElement mainView)
-    {
-        string[] myDanceList = { "Walzer" };
-        mainView.Clear();
-        mainView.Add(TabSwitcher.CreateHeading("Meine Tänze"));
-        CreateDance(mainView, myDanceList);
-    }
-
-    public static void SetOnlineDancesIntoView(VisualElement mainView)
-    {
-        string[] onlineDanceList = { "Salsa", "Langsamer Walzer", "Slowfox", "Boogie", "Rumba", "Tango"};
-        mainView.Clear();
-        mainView.Add(TabSwitcher.CreateHeading("Online Tänze"));
-        CreateDance(mainView, onlineDanceList);
     }
 }

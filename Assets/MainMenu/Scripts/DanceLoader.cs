@@ -5,6 +5,7 @@ public class DanceLoader : MonoBehaviour
     public static DanceLoader Instance;
 
     public string SelectedDance { get; private set; }
+    public int SelectedDanceId { get; private set; }
 
     private void Awake()
     {
@@ -19,8 +20,9 @@ public class DanceLoader : MonoBehaviour
         }
     }
 
-    public void SetDanceName(string danceName)
+    public void SetDanceCredentials(string danceName, int danceId)
     {
         SelectedDance = danceName;
+        SelectedDanceId = danceId;
     }
 }

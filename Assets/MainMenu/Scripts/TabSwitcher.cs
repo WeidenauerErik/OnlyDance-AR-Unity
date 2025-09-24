@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UIElements;
 using static CreateDancesView;
@@ -19,6 +20,7 @@ public class TabSwitcher : MonoBehaviour
     
     private VisualElement _mainContent;
         
+    [Obsolete("Obsolete")]
     void Start()
     {
         var uiDoc = FindObjectOfType<UIDocument>();
@@ -57,9 +59,11 @@ public class TabSwitcher : MonoBehaviour
         _settingsBtnIcon.RemoveFromClassList("activeSettings");
     }
 
+    [Obsolete("Obsolete")]
     private void OnlineDancesBtnClicked()
     {
-        SetOnlineDancesIntoView(_mainContent);
+        CreateDancesView dancesView = gameObject.AddComponent<CreateDancesView>();
+        dancesView.SetOnlineDancesIntoView(_mainContent);
         
         _myDancesBtnLabel.RemoveFromClassList("activeLabel");
         _onlineDancesBtnLabel.AddToClassList("activeLabel");
