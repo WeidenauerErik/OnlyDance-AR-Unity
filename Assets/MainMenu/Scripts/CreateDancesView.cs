@@ -46,7 +46,7 @@ public class CreateDancesView : MonoBehaviour
 
         try
         {
-            List<Dance> dances = await FetchDances("https://localhost/getFiveDances");
+            List<Dance> dances = await FetchFiveDances("https://37396.hostserv.eu/getFiveDances");
             CreateDance(mainView, dances);
         }
         catch (Exception e)
@@ -55,7 +55,7 @@ public class CreateDancesView : MonoBehaviour
         }
     }
     
-    private static async Task<List<Dance>> FetchDances(string url)
+    private static async Task<List<Dance>> FetchFiveDances(string url)
     {
         using (UnityWebRequest request = UnityWebRequest.Get(url))
         {
