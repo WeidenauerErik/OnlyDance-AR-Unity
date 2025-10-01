@@ -6,9 +6,13 @@
       <option name="myIgnoreVendorSpecificProperties" value="false" />
       <option name="myCustomPropertiesList">
         <value>
-          <list size="2">
+          <list size="6">
             <item index="0" class="java.lang.String" itemvalue="border" />
             <item index="1" class="java.lang.String" itemvalue="border-style" />
+            <item index="2" class="java.lang.String" itemvalue="animation-timing-function" />
+            <item index="3" class="java.lang.String" itemvalue="animation-iteration-count" />
+            <item index="4" class="java.lang.String" itemvalue="animation-duration" />
+            <item index="5" class="java.lang.String" itemvalue="animation-name" />
           </list>
         </value>
       </option>

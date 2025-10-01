@@ -21,12 +21,6 @@ public class DanceWrapper
 
 public class CreateDancesView : MonoBehaviour
 {
-    
-    private class DevCertificateHandler : CertificateHandler
-    {
-        protected override bool ValidateCertificate(byte[] certificateData) => true;
-    }
-    
     public static void SetMyDancesIntoView(VisualElement mainView)
     {
         var myDanceList = new List<Dance>
@@ -39,19 +33,29 @@ public class CreateDancesView : MonoBehaviour
         CreateDance(mainView, myDanceList);
     }
     
-    public async void SetOnlineDancesIntoView(VisualElement mainView)
+    public static async void SetOnlineDancesIntoView(VisualElement mainView)
     {
-        mainView.Clear();
-        mainView.Add(TabSwitcher.CreateHeading("Online Tänze"));
-
         try
         {
-            List<Dance> dances = await FetchFiveDances("https://37396.hostserv.eu/getFiveDances");
-            CreateDance(mainView, dances);
+            mainView.Clear();
+            mainView.Add(TabSwitcher.CreateHeading("Online Tänze"));
+            mainView.Add(CreateLoader());
+
+            try
+            {
+                var dances = await FetchFiveDances("https://37396.hostserv.eu/getFiveDances");
+                mainView.Clear();
+                mainView.Add(TabSwitcher.CreateHeading("Online Tänze"));
+                CreateDance(mainView, dances);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"Fehler beim Laden der Tänze: {e.Message}");
+            }
         }
         catch (Exception e)
         {
-            Debug.LogError($"Fehler beim Laden der Tänze: {e.Message}");
+            Debug.LogError(e.Message);
         }
     }
     
@@ -59,8 +63,6 @@ public class CreateDancesView : MonoBehaviour
     {
         using (UnityWebRequest request = UnityWebRequest.Get(url))
         {
-            request.certificateHandler = new DevCertificateHandler();
-
             var operation = request.SendWebRequest();
             while (!operation.isDone)
                 await Task.Yield();
@@ -98,5 +100,12 @@ public class CreateDancesView : MonoBehaviour
             container.Add(dancePlayBtn);
             mainView.Add(container);
         }
+    }
+
+    private static Label CreateLoader()
+    {
+        var tmpLoadingLabel = new Label("Loading ...");
+        tmpLoadingLabel.AddToClassList("loadingLabel");
+        return tmpLoadingLabel;
     }
 }

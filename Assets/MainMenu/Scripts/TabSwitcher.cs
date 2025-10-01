@@ -63,7 +63,7 @@ public class TabSwitcher : MonoBehaviour
     private void OnlineDancesBtnClicked()
     {
         CreateDancesView dancesView = gameObject.AddComponent<CreateDancesView>();
-        dancesView.SetOnlineDancesIntoView(_mainContent);
+        SetOnlineDancesIntoView(_mainContent);
         
         _myDancesBtnLabel.RemoveFromClassList("activeLabel");
         _onlineDancesBtnLabel.AddToClassList("activeLabel");

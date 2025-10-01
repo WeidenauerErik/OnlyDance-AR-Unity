@@ -1,0 +1,4 @@
+private class DevCertificateHandler : CertificateHandler
+    {
+        protected override bool ValidateCertificate(byte[] certificateData) => true;
+    }

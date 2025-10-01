@@ -80,7 +80,6 @@ public class DanceController : MonoBehaviour
     {
         var url = "https://37396.hostserv.eu/getDanceById/"+DanceLoader.Instance.SelectedDanceId;
         using UnityWebRequest request = UnityWebRequest.Get(url);
-        request.certificateHandler = new DevCertificateHandler();
 
         yield return request.SendWebRequest();
 
@@ -227,10 +226,5 @@ public class DanceController : MonoBehaviour
         // _rightFootInstance.transform.rotation = Quaternion.Euler(0, step.rightRotation, 0);
 
         _counter.text = (_currentStepIndex + 1) + "/" + _danceSteps.Length;
-    }
-
-    private class DevCertificateHandler : CertificateHandler
-    {
-        protected override bool ValidateCertificate(byte[] certificateData) => true;
     }
 }

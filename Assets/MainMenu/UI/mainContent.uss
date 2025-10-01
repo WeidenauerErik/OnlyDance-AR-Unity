@@ -41,3 +41,8 @@
 .heading {
     color: rgb(48, 0, 73);
 }
+
+.loadingLabel {
+    margin: 5px;
+    font-size: 12px;
+}
