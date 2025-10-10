@@ -78,7 +78,7 @@ public class DanceController : MonoBehaviour
 
     private IEnumerator LoadStepsFromServer()
     {
-        var url = "https://37396.hostserv.eu/getDanceById/"+DanceLoader.Instance.SelectedDanceId;
+        var url = "https://onlydance.at/api/getDanceById/"+DanceLoader.Instance.SelectedDanceId;
         using UnityWebRequest request = UnityWebRequest.Get(url);
 
         yield return request.SendWebRequest();

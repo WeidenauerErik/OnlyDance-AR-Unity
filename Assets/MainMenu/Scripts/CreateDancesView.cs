@@ -25,7 +25,7 @@ public class CreateDancesView : MonoBehaviour
     {
         var myDanceList = new List<Dance>
         {
-            new Dance { id = 1, name = "Walzer" }
+            new Dance { id = 1, name = "Weidi Cha Cha" }
         };
 
         mainView.Clear();
@@ -43,7 +43,7 @@ public class CreateDancesView : MonoBehaviour
 
             try
             {
-                var dances = await FetchFiveDances("https://37396.hostserv.eu/getFiveDances");
+                var dances = await FetchFiveDances("https://onlydance.at/api/getFiveDances");
                 mainView.Clear();
                 mainView.Add(TabSwitcher.CreateHeading("Online Tänze"));
                 CreateDance(mainView, dances);

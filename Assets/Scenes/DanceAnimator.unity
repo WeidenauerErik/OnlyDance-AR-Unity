@@ -599,8 +599,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5d407d073bcbb9289026b0c3a07c53d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftFootPrefab: {fileID: 4711157465158231729, guid: 94cc62e4f23d446caa1f39a023e27e21, type: 3}
-  rightFootPrefab: {fileID: 5757704461477099423, guid: d16b28f011c8f990baa400d277b21c52, type: 3}
+  leftFootPrefab: {fileID: 919132149155446097, guid: eb3031ec582f7cfcdb6f97d5257ce61f, type: 3}
+  rightFootPrefab: {fileID: 919132149155446097, guid: 204b18e00e01f916b87c196e8f5a8b94, type: 3}
 --- !u!4 &1886528248
 Transform:
   m_ObjectHideFlags: 0
