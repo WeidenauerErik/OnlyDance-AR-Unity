@@ -601,6 +601,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftFootPrefab: {fileID: 919132149155446097, guid: eb3031ec582f7cfcdb6f97d5257ce61f, type: 3}
   rightFootPrefab: {fileID: 919132149155446097, guid: 204b18e00e01f916b87c196e8f5a8b94, type: 3}
+  activeMaterial: {fileID: 2100000, guid: 8e7804665c2b24d238400612b388c3d0, type: 2}
+  inactiveMaterial: {fileID: 2100000, guid: f275521bb1a206e51abffa2d5ec61155, type: 2}
 --- !u!4 &1886528248
 Transform:
   m_ObjectHideFlags: 0

@@ -46,3 +46,7 @@
     margin: 5px;
     font-size: 12px;
 }
+
+.networkError {
+    font-size: 11px;
+}
