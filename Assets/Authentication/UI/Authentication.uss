@@ -1,0 +1,92 @@
+:root {
+    background-color: #f5f5f5;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+}
+
+.container {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+selector-image {
+    width: 100px;
+    height: 50px;
+    background-color: black;
+    /*
+    background-image: url('dein-bild.png');
+     background-size: cover;
+    background-position: center;
+     */
+}
+
+.auth-box {
+    background-color: #9a3535;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    position: relative;
+}
+
+
+.auth-title {
+    font-size: 24px;
+    color: #ff5a1e;
+    margin-bottom: 8px;
+}
+
+.auth-subtitle {
+    font-size: 14px;
+    color: #444;
+    margin-bottom: 25px;
+}
+
+.input {
+    width: 80%;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.input > .unity-text-field__input {
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.button-select {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.button {
+    background-color: #ff5a1e;
+    color: white;
+    border-radius: 10px;
+    width: 40%;
+    height: 50px;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.button:hover {
+    background-color: #ff7546;
+}
+
+.switch-link {
+    background-color: transparent;
+    border: none;
+    color: #ff5a1e;
+    font-size: 11px;
+    border-color: transparent;
+}

@@ -1,4 +1,4 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
-    <Style src="project://database/Assets/Authentication/UI/Authentication.uss" />
-    <ui:VisualElement name="container" class="container" />
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Authentication/UI/Authentication.uss?fileID=7433441132597879392&amp;guid=4cda62607823ac011bc241dd6d8b254a&amp;type=3#Authentication" />
+    <ui:VisualElement name="mainContainer" />
 </ui:UXML>

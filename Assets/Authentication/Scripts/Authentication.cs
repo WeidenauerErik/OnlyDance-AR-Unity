@@ -6,31 +6,28 @@ namespace Authentication.Scripts
 {
     public class Authentication : MonoBehaviour
     {
-        private VisualElement _container;
+        public VisualElement Container;
 
-        [Obsolete("Obsolete")]
+
         void Start()
         {
             var uiDoc = FindObjectOfType<UIDocument>();
             var root = uiDoc.rootVisualElement;
-            _container = root.Q<VisualElement>("container");
-
+            Container = root.Q<VisualElement>("mainContainer");
+            
             LoadSelectorMenu();
         }
-        
+
+
         private void LoadSelectorMenu()
         {
-            _container.Clear();
-            
-            var selectContainer = new VisualElement();
-            selectContainer.AddToClassList("select-container");
-            
-            var image = new VisualElement();
-            image.AddToClassList("selector-image");
-            selectContainer.Add(image);
+            Container.Clear();
             
             var selector = new VisualElement();
             selector.AddToClassList("selector-box");
+            
+            var image = new VisualElement();
+            image.AddToClassList("selector-image");
 
             var title = new Label("Welcome!");
             title.AddToClassList("auth-title");
@@ -38,6 +35,9 @@ namespace Authentication.Scripts
             var subtitle = new Label("Please choose an option to continue");
             subtitle.AddToClassList("auth-subtitle");
 
+            var buttonSelect = new VisualElement();
+            buttonSelect.AddToClassList("button-select");
+            
             var loginBtn = new Button { text = "Login" };
             loginBtn.AddToClassList("button");
             loginBtn.clicked += LoadLoginForm;
@@ -46,19 +46,20 @@ namespace Authentication.Scripts
             registerBtn.AddToClassList("button");
             registerBtn.clicked += LoadRegisterForm;
 
+            buttonSelect.Add(loginBtn);
+            buttonSelect.Add(registerBtn);
+            
+            selector.Add(image);
             selector.Add(title);
             selector.Add(subtitle);
-            selector.Add(loginBtn);
-            selector.Add(registerBtn);
+            selector.Add(buttonSelect);
             
-            selectContainer.Add(selector);
-            
-            _container.Add(selectContainer);
+            Container.Add(selector);
         }
-        
+
         private void LoadLoginForm()
         {
-            _container.Clear();
+            Container.Clear();
 
             var loginBox = new VisualElement();
             loginBox.AddToClassList("auth-box");
@@ -66,23 +67,24 @@ namespace Authentication.Scripts
             var title = new Label("Login");
             title.AddToClassList("auth-title");
 
-            var emailField = new TextField("Email");
+            var emailField = new TextField()
+            {
+                label = "E-Mail",
+            };
             emailField.AddToClassList("input");
 
-            var passwordField = new TextField("Password")
+            var passwordField = new TextField()
             {
+                label = "Passwort",
                 isPasswordField = true
             };
             passwordField.AddToClassList("input");
 
-            var loginButton = new Button { text = "Sign In" };
+            var loginButton = new Button { text = "Anmelden" };
             loginButton.AddToClassList("button");
             loginButton.clicked += () => Debug.Log($"Login pressed! Email: {emailField.value}");
 
-            var switchText = new Label("Don’t have an account?");
-            switchText.AddToClassList("switch-text");
-
-            var registerLink = new Button { text = "Register" };
+            var registerLink = new Button { text = "Noch keinen Account?" };
             registerLink.AddToClassList("switch-link");
             registerLink.clicked += LoadRegisterForm;
 
@@ -90,15 +92,14 @@ namespace Authentication.Scripts
             loginBox.Add(emailField);
             loginBox.Add(passwordField);
             loginBox.Add(loginButton);
-            loginBox.Add(switchText);
             loginBox.Add(registerLink);
 
-            _container.Add(loginBox);
+            Container.Add(loginBox);
         }
-        
+
         private void LoadRegisterForm()
         {
-            _container.Clear();
+            Container.Clear();
 
             var registerBox = new VisualElement();
             registerBox.AddToClassList("auth-box");
@@ -106,30 +107,32 @@ namespace Authentication.Scripts
             var title = new Label("Register");
             title.AddToClassList("auth-title");
 
-            var emailField = new TextField("Email");
+            var emailField = new TextField()
+            {
+                label = "E-Mail",
+            };
             emailField.AddToClassList("input");
 
-            var passwordField = new TextField("Password")
+            var passwordField = new TextField()
             {
+                label = "Passwort",
                 isPasswordField = true
             };
             passwordField.AddToClassList("input");
 
-            var confirmPasswordField = new TextField("Confirm Password")
+            var confirmPasswordField = new TextField()
             {
+                label = "Passwort wiederholen",
                 isPasswordField = true
             };
             confirmPasswordField.AddToClassList("input");
 
-            var registerButton = new Button { text = "Create Account" };
+            var registerButton = new Button { text = "Registrieren" };
             registerButton.AddToClassList("button");
             registerButton.clicked += () =>
                 Debug.Log($"Register pressed! Email: {emailField.value}");
 
-            var switchText = new Label("Already have an account?");
-            switchText.AddToClassList("switch-text");
-
-            var loginLink = new Button { text = "Login" };
+            var loginLink = new Button { text = "Bereits schon einen Account?" };
             loginLink.AddToClassList("switch-link");
             loginLink.clicked += LoadLoginForm;
 
@@ -138,10 +141,9 @@ namespace Authentication.Scripts
             registerBox.Add(passwordField);
             registerBox.Add(confirmPasswordField);
             registerBox.Add(registerButton);
-            registerBox.Add(switchText);
             registerBox.Add(loginLink);
 
-            _container.Add(registerBox);
+            Container.Add(registerBox);
         }
     }
 }
