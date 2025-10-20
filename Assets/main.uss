@@ -1,0 +1,9 @@
+:root {
+    --color-white-1: rgb(236, 233, 238);
+
+    --color-violet-1: rgb(215, 194, 223);
+    --color-violet-2: rgb(48, 0, 73);
+    --color-violet-3: rgb(67, 36, 87);
+
+
+}

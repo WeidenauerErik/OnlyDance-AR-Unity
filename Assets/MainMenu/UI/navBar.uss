@@ -38,9 +38,11 @@
 .myDancesIcon {
     background-image: resource('MyDancesIconGrey');
 }
+
 .onlineDancesIcon {
     background-image: resource('OnlineDancesIconGrey');
 }
+
 .settingsIcon {
     background-image: resource('SettingsIconGrey');
 }
@@ -48,9 +50,11 @@
 .activeMyDances {
     background-image: resource('MyDancesIconPurple');
 }
+
 .activeOnlineDances {
     background-image: resource('OnlineDancesIconPurple');
 }
+
 .activeSettings {
     background-image: resource('SettingsIconPurple');
 }

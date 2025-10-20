@@ -3,7 +3,7 @@
     flex-direction: column;
     align-items: center;
     padding: 10px;
-    background-color: rgb(236, 233, 238);
+    background-color: var(--color-white-1);
 }
 
 .danceContainer {
@@ -12,19 +12,19 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    background-color: rgb(223, 206, 231);
+    background-color: var(--color-violet-1);
     border-radius: 10px;
     margin: 3px;
     padding: 5px;
 }
 
 .danceName {
-    color: rgb(48, 0, 73);
+    color: var(--color-violet-2);
 }
 
 .dancePlayBtn {
     border-radius: 50px;
-    background-color: rgb(48, 0, 73);
+    background-color: var(--color-violet-2);
     background-image: resource("UIControllerPlayIcon");
     background-size: 30% 30%;
     background-repeat: no-repeat;
@@ -35,11 +35,11 @@
 }
 
 .dancePlayBtn:active {
-    background-color: rgb(67, 36, 87);
+    background-color: var(--color-violet-3);
 }
 
 .heading {
-    color: rgb(48, 0, 73);
+    color: var(--color-violet-2);
 }
 
 .loadingLabel {

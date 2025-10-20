@@ -1,14 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="96b8d749-9e75-4ebb-b3b9-289f568c08a5" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/Materials/footActiveMaterial.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/footActiveMaterial.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Materials/footInactiveMaterial.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/footInactiveMaterial.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Materials/footNamingMaterial.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/footNamingMaterial.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ShaderGraphSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ShaderGraphSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/URPProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/URPProjectSettings.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/logo.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/main.uss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/main.uss.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.utmp/Debug/2k556c5l/arm64-v8a/.cmake/api/v1/reply/cache-v2-a41650152b535ff7e537.json" beforeDir="false" afterPath="$PROJECT_DIR$/.utmp/Debug/2k556c5l/arm64-v8a/.cmake/api/v1/reply/cache-v2-a41650152b535ff7e537.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.utmp/Debug/2k556c5l/arm64-v8a/.cmake/api/v1/reply/cmakeFiles-v1-bf34a2a92f1ad770516f.json" beforeDir="false" afterPath="$PROJECT_DIR$/.utmp/Debug/2k556c5l/arm64-v8a/.cmake/api/v1/reply/cmakeFiles-v1-bf34a2a92f1ad770516f.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.utmp/Debug/2k556c5l/arm64-v8a/.cmake/api/v1/reply/codemodel-v2-9cb8bed99eb43d6eabac.json" beforeDir="false" afterPath="$PROJECT_DIR$/.utmp/Debug/2k556c5l/arm64-v8a/.cmake/api/v1/reply/codemodel-v2-9cb8bed99eb43d6eabac.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.utmp/Debug/2k556c5l/arm64-v8a/.cmake/api/v1/reply/directory-.-Debug-f5ebdc15457944623624.json" beforeDir="false" afterPath="$PROJECT_DIR$/.utmp/Debug/2k556c5l/arm64-v8a/.cmake/api/v1/reply/directory-.-Debug-f5ebdc15457944623624.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.utmp/Debug/2k556c5l/arm64-v8a/.cmake/api/v1/reply/directory-GameActivity-Debug-f368e6d506ea21fe2607.json" beforeDir="false" afterPath="$PROJECT_DIR$/.utmp/Debug/2k556c5l/arm64-v8a/.cmake/api/v1/reply/directory-GameActivity-Debug-f368e6d506ea21fe2607.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.utmp/Debug/2k556c5l/arm64-v8a/.cmake/api/v1/reply/index-2025-07-04T08-57-08-0548.json" beforeDir="false" afterPath="$PROJECT_DIR$/.utmp/Debug/2k556c5l/arm64-v8a/.cmake/api/v1/reply/index-2025-07-04T08-57-08-0548.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.utmp/Debug/2k556c5l/arm64-v8a/.cmake/api/v1/reply/target-game-Debug-7ca83f355769bcb3d6ac.json" beforeDir="false" afterPath="$PROJECT_DIR$/.utmp/Debug/2k556c5l/arm64-v8a/.cmake/api/v1/reply/target-game-Debug-7ca83f355769bcb3d6ac.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.utmp/Debug/2k556c5l/arm64-v8a/compile_commands.json" beforeDir="false" afterPath="$PROJECT_DIR$/.utmp/Debug/2k556c5l/arm64-v8a/compile_commands.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.utmp/RelWithDebInfo/5ft3y1h1/arm64-v8a/.cmake/api/v1/reply/cache-v2-76c85ab87ff2d496c2f0.json" beforeDir="false" afterPath="$PROJECT_DIR$/.utmp/RelWithDebInfo/5ft3y1h1/arm64-v8a/.cmake/api/v1/reply/cache-v2-76c85ab87ff2d496c2f0.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.utmp/RelWithDebInfo/5ft3y1h1/arm64-v8a/.cmake/api/v1/reply/cmakeFiles-v1-2d56d6c82ae69c4ec5d1.json" beforeDir="false" afterPath="$PROJECT_DIR$/.utmp/RelWithDebInfo/5ft3y1h1/arm64-v8a/.cmake/api/v1/reply/cmakeFiles-v1-2d56d6c82ae69c4ec5d1.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.utmp/RelWithDebInfo/5ft3y1h1/arm64-v8a/.cmake/api/v1/reply/codemodel-v2-db9bec105fb7c83696d5.json" beforeDir="false" afterPath="$PROJECT_DIR$/.utmp/RelWithDebInfo/5ft3y1h1/arm64-v8a/.cmake/api/v1/reply/codemodel-v2-db9bec105fb7c83696d5.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.utmp/RelWithDebInfo/5ft3y1h1/arm64-v8a/.cmake/api/v1/reply/directory-.-RelWithDebInfo-f5ebdc15457944623624.json" beforeDir="false" afterPath="$PROJECT_DIR$/.utmp/RelWithDebInfo/5ft3y1h1/arm64-v8a/.cmake/api/v1/reply/directory-.-RelWithDebInfo-f5ebdc15457944623624.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.utmp/RelWithDebInfo/5ft3y1h1/arm64-v8a/.cmake/api/v1/reply/directory-GameActivity-RelWithDebInfo-f368e6d506ea21fe2607.json" beforeDir="false" afterPath="$PROJECT_DIR$/.utmp/RelWithDebInfo/5ft3y1h1/arm64-v8a/.cmake/api/v1/reply/directory-GameActivity-RelWithDebInfo-f368e6d506ea21fe2607.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.utmp/RelWithDebInfo/5ft3y1h1/arm64-v8a/.cmake/api/v1/reply/index-2025-07-04T08-28-00-0121.json" beforeDir="false" afterPath="$PROJECT_DIR$/.utmp/RelWithDebInfo/5ft3y1h1/arm64-v8a/.cmake/api/v1/reply/index-2025-07-04T08-28-00-0121.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.utmp/RelWithDebInfo/5ft3y1h1/arm64-v8a/.cmake/api/v1/reply/target-game-RelWithDebInfo-97b000da5edc1d44ca32.json" beforeDir="false" afterPath="$PROJECT_DIR$/.utmp/RelWithDebInfo/5ft3y1h1/arm64-v8a/.cmake/api/v1/reply/target-game-RelWithDebInfo-97b000da5edc1d44ca32.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.utmp/RelWithDebInfo/5ft3y1h1/arm64-v8a/compile_commands.json" beforeDir="false" afterPath="$PROJECT_DIR$/.utmp/RelWithDebInfo/5ft3y1h1/arm64-v8a/compile_commands.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.utmp/tools/debug/arm64-v8a/compile_commands.json" beforeDir="false" afterPath="$PROJECT_DIR$/.utmp/tools/debug/arm64-v8a/compile_commands.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.utmp/tools/release/arm64-v8a/compile_commands.json" beforeDir="false" afterPath="$PROJECT_DIR$/.utmp/tools/release/arm64-v8a/compile_commands.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vscode/extensions.json" beforeDir="false" afterPath="$PROJECT_DIR$/.vscode/extensions.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vscode/launch.json" beforeDir="false" afterPath="$PROJECT_DIR$/.vscode/launch.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/.vscode/settings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Authentication/Scripts/Authentication.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Authentication/Scripts/Authentication.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Authentication/UI/Authentication.uss" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Authentication/UI/Authentication.uss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Authentication/UI/Authentication.uxml" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Authentication/UI/Authentication.uxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/DanceAnimatior/UI/UIController.uss" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/DanceAnimatior/UI/UIController.uss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/DanceAnimatior/UI/UIDanceAnimator.uxml" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/DanceAnimatior/UI/UIDanceAnimator.uxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/MainMenu/UI/MainMenu.uxml" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/MainMenu/UI/MainMenu.uxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/MainMenu/UI/mainContent.uss" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/MainMenu/UI/mainContent.uss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/MainMenu/UI/navBar.uss" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/MainMenu/UI/navBar.uss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Settings/Mobile_RPAsset.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/Mobile_RPAsset.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Settings/UniversalRenderPipelineGlobalSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/UniversalRenderPipelineGlobalSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Sprites/EmojiOne.json" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Sprites/EmojiOne.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/SceneTemplateSettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/SceneTemplateSettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UIElementsSchema/GlobalNamespace.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/UIElementsSchema/GlobalNamespace.xsd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UIElementsSchema/UIElements.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/UIElementsSchema/UIElements.xsd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UIElementsSchema/Unity.Profiling.Editor.UI.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/UIElementsSchema/Unity.Profiling.Editor.UI.xsd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UIElementsSchema/Unity.Profiling.Editor.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/UIElementsSchema/Unity.Profiling.Editor.xsd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UIElementsSchema/Unity.UI.Builder.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/UIElementsSchema/Unity.UI.Builder.xsd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UIElementsSchema/UnityEditor.Accessibility.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/UIElementsSchema/UnityEditor.Accessibility.xsd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UIElementsSchema/UnityEditor.Audio.UIElements.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/UIElementsSchema/UnityEditor.Audio.UIElements.xsd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UIElementsSchema/UnityEditor.Experimental.GraphView.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/UIElementsSchema/UnityEditor.Experimental.GraphView.xsd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UIElementsSchema/UnityEditor.Inspector.GraphicsSettingsInspectors.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/UIElementsSchema/UnityEditor.Inspector.GraphicsSettingsInspectors.xsd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UIElementsSchema/UnityEditor.Inspector.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/UIElementsSchema/UnityEditor.Inspector.xsd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UIElementsSchema/UnityEditor.Overlays.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/UIElementsSchema/UnityEditor.Overlays.xsd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UIElementsSchema/UnityEditor.PackageManager.UI.Internal.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/UIElementsSchema/UnityEditor.PackageManager.UI.Internal.xsd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UIElementsSchema/UnityEditor.Rendering.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/UIElementsSchema/UnityEditor.Rendering.xsd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UIElementsSchema/UnityEditor.Search.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/UIElementsSchema/UnityEditor.Search.xsd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UIElementsSchema/UnityEditor.ShaderGraph.Drawing.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/UIElementsSchema/UnityEditor.ShaderGraph.Drawing.xsd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UIElementsSchema/UnityEditor.ShortcutManagement.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/UIElementsSchema/UnityEditor.ShortcutManagement.xsd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UIElementsSchema/UnityEditor.UIElements.Debugger.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/UIElementsSchema/UnityEditor.UIElements.Debugger.xsd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UIElementsSchema/UnityEditor.UIElements.ProjectSettings.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/UIElementsSchema/UnityEditor.UIElements.ProjectSettings.xsd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UIElementsSchema/UnityEditor.UIElements.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/UIElementsSchema/UnityEditor.UIElements.xsd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UIElementsSchema/UnityEngine.UIElements.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/UIElementsSchema/UnityEngine.UIElements.xsd" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,25 +74,54 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 2
-}]]></component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/Authentication/Scripts/Authentication.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/DanceAnimatior/Scripts/DanceController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/MainMenu/Scripts/DanceManager.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/MainMenu/Scripts/MainMenu.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ai.navigation@5218e4bf7edc/Tests/Editor/NavMeshLinkUpgradeInPrefabTests.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ai.navigation@5218e4bf7edc/Tests/Editor/NavMeshLinkUpgradeTests.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ai.navigation@5218e4bf7edc/Tests/Editor/NavMeshSurfaceInPrefabTests.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ai.navigation@5218e4bf7edc/Tests/Editor/NavMeshSurfaceInPrefabVariantTests.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.collab-proxy@c854d1f7d97f/Editor/AssetsUtils/SaveAssets.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.shadergraph@cff0b327986e/Editor/Drawing/MaterialGraphPreviewGenerator.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.shadergraph@cff0b327986e/Editor/Drawing/Views/PreviewSceneResources.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@6b9e48457ddb/Editor/Utilities/ObjectReferenceField.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@6b9e48457ddb/Editor/Window/TimelineWindow.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@6b9e48457ddb/Editor/Window/TimelineWindow_EditorCallbacks.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@3c8176afea78/Editor/UGUI/UI/ToggleEditor.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@3c8176afea78/Tests/Editor/TMP/TMP_ControlTests.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@3c8176afea78/Tests/Editor/UGUI/Canvas/AssertionFailureOnOutputVertexCount.cs" root0="SKIP_HIGHLIGHTING" />
+  </component>
+  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
   <component name="ProjectId" id="349JGkXCsEzsfkBBPyZkJZ8YCJe" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/weidi/Documents/GitHub/OnlyDance-AR-Unity",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/weidi/Documents/GitHub/PersonalWebsite&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -51,7 +136,22 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1760619761492</updated>
+      <workItem from="1760700751542" duration="205000" />
+      <workItem from="1760700978532" duration="4962000" />
+      <workItem from="1760951308441" duration="13377000" />
+      <workItem from="1760982407742" duration="859000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
+  <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
+  <component name="UnityProjectDiscoverer">
+    <option name="unityProjectFolder" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>
 </project>
