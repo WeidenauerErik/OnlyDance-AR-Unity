@@ -2,6 +2,8 @@ using System;
 using UnityEngine;
 using UnityEngine.UIElements;
 using System.Collections;
+using System.Text.RegularExpressions;
+using GeneralScripts;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
@@ -13,6 +15,7 @@ namespace Authentication.Scripts
         public bool success;
         public string error;
         public string message;
+        public string password;
     }
 
     [Serializable]
@@ -30,25 +33,53 @@ namespace Authentication.Scripts
 
     public class Authentication : MonoBehaviour
     {
-        public VisualElement Container;
-        private const string BASE_URL = "https://onlydance.at/api";
+        private VisualElement _container;
+        private Label _loginErrorLabel;
+        private Label _registerErrorLabel;
 
-        private Label loginErrorLabel;
-        private Label registerErrorLabel;
-
+        [Obsolete("Obsolete")]
         void Start()
         {
-            var uiDoc = FindObjectOfType<UIDocument>();
-            var root = uiDoc.rootVisualElement;
-            Container = root.Q<VisualElement>("mainContainer");
+            PlayerPrefs.SetString("url", "https://onlydance.at/api");
 
-           	LoadLoginForm();
+            var data = DataManager.LoadData();
+            if (data == null || string.IsNullOrEmpty(data.email) || string.IsNullOrEmpty(data.password))
+            {
+                var uiDoc = FindObjectOfType<UIDocument>();
+                _container = uiDoc.rootVisualElement.Q<VisualElement>("mainContainer");
+                LoadLoginForm();
+            }
+            else StartCoroutine(CheckUserData(data.email, data.password));
+            
         }
-       
+
+        private IEnumerator CheckUserData(string email, string password)
+        {
+            var url = $"{PlayerPrefs.GetString("url")}/checkUser";
+            var postData = new AuthRequest(email, password);
+            var jsonData = JsonUtility.ToJson(postData);
+
+            using var request = new UnityWebRequest(url, "POST");
+            request.uploadHandler = new UploadHandlerRaw(System.Text.Encoding.UTF8.GetBytes(jsonData));
+            request.downloadHandler = new DownloadHandlerBuffer();
+            request.SetRequestHeader("Content-Type", "application/json");
+
+            yield return request.SendWebRequest();
+
+            if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
+            {
+                SceneManager.LoadScene("Authentication");
+                yield break;
+            }
+
+            var response = JsonUtility.FromJson<AuthResponse>(request.downloadHandler.text);
+            SceneManager.LoadScene(response.success ? "MainMenu" : "Authentication");
+        }
+
 
         private void LoadLoginForm()
         {
-            Container.Clear();
+            _container.Clear();
 
             var loginBox = new VisualElement();
             loginBox.AddToClassList("auth-box");
@@ -62,26 +93,47 @@ namespace Authentication.Scripts
             var loginPasswordField = new TextField { label = "Passwort", isPasswordField = true };
             loginPasswordField.AddToClassList("input");
 
-            loginErrorLabel = new Label();
-            loginErrorLabel.AddToClassList("error-label");
+            _loginErrorLabel = new Label();
+            _loginErrorLabel.AddToClassList("error-label");
 
             var loginButton = new Button { text = "Anmelden" };
             loginButton.AddToClassList("button");
-            loginButton.clicked += () =>
+            loginButton.SetEnabled(false);
+            
+            void ValidateLogin()
             {
-                string email = loginEmailField.value?.Trim();
-                string password = loginPasswordField.value?.Trim();
+                var email = loginEmailField.value?.Trim();
+                var password = loginPasswordField.value?.Trim();
 
-                loginErrorLabel.text = "";
-
-                if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+                if (string.IsNullOrEmpty(email))
                 {
-                    loginErrorLabel.text = "Bitte alle Felder ausfüllen!";
+                    _loginErrorLabel.text = "E-Mail Eingabefeld ist leer!";
+                    loginButton.SetEnabled(false);
                     return;
                 }
 
-                StartCoroutine(CheckUser(email, password));
-            };
+                if (!Regex.IsMatch(email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+                {
+                    _loginErrorLabel.text = "Ungültiges E-Mail-Format!";
+                    loginButton.SetEnabled(false);
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(password))
+                {
+                    _loginErrorLabel.text = "Passwort Eingabefeld ist leer!";
+                    loginButton.SetEnabled(false);
+                    return;
+                }
+
+                _loginErrorLabel.text = "";
+                loginButton.SetEnabled(true);
+            }
+            
+            loginEmailField.RegisterValueChangedCallback(evt => ValidateLogin());
+            loginPasswordField.RegisterValueChangedCallback(evt => ValidateLogin());
+
+            loginButton.clicked += () => { StartCoroutine(LoginUser(loginEmailField.value.Trim(), loginPasswordField.value.Trim()));};
 
             var loginRegisterLink = new Button { text = "Noch keinen Account?" };
             loginRegisterLink.AddToClassList("switch-link");
@@ -90,16 +142,16 @@ namespace Authentication.Scripts
             loginBox.Add(loginTitle);
             loginBox.Add(loginEmailField);
             loginBox.Add(loginPasswordField);
-            loginBox.Add(loginErrorLabel);
+            loginBox.Add(_loginErrorLabel);
             loginBox.Add(loginButton);
             loginBox.Add(loginRegisterLink);
 
-            Container.Add(loginBox);
+            _container.Add(loginBox);
         }
 
         private void LoadRegisterForm()
         {
-            Container.Clear();
+            _container.Clear();
 
             var registerBox = new VisualElement();
             registerBox.AddToClassList("auth-box");
@@ -116,33 +168,63 @@ namespace Authentication.Scripts
             var registerConfirmPasswordField = new TextField { label = "Passwort wiederholen", isPasswordField = true };
             registerConfirmPasswordField.AddToClassList("input");
 
-            registerErrorLabel = new Label();
-            registerErrorLabel.AddToClassList("error-label");
+            _registerErrorLabel = new Label();
+            _registerErrorLabel.AddToClassList("error-label");
 
             var registerButton = new Button { text = "Registrieren" };
             registerButton.AddToClassList("button");
-            registerButton.clicked += () =>
+            registerButton.SetEnabled(false);
+            
+            void ValidateRegister()
             {
-                string email = registerEmailField.value?.Trim();
-                string password = registerPasswordField.value?.Trim();
-                string confirm = registerConfirmPasswordField.value?.Trim();
+                var email = registerEmailField.value?.Trim();
+                var password = registerPasswordField.value?.Trim();
+                var confirm = registerConfirmPasswordField.value?.Trim();
 
-                registerErrorLabel.text = "";
-
-                if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+                if (string.IsNullOrEmpty(email))
                 {
-                    registerErrorLabel.text = "Bitte alle Felder ausfüllen!";
+                    _registerErrorLabel.text = "E-Mail Eingabefeld ist leer!";
+                    registerButton.SetEnabled(false);
+                    return;
+                }
+
+                if (!Regex.IsMatch(email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+                {
+                    _registerErrorLabel.text = "Ungültiges E-Mail-Format!";
+                    registerButton.SetEnabled(false);
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(password))
+                {
+                    _registerErrorLabel.text = "Passwort Eingabefeld ist leer!";
+                    registerButton.SetEnabled(false);
+                    return;
+                }
+
+                if (password.Length < 6)
+                {
+                    _registerErrorLabel.text = "Passwort muss mindestens 6 Zeichen lang sein!";
+                    registerButton.SetEnabled(false);
                     return;
                 }
 
                 if (password != confirm)
                 {
-                    registerErrorLabel.text = "Passwörter stimmen nicht überein!";
+                    _registerErrorLabel.text = "Passwörter stimmen nicht überein!";
+                    registerButton.SetEnabled(false);
                     return;
                 }
 
-                StartCoroutine(RegisterUser(email, password));
-            };
+                _registerErrorLabel.text = "";
+                registerButton.SetEnabled(true);
+            }
+            
+            registerEmailField.RegisterValueChangedCallback(evt => ValidateRegister());
+            registerPasswordField.RegisterValueChangedCallback(evt => ValidateRegister());
+            registerConfirmPasswordField.RegisterValueChangedCallback(evt => ValidateRegister());
+
+            registerButton.clicked += () => { StartCoroutine(RegisterUser(registerEmailField.value.Trim(), registerPasswordField.value.Trim())); };
 
             var registerLoginLink = new Button { text = "Bereits einen Account?" };
             registerLoginLink.AddToClassList("switch-link");
@@ -152,71 +234,72 @@ namespace Authentication.Scripts
             registerBox.Add(registerEmailField);
             registerBox.Add(registerPasswordField);
             registerBox.Add(registerConfirmPasswordField);
-            registerBox.Add(registerErrorLabel);
+            registerBox.Add(_registerErrorLabel);
             registerBox.Add(registerButton);
             registerBox.Add(registerLoginLink);
 
-            Container.Add(registerBox);
+            _container.Add(registerBox);
         }
-
-        private IEnumerator CheckUser(string email, string password)
+        
+        // ReSharper disable Unity.PerformanceAnalysis
+        private IEnumerator LoginUser(string email, string password)
         {
-            string url = $"{BASE_URL}/login";
+            var url = $"{PlayerPrefs.GetString("url")}/login";
             var postData = new AuthRequest(email, password);
-            string jsonData = JsonUtility.ToJson(postData);
+            var jsonData = JsonUtility.ToJson(postData);
 
-            using (UnityWebRequest request = new UnityWebRequest(url, "POST"))
+            using UnityWebRequest request = new UnityWebRequest(url, "POST");
+            request.uploadHandler = new UploadHandlerRaw(System.Text.Encoding.UTF8.GetBytes(jsonData));
+            request.downloadHandler = new DownloadHandlerBuffer();
+            request.SetRequestHeader("Content-Type", "application/json");
+
+            yield return request.SendWebRequest();
+
+            if (request.result == UnityWebRequest.Result.ConnectionError)
             {
-                byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonData);
-                request.uploadHandler = new UploadHandlerRaw(bodyRaw);
-                request.downloadHandler = new DownloadHandlerBuffer();
-                request.SetRequestHeader("Content-Type", "application/json");
-
-                yield return request.SendWebRequest();
-
-                if (request.result == UnityWebRequest.Result.ConnectionError)
-                {
-                    loginErrorLabel.text = "Fehler beim Server: " + request.error;
-                    yield break;
-                }
-
-                var response = JsonUtility.FromJson<AuthResponse>(request.downloadHandler.text);
-
-                if (response.success)
-                    SceneManager.LoadScene("MainMenu");
-                else
-                    loginErrorLabel.text = response.error ?? "Login fehlgeschlagen!";
+                _loginErrorLabel.text = "Fehler beim Server: " + request.error;
+                yield break;
             }
-        }
 
+            var response = JsonUtility.FromJson<AuthResponse>(request.downloadHandler.text);
+
+            if (response.success)
+            {
+                DataManager.SaveData(email, response.password);
+                SceneManager.LoadScene("MainMenu");
+            }
+            else _loginErrorLabel.text = response.error ?? "Login fehlgeschlagen!";
+        }
+        
+        // ReSharper disable Unity.PerformanceAnalysis
         private IEnumerator RegisterUser(string email, string password)
         {
-            string url = $"{BASE_URL}/register";
+            var url = $"{PlayerPrefs.GetString("url")}/register";
             var postData = new AuthRequest(email, password);
-            string jsonData = JsonUtility.ToJson(postData);
+            var jsonData = JsonUtility.ToJson(postData);
 
-            using (UnityWebRequest request = new UnityWebRequest(url, "POST"))
+            using UnityWebRequest request = new UnityWebRequest(url, "POST");
+            request.uploadHandler = new UploadHandlerRaw(System.Text.Encoding.UTF8.GetBytes(jsonData));
+            request.downloadHandler = new DownloadHandlerBuffer();
+            request.SetRequestHeader("Content-Type", "application/json");
+
+            yield return request.SendWebRequest();
+
+            if (request.result == UnityWebRequest.Result.ConnectionError)
             {
-                byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonData);
-                request.uploadHandler = new UploadHandlerRaw(bodyRaw);
-                request.downloadHandler = new DownloadHandlerBuffer();
-                request.SetRequestHeader("Content-Type", "application/json");
-
-                yield return request.SendWebRequest();
-
-                if (request.result == UnityWebRequest.Result.ConnectionError)
-                {
-                    registerErrorLabel.text = request.error;
-                    yield break;
-                }
-
-                var response = JsonUtility.FromJson<AuthResponse>(request.downloadHandler.text);
-
-                if (response.success)
-                    SceneManager.LoadScene("MainMenu");
-                else
-                    registerErrorLabel.text = response.error ?? "Registrierung fehlgeschlagen!";
+                _registerErrorLabel.text = request.error;
+                yield break;
             }
+
+            var response = JsonUtility.FromJson<AuthResponse>(request.downloadHandler.text);
+
+            if (response.success)
+            {
+                DataManager.SaveData(email, response.password);
+                SceneManager.LoadScene("MainMenu");
+            }
+            else
+                _registerErrorLabel.text = response.error ?? "Registrierung fehlgeschlagen!";
         }
     }
 }
