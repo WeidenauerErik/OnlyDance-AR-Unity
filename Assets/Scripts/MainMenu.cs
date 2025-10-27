@@ -73,7 +73,7 @@ public class MainMenu : MonoBehaviour
 
     private void SettingsBtnClicked()
     {
-        SettingsManager.SetSettingsIntoView(_mainContent);
+        SettingsManagerMainMenu.SetSettingsIntoView(_mainContent);
 
         _myDancesBtnLabel.RemoveFromClassList("activeLabel");
         _onlineDancesBtnLabel.RemoveFromClassList("activeLabel");

@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
-public class SettingsManager : MonoBehaviour
+public class SettingsManagerMainMenu : MonoBehaviour
 {
     public static void SetSettingsIntoView(VisualElement mainView)
     {
@@ -14,7 +14,7 @@ public class SettingsManager : MonoBehaviour
         logoutBtn.text = "Logout";
         logoutBtn.clicked += () =>
         {
-            DataManager.DeleteData();
+            DataManagerGeneral.DeleteData();
             SceneManager.LoadScene("Authentication");
         };
         mainView.Add(logoutBtn);

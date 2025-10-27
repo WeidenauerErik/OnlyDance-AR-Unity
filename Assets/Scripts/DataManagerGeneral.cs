@@ -18,7 +18,7 @@ namespace GeneralScripts
         }
     }
 
-    public static class DataManager
+    public static class DataManagerGeneral
     {
         private static readonly string FilePath = Path.Combine(Application.persistentDataPath, "data.onlydance");
         

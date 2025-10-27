@@ -40,7 +40,7 @@ public class Authentication : MonoBehaviour
     {
         PlayerPrefs.SetString("url", "https://onlydance.at/api");
 
-        var data = DataManager.LoadData();
+        var data = DataManagerGeneral.LoadData();
         if (data == null || string.IsNullOrEmpty(data.email) || string.IsNullOrEmpty(data.password))
         {
             var uiDoc = FindObjectOfType<UIDocument>();
@@ -269,7 +269,7 @@ public class Authentication : MonoBehaviour
 
         if (response.success)
         {
-            DataManager.SaveData(email, response.password);
+            DataManagerGeneral.SaveData(email, response.password);
             SceneManager.LoadScene("MainMenu");
         }
         else _loginErrorLabel.text = response.error ?? "Login fehlgeschlagen!";
@@ -299,7 +299,7 @@ public class Authentication : MonoBehaviour
 
         if (response.success)
         {
-            DataManager.SaveData(email, response.password);
+            DataManagerGeneral.SaveData(email, response.password);
             SceneManager.LoadScene("MainMenu");
         }
         else
