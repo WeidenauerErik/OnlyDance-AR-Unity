@@ -19,7 +19,7 @@ public class DanceWrapper
     public Dance[] dances;
 }
 
-public class DanceManager : MonoBehaviour
+public class DanceManagerMainMenu : MonoBehaviour
 {
     public static void SetMyDancesIntoView(VisualElement mainView)
     {
@@ -29,17 +29,17 @@ public class DanceManager : MonoBehaviour
         };
 
         mainView.Clear();
-        mainView.Add(MainMenu.Scripts.MainMenu.CreateHeading("Meine Tänze"));
+        mainView.Add(MainMenu.CreateHeading("Meine Tänze"));
         CreateDance(mainView, myDanceList);
     }
-    
+
     public static async void SetOnlineDancesIntoView(VisualElement mainView)
     {
         try
         {
             mainView.Clear();
-            mainView.Add(MainMenu.Scripts.MainMenu.CreateHeading("Online Tänze"));
-            
+            mainView.Add(MainMenu.CreateHeading("Online Tänze"));
+
             if (Application.internetReachability == NetworkReachability.NotReachable)
             {
                 var tmpNetworkError = new Label("There is no internet connection!");
@@ -47,16 +47,16 @@ public class DanceManager : MonoBehaviour
                 mainView.Add(tmpNetworkError);
                 return;
             }
-            
+
             var tmpLoadingLabel = new Label("Loading ...");
             tmpLoadingLabel.AddToClassList("loadingLabel");
             mainView.Add(tmpLoadingLabel);
-            
+
             try
             {
                 var dances = await FetchFiveDances("https://onlydance.at/api/getFiveDances");
                 mainView.Clear();
-                mainView.Add(MainMenu.Scripts.MainMenu.CreateHeading("Online Tänze"));
+                mainView.Add(MainMenu.CreateHeading("Online Tänze"));
                 CreateDance(mainView, dances);
             }
             catch (Exception e)
@@ -69,25 +69,23 @@ public class DanceManager : MonoBehaviour
             Debug.LogError(e.Message);
         }
     }
-    
+
     private static async Task<List<Dance>> FetchFiveDances(string url)
     {
-        using (UnityWebRequest request = UnityWebRequest.Get(url))
-        {
-            var operation = request.SendWebRequest();
-            while (!operation.isDone)
-                await Task.Yield();
+        using var request = UnityWebRequest.Get(url);
+        var operation = request.SendWebRequest();
+        while (!operation.isDone)
+            await Task.Yield();
 
-            if (request.result != UnityWebRequest.Result.Success) throw new Exception(request.error);
+        if (request.result != UnityWebRequest.Result.Success) throw new Exception(request.error);
 
-            var json = request.downloadHandler.text;
-            var wrappedJson = "{\"dances\":" + json + "}";
-            var wrapper = JsonUtility.FromJson<DanceWrapper>(wrappedJson);
+        var json = request.downloadHandler.text;
+        var wrappedJson = "{\"dances\":" + json + "}";
+        var wrapper = JsonUtility.FromJson<DanceWrapper>(wrappedJson);
 
-            return new List<Dance>(wrapper.dances);
-        }
+        return new List<Dance>(wrapper.dances);
     }
-    
+
     private static void CreateDance(VisualElement mainView, IEnumerable<Dance> danceList)
     {
         foreach (var dance in danceList)
@@ -104,7 +102,7 @@ public class DanceManager : MonoBehaviour
             dancePlayBtn.RemoveFromClassList("unity-button");
             dancePlayBtn.clicked += () =>
             {
-                DanceLoader.Instance.SetDanceCredentials(dance.name, dance.id);
+                DanceLoaderMainMenu.Instance.SetDanceCredentials(dance.name, dance.id);
                 SceneManager.LoadScene("DanceAnimator");
             };
 

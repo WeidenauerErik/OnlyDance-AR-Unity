@@ -27,7 +27,6 @@ unity-panel,
     align-items: center;
     justify-content: center;
     width: 95%;
-    max-width: 400px;
     background-color: var(--color-violet-1);
     border-radius: 15px;
     padding: 20px;

@@ -1,8 +1,9 @@
 using UnityEngine;
 
-public class DanceLoader : MonoBehaviour
+
+public class DanceLoaderMainMenu : MonoBehaviour
 {
-    public static DanceLoader Instance;
+    public static DanceLoaderMainMenu Instance;
 
     public string SelectedDance { get; private set; }
     public int SelectedDanceId { get; private set; }
@@ -12,7 +13,7 @@ public class DanceLoader : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);  //if you switch scenes the object won't be destroyed
+            DontDestroyOnLoad(gameObject); //if you switch scenes the object won't be destroyed
         }
         else
         {
