@@ -1,0 +1,19 @@
+.loading-root {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.loading-label {
+    padding: 10px 20px;
+    font-size: 18px;
+    color: var(--color-violet-2);
+    background-color: rgba(0,0,0,0.3);
+    border-radius: 5px;
+}
+

@@ -24,6 +24,9 @@ public class MainMenu : MonoBehaviour
         var uiDoc = FindObjectOfType<UIDocument>();
         var root = uiDoc.rootVisualElement;
 
+        LoadingSpinnerGeneral.Initialize(root);
+        PopUpManagerGeneral.Initialize(root);
+        
         _mainContent = root.Q<VisualElement>("mainContent");
 
         _myDancesBtn = root.Q<Button>("myDancesBtn");

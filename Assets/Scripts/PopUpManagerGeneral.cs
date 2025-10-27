@@ -51,37 +51,53 @@ public class PopUpManagerGeneral : MonoBehaviour
             Debug.LogError("Popup.uss wurde nicht im Resources-Ordner gefunden!");
         }
         
-        _popupRoot = new VisualElement();
-        _popupRoot.name = "popup-root";
+        _popupRoot = new VisualElement
+        {
+            name = "popup-root"
+        };
         _popupRoot.AddToClassList("popup-root");
         
-        var container = new VisualElement();
-        container.name = "popup-container";
+        var container = new VisualElement
+        {
+            name = "popup-container"
+        };
         container.AddToClassList("popup-container");
         _popupRoot.Add(container);
         
-        _titleLabel = new Label("Title");
-        _titleLabel.name = "popup-title";
+        _titleLabel = new Label("Title")
+        {
+            name = "popup-title"
+        };
         _titleLabel.AddToClassList("popup-title");
         container.Add(_titleLabel);
         
-        _messageLabel = new Label("Message");
-        _messageLabel.name = "popup-message";
+        _messageLabel = new Label("Message")
+        {
+            name = "popup-message"
+        };
         _messageLabel.AddToClassList("popup-message");
         container.Add(_messageLabel);
         
-        var buttonContainer = new VisualElement();
-        buttonContainer.name = "popup-button-container";
+        var buttonContainer = new VisualElement
+        {
+            name = "popup-button-container"
+        };
         buttonContainer.AddToClassList("popup-button-container");
         container.Add(buttonContainer);
         
-        _okButton = new Button(() => HidePopup()) { text = "OK" };
-        _okButton.name = "popup-ok";
+        _okButton = new Button(() => HidePopup())
+        {
+            text = "OK",
+            name = "popup-ok"
+        };
         _okButton.AddToClassList("popup-button");
         buttonContainer.Add(_okButton);
         
-        _cancelButton = new Button(() => OnNoPressed()) { text = "Abbrechen" };
-        _cancelButton.name = "popup-cancel";
+        _cancelButton = new Button(() => OnNoPressed())
+        {
+            text = "Abbrechen",
+            name = "popup-cancel"
+        };
         _cancelButton.AddToClassList("popup-button");
         _cancelButton.style.display = DisplayStyle.None;
         buttonContainer.Add(_cancelButton);

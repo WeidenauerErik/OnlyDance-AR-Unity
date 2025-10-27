@@ -46,6 +46,7 @@ public class Authentication : MonoBehaviour
             var uiDoc = FindObjectOfType<UIDocument>();
             _container = uiDoc.rootVisualElement.Q<VisualElement>("mainContainer");
             LoadLoginForm();
+            LoadingSpinnerGeneral.Initialize(_container);
         }
         else StartCoroutine(CheckUserData(data.email, data.password));
     }
@@ -248,6 +249,7 @@ public class Authentication : MonoBehaviour
     // ReSharper disable Unity.PerformanceAnalysis
     private IEnumerator LoginUser(string email, string password)
     {
+        LoadingSpinnerGeneral.Show();
         var url = $"{PlayerPrefs.GetString("url")}/login";
         var postData = new AuthRequest(email, password);
         var jsonData = JsonUtility.ToJson(postData);
@@ -258,7 +260,7 @@ public class Authentication : MonoBehaviour
         request.SetRequestHeader("Content-Type", "application/json");
 
         yield return request.SendWebRequest();
-
+        LoadingSpinnerGeneral.Hide();
         if (request.result == UnityWebRequest.Result.ConnectionError)
         {
             _loginErrorLabel.text = "Fehler beim Server: " + request.error;
@@ -278,6 +280,7 @@ public class Authentication : MonoBehaviour
     // ReSharper disable Unity.PerformanceAnalysis
     private IEnumerator RegisterUser(string email, string password)
     {
+        LoadingSpinnerGeneral.Show();
         var url = $"{PlayerPrefs.GetString("url")}/register";
         var postData = new AuthRequest(email, password);
         var jsonData = JsonUtility.ToJson(postData);
@@ -288,7 +291,7 @@ public class Authentication : MonoBehaviour
         request.SetRequestHeader("Content-Type", "application/json");
 
         yield return request.SendWebRequest();
-
+        LoadingSpinnerGeneral.Hide();
         if (request.result == UnityWebRequest.Result.ConnectionError)
         {
             _registerErrorLabel.text = request.error;

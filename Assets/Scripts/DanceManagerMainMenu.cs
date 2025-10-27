@@ -35,6 +35,7 @@ public class DanceManagerMainMenu : MonoBehaviour
 
     public static async void SetOnlineDancesIntoView(VisualElement mainView)
     {
+        LoadingSpinnerGeneral.Show();
         try
         {
             mainView.Clear();
@@ -58,15 +59,20 @@ public class DanceManagerMainMenu : MonoBehaviour
                 mainView.Clear();
                 mainView.Add(MainMenu.CreateHeading("Online Tänze"));
                 CreateDance(mainView, dances);
+                LoadingSpinnerGeneral.Hide();
             }
             catch (Exception e)
             {
-                Debug.LogError($"Fehler beim Laden der Tänze: {e.Message}");
+              Debug.LogError($"Fehler beim Laden der Tänze: {e.Message}");
+              LoadingSpinnerGeneral.Hide();
+              PopUpManagerGeneral.Show("Fehler!", "Die Online Tänze konnten nicht geladen werden.");
             }
         }
         catch (Exception e)
         {
             Debug.LogError(e.Message);
+            LoadingSpinnerGeneral.Hide();
+            PopUpManagerGeneral.Show("Fehler!", "Die Online Tänze konnten nicht geladen werden.");
         }
     }
 
