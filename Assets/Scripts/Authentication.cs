@@ -7,21 +7,12 @@ using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
 [Serializable]
-public class AuthResponse
-{
-    public bool success;
-    public string error;
-    public string message;
-    public string password;
-}
-
-[Serializable]
-public class AuthRequest
+public class AuthRequestAuthentication
 {
     public string email;
     public string password;
 
-    public AuthRequest(string email, string password)
+    public AuthRequestAuthentication(string email, string password)
     {
         this.email = email;
         this.password = password;
@@ -42,21 +33,27 @@ public class Authentication : MonoBehaviour
         var uiDoc = FindObjectOfType<UIDocument>();
         _container = uiDoc.rootVisualElement.Q<VisualElement>("mainContainer");
         
-        PopUpManagerGeneral.Initialize(_container);
+        PopUpManagerGeneral.Initialize();
         LoadingSpinnerGeneral.Initialize(_container);
         
         var data = DataManagerGeneral.LoadData();
         if (data == null || string.IsNullOrEmpty(data.email) || string.IsNullOrEmpty(data.password))
         {
+            Debug.Log("Loading Login Form");
             LoadLoginForm();
         }
-        else StartCoroutine(CheckUserData(data.email, data.password));
+        else
+        {
+            Debug.Log("checkUserData");
+            StartCoroutine(CheckUserData(data.email, data.password));
+        }
     }
 
+    // ReSharper disable Unity.PerformanceAnalysis
     private IEnumerator CheckUserData(string email, string password)
     {
         var url = $"{PlayerPrefs.GetString("url")}/checkUser";
-        var postData = new AuthRequest(email, password);
+        var postData = new AuthRequestAuthentication(email, password);
         var jsonData = JsonUtility.ToJson(postData);
 
         using var request = new UnityWebRequest(url, "POST");
@@ -66,15 +63,13 @@ public class Authentication : MonoBehaviour
 
         yield return request.SendWebRequest();
 
-        if (request.result == UnityWebRequest.Result.ConnectionError ||
-            request.result == UnityWebRequest.Result.ProtocolError)
+        var response = JsonUtility.FromJson<Response>(request.downloadHandler.text);
+        if (response.success) SceneManager.LoadScene("MainMenu");
+        else
         {
+            DataManagerGeneral.DeleteData();
             SceneManager.LoadScene("Authentication");
-            yield break;
         }
-
-        var response = JsonUtility.FromJson<AuthResponse>(request.downloadHandler.text);
-        SceneManager.LoadScene(response.success ? "MainMenu" : "Authentication");
     }
 
 
@@ -253,7 +248,7 @@ public class Authentication : MonoBehaviour
     {
         LoadingSpinnerGeneral.Show();
         var url = $"{PlayerPrefs.GetString("url")}/login";
-        var postData = new AuthRequest(email, password);
+        var postData = new AuthRequestAuthentication(email, password);
         var jsonData = JsonUtility.ToJson(postData);
 
         using var request = new UnityWebRequest(url, "POST");
@@ -269,7 +264,7 @@ public class Authentication : MonoBehaviour
             yield break;
         }
 
-        var response = JsonUtility.FromJson<AuthResponse>(request.downloadHandler.text);
+        var response = JsonUtility.FromJson<Response>(request.downloadHandler.text);
 
         if (response.success)
         {
@@ -284,7 +279,7 @@ public class Authentication : MonoBehaviour
     {
         LoadingSpinnerGeneral.Show();
         var url = $"{PlayerPrefs.GetString("url")}/register";
-        var postData = new AuthRequest(email, password);
+        var postData = new AuthRequestAuthentication(email, password);
         var jsonData = JsonUtility.ToJson(postData);
 
         using UnityWebRequest request = new UnityWebRequest(url, "POST");
@@ -300,7 +295,7 @@ public class Authentication : MonoBehaviour
             yield break;
         }
 
-        var response = JsonUtility.FromJson<AuthResponse>(request.downloadHandler.text);
+        var response = JsonUtility.FromJson<Response>(request.downloadHandler.text);
 
         if (response.success)
         {

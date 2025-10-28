@@ -32,7 +32,7 @@ public static class DataManagerGeneral
         }
         catch (Exception ex)
         {
-            PopUpManagerGeneral.Show("Fehler:", "Daten konnten nicht gespeichert werden.");
+            PopUpManagerGeneral.ShowInfo("Fehler!", "Daten konnten nicht gespeichert werden.");
         }
     }
 
@@ -42,7 +42,7 @@ public static class DataManagerGeneral
         {
             if (!File.Exists(FilePath))
             {
-                PopUpManagerGeneral.Show("Fehler:", "Daten konnten nicht gefunden werden.");
+                PopUpManagerGeneral.ShowInfo("Fehler!", "Daten konnten nicht gefunden werden.");
                 return null;
             }
 
@@ -53,7 +53,7 @@ public static class DataManagerGeneral
         }
         catch (Exception ex)
         {
-            PopUpManagerGeneral.Show("Fehler:", "Daten konnten nicht gefunden werden.");
+            PopUpManagerGeneral.ShowInfo("Fehler!", "Daten konnten nicht gefunden werden.");
             return null;
         }
     }
@@ -66,7 +66,7 @@ public static class DataManagerGeneral
         }
         catch (Exception ex)
         {
-            PopUpManagerGeneral.Show("Fehler:", "Daten konnten nicht gelöscht werden.");
+            PopUpManagerGeneral.ShowInfo("Fehler!", "Daten konnten nicht gelöscht werden.");
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -9,7 +10,7 @@ public class LoadingSpinnerGeneral : MonoBehaviour
     private VisualElement _loadingRoot;
     private Label _loadingLabel;
 
-    private VisualElement _uiRoot;
+    private static VisualElement _uiRoot;
 
     private Coroutine _dotCoroutine;
 
@@ -25,6 +26,7 @@ public class LoadingSpinnerGeneral : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    [Obsolete("Obsolete")]
     public static void Initialize(VisualElement root)
     {
         if (_instance == null)
@@ -32,14 +34,20 @@ public class LoadingSpinnerGeneral : MonoBehaviour
             var go = new GameObject("LoadingManager");
             _instance = go.AddComponent<LoadingSpinnerGeneral>();
         }
+        
+        var uiDoc = FindObjectOfType<UIDocument>();
+        if (uiDoc == null)
+        {
+            Debug.LogError("Kein UIDocument in der Szene gefunden!");
+            return;
+        }
 
-        _instance.Setup(root);
+        _uiRoot = uiDoc.rootVisualElement;
+        _instance.Setup();
     }
 
-    private void Setup(VisualElement root)
+    private void Setup()
     {
-        _uiRoot = root;
-
         if (_loadingRoot != null)
             _loadingRoot.RemoveFromHierarchy();
 

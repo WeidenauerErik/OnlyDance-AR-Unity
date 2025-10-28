@@ -20,21 +20,21 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
     display: flex;
 }
 
 .popup-title {
-    font-size: 20px;
+    white-space: normal;
+    font-size: 17px;
     font-weight: bold;
     margin-bottom: 10px;
 }
 
 .popup-message {
+    white-space: normal;
     font-size: 14px;
     text-align: center;
     margin-bottom: 20px;
-    white-space: normal;
 }
 
 .popup-button-container {
@@ -45,7 +45,7 @@
 }
 
 .popup-button {
-    width: 50px;
+    width: auto;
     background-color: var(--color-violet-2);
     color: white;
     border-radius: 10px;
@@ -56,4 +56,32 @@
 
 .popup-button:active {
     background-color: var(--color-violet-3);
+}
+
+.input {
+    width: 100%;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.input > .unity-text-field__input {
+    font-size: 8px;
+    padding: 10px;
+    border-radius: 10px;
+    border-width: 1px;
+    border-color: var(--color-violet-1);
+    background-color: var(--color-violet-1);
+}
+
+.input > .unity-text-field__input:focus {
+    border-color: var(--color-violet-2);
+}
+
+.error-label {
+    white-space: normal;
+    color: red;
+    font-size: 12px;
+    margin-top: 3px;
+    width: 80%;
 }

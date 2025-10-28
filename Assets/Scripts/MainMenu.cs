@@ -25,9 +25,9 @@ public class MainMenu : MonoBehaviour
         var root = uiDoc.rootVisualElement;
 
         LoadingSpinnerGeneral.Initialize(root);
-        PopUpManagerGeneral.Initialize(root);
+        PopUpManagerGeneral.Initialize();
         
-        PopUpManagerGeneral.Show("ösjkdf", "ökadsjföladskjf");
+        PopUpManagerGeneral.ShowInfo("äaosjdf","asölfdj");
         
         _mainContent = root.Q<VisualElement>("mainContent");
 
@@ -78,7 +78,7 @@ public class MainMenu : MonoBehaviour
 
     private void SettingsBtnClicked()
     {
-        SettingsManagerMainMenu.SetSettingsIntoView(_mainContent);
+        SettingsManagerMainMenu.SetSettingsIntoView(_mainContent, this);
 
         _myDancesBtnLabel.RemoveFromClassList("activeLabel");
         _onlineDancesBtnLabel.RemoveFromClassList("activeLabel");

@@ -6,13 +6,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 10px;
 }
 .settings-emailLabel {
     font-size: 15px;
     color: var(--color-violet-2);
 }
 
+.settings-container {
+    margin-top: 10px;
+}
 
 .settings-buttons {
     background-color: var(--color-violet-2);

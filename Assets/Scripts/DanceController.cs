@@ -86,7 +86,7 @@ public class DanceController : MonoBehaviour
         var uiDoc = FindObjectOfType<UIDocument>();
         var root = uiDoc.rootVisualElement;
 
-        PopUpManagerGeneral.Initialize(root);
+        PopUpManagerGeneral.Initialize();
 
         StartCoroutine(LoadStepsFromServer());
     }
@@ -102,7 +102,7 @@ public class DanceController : MonoBehaviour
         if (request.result != UnityWebRequest.Result.Success)
         {
             Debug.LogError("Fehler beim Laden der Steps: " + request.error);
-            PopUpManagerGeneral.Show("Fehler:", "Tanz konnte nicht geladen werden.");
+            PopUpManagerGeneral.ShowInfo("Fehler!", "Tanz konnte nicht geladen werden.");
             yield break;
         }
 
@@ -114,21 +114,21 @@ public class DanceController : MonoBehaviour
         if (response == null)
         {
             Debug.LogError("Fehler: JSON konnte nicht geparst werden!");
-            PopUpManagerGeneral.Show("Fehler:", "Tanz konnte nicht geladen werden.");
+            PopUpManagerGeneral.ShowInfo("Fehler!", "Tanz konnte nicht geladen werden.");
             yield break;
         }
 
         if (!response.success)
         {
             Debug.LogError("Server meldet Fehler: success=false");
-            PopUpManagerGeneral.Show("Fehler:", "Tanz konnte nicht geladen werden.");
+            PopUpManagerGeneral.ShowInfo("Fehler!", "Tanz konnte nicht geladen werden.");
             yield break;
         }
 
         if (response.data == null || response.data.Length == 0)
         {
             Debug.LogError("Keine Steps in der Antwort gefunden!");
-            PopUpManagerGeneral.Show("Fehler:", "Tanz konnte nicht geladen werden.");
+            PopUpManagerGeneral.ShowInfo("Fehler!", "Tanz konnte nicht geladen werden.");
             yield break;
         }
 
