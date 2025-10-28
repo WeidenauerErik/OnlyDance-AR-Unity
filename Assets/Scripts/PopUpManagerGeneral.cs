@@ -17,6 +17,7 @@ public class PopUpManagerGeneral : MonoBehaviour
 
     private static VisualElement _uiRoot;
 
+    [Obsolete("Obsolete")]
     public static void Initialize()
     {
         if (_instance != null)

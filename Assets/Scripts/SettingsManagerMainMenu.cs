@@ -159,7 +159,11 @@ public class SettingsManagerMainMenu : MonoBehaviour
 
         var response = JsonUtility.FromJson<Response>(request.downloadHandler.text);
 
-        if (response.success) SceneManager.LoadScene("Authentication");
+        if (response.success)
+        {
+            DataManagerGeneral.DeleteData();
+            SceneManager.LoadScene("Authentication");
+        }
         else
         {
             Debug.Log(response.message);

@@ -30,7 +30,7 @@ public static class DataManagerGeneral
             var formatter = new BinaryFormatter();
             formatter.Serialize(fs, data);
         }
-        catch (Exception ex)
+        catch
         {
             PopUpManagerGeneral.ShowInfo("Fehler!", "Daten konnten nicht gespeichert werden.");
         }
@@ -51,7 +51,7 @@ public static class DataManagerGeneral
             var data = (UserData)formatter.Deserialize(fs);
             return data;
         }
-        catch (Exception ex)
+        catch
         {
             PopUpManagerGeneral.ShowInfo("Fehler!", "Daten konnten nicht gefunden werden.");
             return null;
@@ -64,9 +64,30 @@ public static class DataManagerGeneral
         {
             if (File.Exists(FilePath)) File.Delete(FilePath);
         }
-        catch (Exception ex)
+        catch
         {
             PopUpManagerGeneral.ShowInfo("Fehler!", "Daten konnten nicht gelöscht werden.");
+        }
+    }
+
+    public static UserData LoadDataAuthentication()
+    {
+        try
+        {
+            if (!File.Exists(FilePath))
+            {
+                return null;
+            }
+
+            using var fs = new FileStream(FilePath, FileMode.Open);
+            var formatter = new BinaryFormatter();
+            var data = (UserData)formatter.Deserialize(fs);
+            return data;
+        }
+        catch
+        {
+            PopUpManagerGeneral.ShowInfo("Fehler!", "Daten konnten nicht gefunden werden.");
+            return null;
         }
     }
 }

@@ -36,7 +36,7 @@ public class Authentication : MonoBehaviour
         PopUpManagerGeneral.Initialize();
         LoadingSpinnerGeneral.Initialize(_container);
         
-        var data = DataManagerGeneral.LoadData();
+        var data = DataManagerGeneral.LoadDataAuthentication();
         if (data == null || string.IsNullOrEmpty(data.email) || string.IsNullOrEmpty(data.password))
         {
             Debug.Log("Loading Login Form");
