@@ -1,4 +1,3 @@
-using GeneralScripts;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -9,13 +8,27 @@ public class SettingsManagerMainMenu : MonoBehaviour
     {
         mainView.Clear();
         mainView.Add(MainMenu.CreateHeading("Settings"));
-
-        var logoutBtn = new Button();
-        logoutBtn.text = "Logout";
+        
+        var data = DataManagerGeneral.LoadData();
+        var emailLabel = new Label { text = data.email };
+        emailLabel.AddToClassList("settings-emailLabel");
+        
+        var emailContainer = new VisualElement();
+        emailContainer.AddToClassList("settings-emailContainer");
+        emailContainer.Add(emailLabel);
+        mainView.Add(emailContainer);
+        
+        var logoutBtn = new Button { text = "Logout" };
+        logoutBtn.AddToClassList("settings-buttons");
         logoutBtn.clicked += () =>
         {
-            DataManagerGeneral.DeleteData();
-            SceneManager.LoadScene("Authentication");
+            PopUpManagerGeneral.ShowConfirm("Bist du dir sicher?", "Willst du dich wirklich abmelden?", () =>
+            {
+                Debug.Log("Logged out");
+                DataManagerGeneral.DeleteData();
+                SceneManager.LoadScene("Authentication");
+                
+            });
         };
         mainView.Add(logoutBtn);
     }

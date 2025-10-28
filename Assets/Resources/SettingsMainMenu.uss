@@ -1,0 +1,30 @@
+.settings-emailContainer {
+    background-color: var(--color-violet-1);
+    border-radius: 10px;
+    height: 45px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+.settings-emailLabel {
+    font-size: 15px;
+    color: var(--color-violet-2);
+}
+
+
+.settings-buttons {
+    background-color: var(--color-violet-2);
+    color: var(--color-violet-1);
+    border-radius: 10px;
+    height: 45px;
+    font-size: 15px;
+    border-width: 0;
+    width: 100%;
+    transition: background-color 0.15s ease-in-out;
+}
+
+.settings-buttons:active {
+    background-color: var(--color-violet-3);
+}

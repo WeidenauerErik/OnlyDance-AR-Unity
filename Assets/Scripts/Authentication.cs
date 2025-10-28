@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using System.Collections;
 using System.Text.RegularExpressions;
-using GeneralScripts;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
@@ -39,14 +38,17 @@ public class Authentication : MonoBehaviour
     void Start()
     {
         PlayerPrefs.SetString("url", "https://onlydance.at/api");
-
+        
+        var uiDoc = FindObjectOfType<UIDocument>();
+        _container = uiDoc.rootVisualElement.Q<VisualElement>("mainContainer");
+        
+        PopUpManagerGeneral.Initialize(_container);
+        LoadingSpinnerGeneral.Initialize(_container);
+        
         var data = DataManagerGeneral.LoadData();
         if (data == null || string.IsNullOrEmpty(data.email) || string.IsNullOrEmpty(data.password))
         {
-            var uiDoc = FindObjectOfType<UIDocument>();
-            _container = uiDoc.rootVisualElement.Q<VisualElement>("mainContainer");
             LoadLoginForm();
-            LoadingSpinnerGeneral.Initialize(_container);
         }
         else StartCoroutine(CheckUserData(data.email, data.password));
     }
@@ -254,7 +256,7 @@ public class Authentication : MonoBehaviour
         var postData = new AuthRequest(email, password);
         var jsonData = JsonUtility.ToJson(postData);
 
-        using UnityWebRequest request = new UnityWebRequest(url, "POST");
+        using var request = new UnityWebRequest(url, "POST");
         request.uploadHandler = new UploadHandlerRaw(System.Text.Encoding.UTF8.GetBytes(jsonData));
         request.downloadHandler = new DownloadHandlerBuffer();
         request.SetRequestHeader("Content-Type", "application/json");

@@ -65,14 +65,14 @@ public class DanceManagerMainMenu : MonoBehaviour
             {
               Debug.LogError($"Fehler beim Laden der Tänze: {e.Message}");
               LoadingSpinnerGeneral.Hide();
-              PopUpManagerGeneral.Show("Fehler!", "Die Online Tänze konnten nicht geladen werden.");
+              PopUpManagerGeneral.Show("Fehler:", "Die Online Tänze konnten nicht geladen werden.");
             }
         }
         catch (Exception e)
         {
             Debug.LogError(e.Message);
             LoadingSpinnerGeneral.Hide();
-            PopUpManagerGeneral.Show("Fehler!", "Die Online Tänze konnten nicht geladen werden.");
+            PopUpManagerGeneral.Show("Fehler:", "Die Online Tänze konnten nicht geladen werden.");
         }
     }
 

@@ -1,21 +1,21 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd"
-         editor-extension-mode="False">
-    <Style src="project://database/Assets/MainMenu/UI/navBar.uss?fileID=7433441132597879392&amp;guid=daa7d0795fd792e49b3cd7eea6d27abf&amp;type=3#navBar"/>
-    <Style src="project://database/Assets/MainMenu/UI/mainContent.uss?fileID=7433441132597879392&amp;guid=c29ea112a69f15685844a769fb1c8107&amp;type=3#mainContent"/>
-    <Style src="project://database/Assets/main.uss?fileID=7433441132597879392&amp;guid=1a1f41f88eb44eeea0f7136aaa9a03db&amp;type=3#main"/>
-    <ui:VisualElement name="mainContent" style="flex-grow: 1; flex-shrink: 0;"/>
+<ui:UXML xmlns:ui="UnityEngine.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Resources/navBarMainMenu.uss?fileID=7433441132597879392&amp;guid=daa7d0795fd792e49b3cd7eea6d27abf&amp;type=3#navBarMainMenu" />
+    <Style src="project://database/Assets/Resources/MainContentMainMenu.uss?fileID=7433441132597879392&amp;guid=c29ea112a69f15685844a769fb1c8107&amp;type=3#MainContentMainMenu" />
+    <Style src="project://database/Assets/main.uss?fileID=7433441132597879392&amp;guid=1a1f41f88eb44eeea0f7136aaa9a03db&amp;type=3#main" />
+    <Style src="project://database/Assets/Resources/SettingsMainMenu.uss?fileID=7433441132597879392&amp;guid=fbb77545c8c94461b8ebfa91b6d4e095&amp;type=3#SettingsMainMenu" />
+    <ui:VisualElement name="mainContent" style="flex-grow: 1; flex-shrink: 0;" />
     <ui:VisualElement name="navBar" style="flex-shrink: 0;">
         <ui:Button name="myDancesBtn" class="navBarContainer navBarBtn navBarBtns activeScene">
-            <ui:VisualElement name="myDancesBtnIcon" class="navBarIcons myDancesIcon navBarIcon" style="flex-grow: 1;"/>
-            <ui:Label text="meine Tänze" name="myDancesBtnLabel" class="navBarLabels"/>
+            <ui:VisualElement name="myDancesBtnIcon" class="navBarIcons myDancesIcon navBarIcon" style="flex-grow: 1;" />
+            <ui:Label text="meine Tänze" name="myDancesBtnLabel" class="navBarLabels" />
         </ui:Button>
         <ui:Button name="onlineDancesBtn" class="navBarBtn navBarBtns">
-            <ui:VisualElement name="onlineDancesBtnIcon" class="navBarIcons onlineDancesIcon navBarIcon"/>
-            <ui:Label text="online Tänze" name="onlineDancesBtnLabel" class="navBarLabels"/>
+            <ui:VisualElement name="onlineDancesBtnIcon" class="navBarIcons onlineDancesIcon navBarIcon" />
+            <ui:Label text="online Tänze" name="onlineDancesBtnLabel" class="navBarLabels" />
         </ui:Button>
         <ui:Button name="settingsBtn" class="navBarBtn navBarBtns">
-            <ui:VisualElement name="settingsBtnIcon" class="navBarIcons activeIconSettings settingsIcon navBarIcon"/>
-            <ui:Label text="Einstellungen" name="settingsBtnLabel" class="navBarLabels"/>
+            <ui:VisualElement name="settingsBtnIcon" class="navBarIcons activeIconSettings settingsIcon navBarIcon" />
+            <ui:Label text="Einstellungen" name="settingsBtnLabel" class="navBarLabels" />
         </ui:Button>
     </ui:VisualElement>
 </ui:UXML>

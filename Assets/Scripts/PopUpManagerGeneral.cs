@@ -4,8 +4,6 @@ using UnityEngine.UIElements;
 
 public class PopUpManagerGeneral : MonoBehaviour
 {
-    private static PopUpManagerGeneral _instance;
-
     private VisualElement _popupRoot;
     private Label _titleLabel;
     private Label _messageLabel;
@@ -17,85 +15,66 @@ public class PopUpManagerGeneral : MonoBehaviour
 
     private VisualElement _uiRoot;
 
-    private void Awake()
-    {
-        if (_instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
+    private static PopUpManagerGeneral _currentInstance;
 
-        _instance = this;
-        DontDestroyOnLoad(gameObject);
-    }
-    
+    /// <summary>
+    /// Erstellt und initialisiert in jeder Szene eine neue PopupManager-Instanz.
+    /// </summary>
     public static void Initialize(VisualElement root)
     {
-        if (_instance == null)
+        // Falls bereits eine alte Instanz existiert, löschen wir sie sauber
+        if (_currentInstance != null)
         {
-            var go = new GameObject("PopupManager");
-            _instance = go.AddComponent<PopUpManagerGeneral>();
+            Destroy(_currentInstance.gameObject);
+            _currentInstance = null;
         }
 
-        _instance.Setup(root);
+        var go = new GameObject("PopupManager");
+        _currentInstance = go.AddComponent<PopUpManagerGeneral>();
+        _currentInstance.Setup(root);
     }
 
     private void Setup(VisualElement root)
     {
-        if (_uiRoot != null) return;
         _uiRoot = root;
-        
+
         var styleSheet = Resources.Load<StyleSheet>("PopUp");
         if (styleSheet == null)
         {
-            Debug.LogError("Popup.uss wurde nicht im Resources-Ordner gefunden!");
+            Debug.LogError("PopUp.uss wurde nicht im Resources-Ordner gefunden!");
         }
-        
-        _popupRoot = new VisualElement
-        {
-            name = "popup-root"
-        };
+
+        // Popup Grundstruktur
+        _popupRoot = new VisualElement { name = "popup-root" };
         _popupRoot.AddToClassList("popup-root");
-        
-        var container = new VisualElement
-        {
-            name = "popup-container"
-        };
+
+        var container = new VisualElement { name = "popup-container" };
         container.AddToClassList("popup-container");
         _popupRoot.Add(container);
-        
-        _titleLabel = new Label("Title")
-        {
-            name = "popup-title"
-        };
+
+        _titleLabel = new Label("Title") { name = "popup-title" };
         _titleLabel.AddToClassList("popup-title");
         container.Add(_titleLabel);
-        
-        _messageLabel = new Label("Message")
-        {
-            name = "popup-message"
-        };
+
+        _messageLabel = new Label("Message") { name = "popup-message" };
         _messageLabel.AddToClassList("popup-message");
         container.Add(_messageLabel);
-        
-        var buttonContainer = new VisualElement
-        {
-            name = "popup-button-container"
-        };
+
+        var buttonContainer = new VisualElement { name = "popup-button-container" };
         buttonContainer.AddToClassList("popup-button-container");
         container.Add(buttonContainer);
-        
-        _okButton = new Button(() => HidePopup())
+
+        _okButton = new Button
         {
             text = "OK",
             name = "popup-ok"
         };
         _okButton.AddToClassList("popup-button");
         buttonContainer.Add(_okButton);
-        
+
         _cancelButton = new Button(() => OnNoPressed())
         {
-            text = "Abbrechen",
+            text = "Nein",
             name = "popup-cancel"
         };
         _cancelButton.AddToClassList("popup-button");
@@ -108,27 +87,27 @@ public class PopUpManagerGeneral : MonoBehaviour
         _popupRoot.style.display = DisplayStyle.None;
         _uiRoot.Add(_popupRoot);
     }
-    
+
+    private static bool EnsureInitialized()
+    {
+        if (_currentInstance == null)
+        {
+            Debug.LogError("PopupManager wurde noch nicht initialisiert! Rufe zuerst PopupManagerGeneral.Initialize(root) auf.");
+            return false;
+        }
+        return true;
+    }
+
     public static void Show(string title, string message)
     {
         if (!EnsureInitialized()) return;
-        _instance.ShowPopupInternal(title, message);
+        _currentInstance.ShowPopupInternal(title, message);
     }
 
     public static void ShowConfirm(string title, string message, Action onYes, Action onNo = null)
     {
         if (!EnsureInitialized()) return;
-        _instance.ShowConfirmInternal(title, message, onYes, onNo);
-    }
-
-    private static bool EnsureInitialized()
-    {
-        if (_instance == null)
-        {
-            Debug.LogError("PopupManager wurde noch nicht initialisiert! Rufe zuerst PopupManager.Initialize(root) auf.");
-            return false;
-        }
-        return true;
+        _currentInstance.ShowConfirmInternal(title, message, onYes, onNo);
     }
 
     private void ShowPopupInternal(string title, string message)
@@ -136,6 +115,7 @@ public class PopUpManagerGeneral : MonoBehaviour
         _titleLabel.text = title;
         _messageLabel.text = message;
         _okButton.text = "OK";
+
         _okButton.clicked -= OnYesPressed;
         _okButton.clicked += HidePopup;
 
@@ -151,23 +131,25 @@ public class PopUpManagerGeneral : MonoBehaviour
         _onNoCallback = onNo;
 
         _okButton.text = "Ja";
-        _okButton.clicked -= HidePopup;
+
+        _okButton.clicked -= OnNoPressed;
         _okButton.clicked += OnYesPressed;
 
         _cancelButton.style.display = DisplayStyle.Flex;
         _popupRoot.style.display = DisplayStyle.Flex;
     }
 
+
     private void OnYesPressed()
     {
+        _onYesCallback.Invoke();
         HidePopup();
-        _onYesCallback?.Invoke();
     }
 
     private void OnNoPressed()
     {
-        HidePopup();
         _onNoCallback?.Invoke();
+        HidePopup();
     }
 
     private void HidePopup()

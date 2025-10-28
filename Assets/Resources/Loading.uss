@@ -13,7 +13,7 @@
     padding: 10px 20px;
     font-size: 18px;
     color: var(--color-violet-2);
-    background-color: rgba(0,0,0,0.3);
+    background-color: var(--color-violet-1);
     border-radius: 5px;
 }
 
