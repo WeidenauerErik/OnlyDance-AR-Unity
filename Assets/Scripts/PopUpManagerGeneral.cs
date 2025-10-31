@@ -64,15 +64,15 @@ public class PopUpManagerGeneral : MonoBehaviour
         container.Add(_messageContainer);
 
         var buttonContainer = new VisualElement { name = "popup-button-container" };
-        buttonContainer.AddToClassList("popup-button-container");
+        buttonContainer.AddToClassList("button-select");
         container.Add(buttonContainer);
 
         _okButton = new Button { name = "popup-ok" };
-        _okButton.AddToClassList("popup-button");
+        _okButton.AddToClassList("button");
         buttonContainer.Add(_okButton);
 
         _cancelButton = new Button { name = "popup-cancel" };
-        _cancelButton.AddToClassList("popup-button");
+        _cancelButton.AddToClassList("button");
         _cancelButton.style.display = DisplayStyle.None;
         buttonContainer.Add(_cancelButton);
 
@@ -219,7 +219,7 @@ public class PopUpManagerGeneral : MonoBehaviour
 
         var oldPw = CreatePasswordField("Altes Passwort");
         var newPw = CreatePasswordField("Neues Passwort");
-        var confirmPw = CreatePasswordField("N. Passwort bestätigen");
+        var confirmPw = CreatePasswordField("Neues Passwort bestätigen");
         var errorLabel = new Label();
         errorLabel.AddToClassList("error-label");
 

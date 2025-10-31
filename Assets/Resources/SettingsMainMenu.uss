@@ -15,18 +15,3 @@
 .settings-container {
     margin-top: 10px;
 }
-
-.settings-buttons {
-    background-color: var(--color-violet-2);
-    color: var(--color-violet-1);
-    border-radius: 10px;
-    height: 45px;
-    font-size: 15px;
-    border-width: 0;
-    width: 100%;
-    transition: background-color 0.15s ease-in-out;
-}
-
-.settings-buttons:active {
-    background-color: var(--color-violet-3);
-}

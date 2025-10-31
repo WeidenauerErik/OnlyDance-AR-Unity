@@ -46,57 +46,6 @@ unity-panel,
     margin-bottom: 20px;
 }
 
-.input {
-    width: 100%;
-    margin-bottom: 10px;
-    display: flex;
-    flex-direction: column;
-}
-
-.input > .unity-text-field__input {
-    font-size: 9px;
-    padding: 10px;
-    border-radius: 10px;
-    border-width: 1px;
-    border-color: rgba(100, 0, 150, 0.2);
-    background-color: white;
-}
-
-.input > .unity-text-field__input:focus {
-    border-color: var(--color-violet-2);
-}
-
-.button-select {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    width: 100%;
-    margin-top: 10px;
-}
-
-.button {
-    background-color: var(--color-violet-2);
-    color: white;
-    border-radius: 10px;
-    height: 45px;
-    font-size: 15px;
-    border-width: 0;
-    width: 100%;
-    transition: background-color 0.15s ease-in-out;
-}
-
-.button-select > .button {
-    width: 45%;
-}
-
-.button:active {
-    background-color: var(--color-violet-3);
-}
-
-.button:disabled {
-    background-color: rgba(150, 100, 180, 0.5);
-}
-
 .switch-link {
     background-color: transparent;
     color: var(--color-violet-2);

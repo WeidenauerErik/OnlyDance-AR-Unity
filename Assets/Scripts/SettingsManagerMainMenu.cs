@@ -52,7 +52,7 @@ public class SettingsManagerMainMenu : MonoBehaviour
         mainView.Add(emailContainer);
 
         var changePassword = new Button { text = "Passwort ändern" };
-        changePassword.AddToClassList("settings-buttons");
+        changePassword.AddToClassList("button");
         changePassword.AddToClassList("settings-container");
         changePassword.clicked += () =>
         {
@@ -66,7 +66,7 @@ public class SettingsManagerMainMenu : MonoBehaviour
         mainView.Add(changePassword);
         
         var deleteAccount = new Button { text = "Konto löschen" };
-        deleteAccount.AddToClassList("settings-buttons");
+        deleteAccount.AddToClassList("button");
         deleteAccount.AddToClassList("settings-container");
         deleteAccount.clicked += () =>
         {
@@ -80,11 +80,11 @@ public class SettingsManagerMainMenu : MonoBehaviour
         mainView.Add(deleteAccount);
 
         var logoutBtn = new Button { text = "Logout" };
-        logoutBtn.AddToClassList("settings-buttons");
+        logoutBtn.AddToClassList("button");
         logoutBtn.AddToClassList("settings-container");
         logoutBtn.clicked += () =>
         {
-            PopUpManagerGeneral.ShowConfirm("Bist du dir sicher?", "Willst du dich wirklich abmelden?", () =>
+            PopUpManagerGeneral.ShowConfirm("Bist du dir sicher?", "", () =>
             {
                 Debug.Log("Logged out");
                 DataManagerGeneral.DeleteData();

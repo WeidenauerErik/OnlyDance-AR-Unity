@@ -8,11 +8,10 @@
     justify-content: center;
     align-items: center;
     background-color: rgba(0, 0, 0, 0.5);
-    z-index: 9999;
 }
 
 .popup-container {
-    background-color: var(--color-white-1);
+    background-color: var(--color-violet-1);
     padding: 20px;
     border-radius: 10px;
     width: 300px;
@@ -26,56 +25,14 @@
 .popup-title {
     white-space: normal;
     font-size: 17px;
-    font-weight: bold;
     margin-bottom: 10px;
 }
 
 .popup-message {
     white-space: normal;
-    font-size: 14px;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.popup-button-container {
-    flex-direction: row;
-    justify-content: center;
-    gap: 10px;
-    display: flex;
-}
-
-.popup-button {
-    width: auto;
-    background-color: var(--color-violet-2);
-    color: white;
-    border-radius: 10px;
-    padding: 5px;
-    font-weight: bold;
-    text-align: center;
-}
-
-.popup-button:active {
-    background-color: var(--color-violet-3);
-}
-
-.input {
     width: 100%;
-    margin-bottom: 10px;
-    display: flex;
-    flex-direction: column;
-}
-
-.input > .unity-text-field__input {
-    font-size: 8px;
-    padding: 10px;
-    border-radius: 10px;
-    border-width: 1px;
-    border-color: var(--color-violet-1);
-    background-color: var(--color-violet-1);
-}
-
-.input > .unity-text-field__input:focus {
-    border-color: var(--color-violet-2);
+    font-size: 14px;
+    -unity-text-align: middle-center;
 }
 
 .error-label {
@@ -83,5 +40,6 @@
     color: red;
     font-size: 12px;
     margin-top: 3px;
-    width: 80%;
+    width: 100%;
+    -unity-text-align: middle-center;
 }

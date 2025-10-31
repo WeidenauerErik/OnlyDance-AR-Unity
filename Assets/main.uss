@@ -4,6 +4,55 @@
     --color-violet-1: rgb(215, 194, 223);
     --color-violet-2: rgb(48, 0, 73);
     --color-violet-3: rgb(67, 36, 87);
+}
 
+.button-select {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: 5px;
+}
 
+.button {
+    background-color: var(--color-violet-2);
+    color: white;
+    border-radius: 10px;
+    height: 45px;
+    font-size: 13px;
+    border-width: 0;
+    width: 100%;
+    padding: 2px;
+}
+
+.button-select > .button {
+    width: 45%;
+}
+
+.button:active {
+    background-color: var(--color-violet-3);
+}
+
+.button:disabled {
+    color: var(--color-violet-2);
+    background-color: var(--color-white-1);
+}
+
+.input {
+    width: 100%;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.input > .unity-text-field__input {
+    font-size: 9px;
+    padding: 10px;
+    border-radius: 10px;
+    border-width: 0;
+    background-color: var(--color-white-1);
+}
+
+.input > .unity-text-field__input:focus {
+    border-color: var(--color-violet-2);
 }
