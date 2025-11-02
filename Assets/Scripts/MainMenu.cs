@@ -92,7 +92,7 @@ public class MainMenu : MonoBehaviour
     public static Label CreateHeading(string labelName)
     {
         var tmp = new Label(labelName);
-        tmp.AddToClassList("heading");
+        tmp.AddToClassList("text-large");
         return tmp;
     }
 }

@@ -56,15 +56,11 @@ public class LoadingSpinnerGeneral : MonoBehaviour
         {
             Debug.LogError("Loading.uss wurde nicht im Resources-Ordner gefunden!");
         }
-
-        // Root Element
+        
         _loadingRoot = new VisualElement();
-        _loadingRoot.name = "loading-root";
         _loadingRoot.AddToClassList("loading-root");
-
-        // Label für Loading...
+        
         _loadingLabel = new Label("Loading");
-        _loadingLabel.name = "loading-label";
         _loadingLabel.AddToClassList("loading-label");
         _loadingRoot.Add(_loadingLabel);
 
@@ -85,8 +81,7 @@ public class LoadingSpinnerGeneral : MonoBehaviour
         }
 
         _instance._loadingRoot.style.display = DisplayStyle.Flex;
-
-        // Coroutine starten
+        
         if (_instance._dotCoroutine != null)
             _instance.StopCoroutine(_instance._dotCoroutine);
 
@@ -105,7 +100,6 @@ public class LoadingSpinnerGeneral : MonoBehaviour
             _instance._dotCoroutine = null;
         }
 
-        // Reset Label
         if (_instance._loadingLabel != null)
             _instance._loadingLabel.text = "Loading";
     }
@@ -115,7 +109,7 @@ public class LoadingSpinnerGeneral : MonoBehaviour
         int dotCount = 0;
         while (true)
         {
-            dotCount = (dotCount % 3) + 1; // 1, 2, 3
+            dotCount = (dotCount % 3) + 1;
             _loadingLabel.text = "Loading" + new string('.', dotCount);
             yield return new WaitForSeconds(0.5f);
         }

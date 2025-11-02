@@ -55,7 +55,8 @@ public class DanceManagerMainMenu : MonoBehaviour
 
             try
             {
-                var dances = await FetchFiveDances("https://onlydance.at/api/getFiveDances");
+                var url = $"{PlayerPrefs.GetString("url")}/getFiveDances";
+                var dances = await FetchFiveDances(url);
                 mainView.Clear();
                 mainView.Add(MainMenu.CreateHeading("Online Tänze"));
                 CreateDance(mainView, dances);

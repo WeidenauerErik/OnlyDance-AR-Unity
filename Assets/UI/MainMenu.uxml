@@ -1,8 +1,10 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Resources/navBarMainMenu.uss?fileID=7433441132597879392&amp;guid=daa7d0795fd792e49b3cd7eea6d27abf&amp;type=3#navBarMainMenu" />
     <Style src="project://database/Assets/Resources/MainContentMainMenu.uss?fileID=7433441132597879392&amp;guid=c29ea112a69f15685844a769fb1c8107&amp;type=3#MainContentMainMenu" />
-    <Style src="project://database/Assets/main.uss?fileID=7433441132597879392&amp;guid=1a1f41f88eb44eeea0f7136aaa9a03db&amp;type=3#main" />
+    <Style src="project://database/Assets/Resources/main.uss?fileID=7433441132597879392&amp;guid=1a1f41f88eb44eeea0f7136aaa9a03db&amp;type=3#main" />
     <Style src="project://database/Assets/Resources/SettingsMainMenu.uss?fileID=7433441132597879392&amp;guid=fbb77545c8c94461b8ebfa91b6d4e095&amp;type=3#SettingsMainMenu" />
+    <Style src="project://database/Assets/Resources/Button.uss?fileID=7433441132597879392&amp;guid=0da1bf426c2244b0946dcc3a05407f3a&amp;type=3#Button" />
+    <Style src="project://database/Assets/Resources/Text.uss?fileID=7433441132597879392&amp;guid=3c8be3ecf32d49eabd176d669c3ceb1d&amp;type=3#Text" />
     <ui:VisualElement name="mainContent" style="flex-grow: 1; flex-shrink: 0;" />
     <ui:VisualElement name="navBar" style="flex-shrink: 0;">
         <ui:Button name="myDancesBtn" class="navBarContainer navBarBtn navBarBtns activeScene">

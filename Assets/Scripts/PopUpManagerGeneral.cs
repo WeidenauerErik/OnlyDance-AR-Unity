@@ -41,12 +41,13 @@ public class PopUpManagerGeneral : MonoBehaviour
 
     private void Setup()
     {
-        // Stylesheet laden
         var styleSheet = Resources.Load<StyleSheet>("PopUp");
         if (styleSheet == null)
             Debug.LogError("PopUp.uss wurde nicht im Resources-Ordner gefunden!");
-
-        // Popup Root
+        var InputStyleSheet = Resources.Load<StyleSheet>("Input");
+        if (InputStyleSheet == null)
+            Debug.LogError("Input.uss wurde nicht im Resources-Ordner gefunden!");
+        
         _popupRoot = new VisualElement { name = "popup-root" };
         _popupRoot.AddToClassList("popup-root");
         _popupRoot.style.display = DisplayStyle.None;
@@ -55,29 +56,30 @@ public class PopUpManagerGeneral : MonoBehaviour
         container.AddToClassList("popup-container");
         _popupRoot.Add(container);
 
-        _titleLabel = new Label { name = "popup-title" };
-        _titleLabel.AddToClassList("popup-title");
+        _titleLabel = new Label();
+        _titleLabel.AddToClassList("text-large");
         container.Add(_titleLabel);
 
-        _messageContainer = new Label { name = "popup-message" };
-        _messageContainer.AddToClassList("popup-message");
+        _messageContainer = new Label();
+        _messageContainer.AddToClassList("text-medium");
         container.Add(_messageContainer);
 
-        var buttonContainer = new VisualElement { name = "popup-button-container" };
+        var buttonContainer = new VisualElement();
         buttonContainer.AddToClassList("button-select");
         container.Add(buttonContainer);
 
-        _okButton = new Button { name = "popup-ok" };
+        _okButton = new Button();
         _okButton.AddToClassList("button");
         buttonContainer.Add(_okButton);
 
-        _cancelButton = new Button { name = "popup-cancel" };
+        _cancelButton = new Button();
         _cancelButton.AddToClassList("button");
         _cancelButton.style.display = DisplayStyle.None;
         buttonContainer.Add(_cancelButton);
 
         if (styleSheet != null)
             _popupRoot.styleSheets.Add(styleSheet);
+            _popupRoot.styleSheets.Add(InputStyleSheet);
 
         _uiRoot.Add(_popupRoot);
     }
@@ -202,6 +204,8 @@ public class PopUpManagerGeneral : MonoBehaviour
         _okButton.text = "Ja";
         _okButton.clicked -= OnYesPressed;
         _okButton.clicked += OnYesPressed;
+        _okButton.SetEnabled(true);
+
 
         _cancelButton.text = "Nein";
         _cancelButton.style.display = DisplayStyle.Flex;

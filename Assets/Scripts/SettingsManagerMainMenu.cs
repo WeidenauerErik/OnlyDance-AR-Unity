@@ -43,7 +43,7 @@ public class SettingsManagerMainMenu : MonoBehaviour
 
         var data = DataManagerGeneral.LoadData();
         var emailLabel = new Label { text = data.email };
-        emailLabel.AddToClassList("settings-emailLabel");
+        emailLabel.AddToClassList("text-medium");
 
         var emailContainer = new VisualElement();
         emailContainer.AddToClassList("settings-emailContainer");

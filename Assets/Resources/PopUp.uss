@@ -21,25 +21,3 @@
     justify-content: center;
     display: flex;
 }
-
-.popup-title {
-    white-space: normal;
-    font-size: 17px;
-    margin-bottom: 10px;
-}
-
-.popup-message {
-    white-space: normal;
-    width: 100%;
-    font-size: 14px;
-    -unity-text-align: middle-center;
-}
-
-.error-label {
-    white-space: normal;
-    color: red;
-    font-size: 12px;
-    margin-top: 3px;
-    width: 100%;
-    -unity-text-align: middle-center;
-}

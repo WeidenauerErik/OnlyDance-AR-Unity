@@ -7,10 +7,6 @@
     align-items: center;
     justify-content: center;
 }
-.settings-emailLabel {
-    font-size: 15px;
-    color: var(--color-violet-2);
-}
 
 .settings-container {
     margin-top: 10px;

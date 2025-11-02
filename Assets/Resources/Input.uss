@@ -1,0 +1,18 @@
+.input {
+    width: 100%;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.input > .unity-text-field__input {
+    font-size: 9px;
+    padding: 10px;
+    border-radius: 10px;
+    border-width: 0;
+    background-color: var(--color-white-1);
+}
+
+.input > .unity-text-field__input:focus {
+    border-color: var(--color-violet-2);
+}

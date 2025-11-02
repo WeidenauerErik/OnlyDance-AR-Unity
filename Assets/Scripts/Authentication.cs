@@ -81,7 +81,7 @@ public class Authentication : MonoBehaviour
         loginBox.AddToClassList("auth-box");
 
         var loginTitle = new Label("Login");
-        loginTitle.AddToClassList("auth-title");
+        loginTitle.AddToClassList("text-large");
 
         var loginEmailField = new TextField { label = "E-Mail" };
         loginEmailField.AddToClassList("input");
@@ -156,7 +156,7 @@ public class Authentication : MonoBehaviour
         registerBox.AddToClassList("auth-box");
 
         var registerTitle = new Label("Register");
-        registerTitle.AddToClassList("auth-title");
+        registerTitle.AddToClassList("text-large");
 
         var registerEmailField = new TextField { label = "E-Mail" };
         registerEmailField.AddToClassList("input");
