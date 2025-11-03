@@ -49,10 +49,6 @@ public class DanceManagerMainMenu : MonoBehaviour
                 return;
             }
 
-            var tmpLoadingLabel = new Label("Loading ...");
-            tmpLoadingLabel.AddToClassList("loadingLabel");
-            mainView.Add(tmpLoadingLabel);
-
             try
             {
                 var url = $"{PlayerPrefs.GetString("url")}/getFiveDances";
