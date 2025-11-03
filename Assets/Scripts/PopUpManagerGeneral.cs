@@ -60,8 +60,7 @@ public class PopUpManagerGeneral : MonoBehaviour
         _titleLabel.AddToClassList("text-large");
         container.Add(_titleLabel);
 
-        _messageContainer = new Label();
-        _messageContainer.AddToClassList("text-medium");
+        _messageContainer = new VisualElement();
         container.Add(_messageContainer);
 
         var buttonContainer = new VisualElement();
@@ -182,7 +181,11 @@ public class PopUpManagerGeneral : MonoBehaviour
         ClearCallbacks();
         _titleLabel.text = title;
         _messageContainer.Clear();
-        _messageContainer.Add(new Label(message));
+
+        var messageLabel = new Label(message);
+        messageLabel.AddToClassList("text-medium");
+        
+        _messageContainer.Add(messageLabel);
         _okButton.text = "OK";
         _okButton.clicked -= HidePopup;
         _okButton.clicked += HidePopup;
@@ -196,7 +199,11 @@ public class PopUpManagerGeneral : MonoBehaviour
         ClearCallbacks();
         _titleLabel.text = title;
         _messageContainer.Clear();
-        _messageContainer.Add(new Label(message));
+        
+        var messageLabel = new Label(message);
+        messageLabel.AddToClassList("text-medium");
+        
+        _messageContainer.Add(messageLabel);
 
         _onYesCallback = onYes;
         _onNoCallback = onNo;

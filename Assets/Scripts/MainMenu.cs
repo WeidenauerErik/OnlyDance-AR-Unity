@@ -26,9 +26,7 @@ public class MainMenu : MonoBehaviour
 
         LoadingSpinnerGeneral.Initialize(root);
         PopUpManagerGeneral.Initialize();
-        
-        PopUpManagerGeneral.ShowInfo("äaosjdf","asölfdj");
-        
+     
         _mainContent = root.Q<VisualElement>("mainContent");
 
         _myDancesBtn = root.Q<Button>("myDancesBtn");

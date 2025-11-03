@@ -2,16 +2,20 @@
     font-size: 22px;
     white-space: normal;
     margin-bottom: 5px;
+    -unity-text-align: middle-center;
+    width: 100%;
 } 
 
 .text-medium {
     font-size: 14px;
     white-space: normal;
+    width: 100%;
 }
 
 .text-small {
     font-size: 8px;
     white-space: normal;
+    width: 100%;
 }
 
 .switch-link {
