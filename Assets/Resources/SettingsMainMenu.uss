@@ -11,3 +11,7 @@
 .settings-container {
     margin-top: 10px;
 }
+
+.email-label {
+    -unity-text-align: middle-center;
+}
