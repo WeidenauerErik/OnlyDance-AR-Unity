@@ -10,11 +10,9 @@
     background-color: var(--color-violet-2);
     color: white;
     border-radius: 10px;
-    height: 45px;
     font-size: 13px;
     border-width: 0;
     width: 100%;
-    padding: 2px;
 }
 
 .button-select > .button {
@@ -27,5 +25,5 @@
 
 .button:disabled {
     color: var(--color-violet-2);
-    background-color: var(--color-white-1);
+    background-color: var(--color-violet-1);
 }

@@ -8,7 +8,7 @@ public class PopUpManagerGeneral : MonoBehaviour
 
     private VisualElement _popupRoot;
     private Label _titleLabel;
-    private VisualElement _messageContainer;
+    private VisualElement _popupInnerContainer;
     private Button _okButton;
     private Button _cancelButton;
 
@@ -60,8 +60,9 @@ public class PopUpManagerGeneral : MonoBehaviour
         _titleLabel.AddToClassList("text-large");
         container.Add(_titleLabel);
 
-        _messageContainer = new VisualElement();
-        container.Add(_messageContainer);
+        _popupInnerContainer = new VisualElement();
+        _popupInnerContainer.AddToClassList("popup-inner-container");
+        container.Add(_popupInnerContainer);
 
         var buttonContainer = new VisualElement();
         buttonContainer.AddToClassList("button-select");
@@ -134,14 +135,14 @@ public class PopUpManagerGeneral : MonoBehaviour
     {
         ClearCallbacks();
         _titleLabel.text = "Konto löschen";
-        _messageContainer.Clear();
+        _popupInnerContainer.Clear();
 
         var password = CreatePasswordField("Passwort");
         var errorLabel = new Label();
         errorLabel.AddToClassList("error-label");
 
-        _messageContainer.Add(password);
-        _messageContainer.Add(errorLabel);
+        _popupInnerContainer.Add(password);
+        _popupInnerContainer.Add(errorLabel);
 
         _okButton.text = "Löschen";
         _okButton.SetEnabled(false);
@@ -180,12 +181,12 @@ public class PopUpManagerGeneral : MonoBehaviour
     {
         ClearCallbacks();
         _titleLabel.text = title;
-        _messageContainer.Clear();
+        _popupInnerContainer.Clear();
 
         var messageLabel = new Label(message);
         messageLabel.AddToClassList("text-medium");
         
-        _messageContainer.Add(messageLabel);
+        _popupInnerContainer.Add(messageLabel);
         _okButton.text = "OK";
         _okButton.clicked -= HidePopup;
         _okButton.clicked += HidePopup;
@@ -198,12 +199,12 @@ public class PopUpManagerGeneral : MonoBehaviour
     {
         ClearCallbacks();
         _titleLabel.text = title;
-        _messageContainer.Clear();
+        _popupInnerContainer.Clear();
         
         var messageLabel = new Label(message);
         messageLabel.AddToClassList("text-medium");
         
-        _messageContainer.Add(messageLabel);
+        _popupInnerContainer.Add(messageLabel);
 
         _onYesCallback = onYes;
         _onNoCallback = onNo;
@@ -226,18 +227,18 @@ public class PopUpManagerGeneral : MonoBehaviour
     {
         ClearCallbacks();
         _titleLabel.text = "Passwort ändern";
-        _messageContainer.Clear();
+        _popupInnerContainer.Clear();
 
         var oldPw = CreatePasswordField("Altes Passwort");
         var newPw = CreatePasswordField("Neues Passwort");
-        var confirmPw = CreatePasswordField("Neues Passwort bestätigen");
+        var confirmPw = CreatePasswordField("Neues Passwort");
         var errorLabel = new Label();
         errorLabel.AddToClassList("error-label");
 
-        _messageContainer.Add(oldPw);
-        _messageContainer.Add(newPw);
-        _messageContainer.Add(confirmPw);
-        _messageContainer.Add(errorLabel);
+        _popupInnerContainer.Add(oldPw);
+        _popupInnerContainer.Add(newPw);
+        _popupInnerContainer.Add(confirmPw);
+        _popupInnerContainer.Add(errorLabel);
 
         _okButton.text = "Ändern";
         _okButton.SetEnabled(false);
@@ -288,7 +289,8 @@ public class PopUpManagerGeneral : MonoBehaviour
 
     private static TextField CreatePasswordField(string label)
     {
-        var field = new TextField(label) { isPasswordField = true };
+        var field = new TextField { isPasswordField = true };
+        field.textEdition.placeholder = label;
         field.AddToClassList("input");
         return field;
     }

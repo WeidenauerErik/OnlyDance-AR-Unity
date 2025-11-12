@@ -29,13 +29,13 @@ public class Authentication : MonoBehaviour
     void Start()
     {
         PlayerPrefs.SetString("url", "https://onlydance.at/api");
-        
+
         var uiDoc = FindObjectOfType<UIDocument>();
         _container = uiDoc.rootVisualElement.Q<VisualElement>("mainContainer");
-        
+
         PopUpManagerGeneral.Initialize();
         LoadingSpinnerGeneral.Initialize(_container);
-        
+
         var data = DataManagerGeneral.LoadDataAuthentication();
         if (data == null || string.IsNullOrEmpty(data.email) || string.IsNullOrEmpty(data.password))
         {
@@ -49,7 +49,6 @@ public class Authentication : MonoBehaviour
         }
     }
 
-    // ReSharper disable Unity.PerformanceAnalysis
     private IEnumerator CheckUserData(string email, string password)
     {
         var url = $"{PlayerPrefs.GetString("url")}/checkUser";
@@ -71,8 +70,7 @@ public class Authentication : MonoBehaviour
             SceneManager.LoadScene("Authentication");
         }
     }
-
-
+    
     private void LoadLoginForm()
     {
         _container.Clear();
@@ -80,13 +78,18 @@ public class Authentication : MonoBehaviour
         var loginBox = new VisualElement();
         loginBox.AddToClassList("auth-box");
 
+        var logoImage = new VisualElement();
+        logoImage.AddToClassList("logo-image");
+
         var loginTitle = new Label("Login");
         loginTitle.AddToClassList("text-large");
 
-        var loginEmailField = new TextField { label = "E-Mail" };
+        var loginEmailField = new TextField();
+        loginEmailField.textEdition.placeholder = "E-Mail";
         loginEmailField.AddToClassList("input");
 
-        var loginPasswordField = new TextField { label = "Passwort", isPasswordField = true };
+        var loginPasswordField = new TextField { isPasswordField = true };
+        loginPasswordField.textEdition.placeholder = "Passwort";
         loginPasswordField.AddToClassList("input");
 
         _loginErrorLabel = new Label();
@@ -96,26 +99,29 @@ public class Authentication : MonoBehaviour
         loginButton.AddToClassList("button");
         loginButton.SetEnabled(false);
 
-        void ValidateLogin()
+        bool emailTouched = false;
+        bool passwordTouched = false;
+
+        void ValidateLogin(bool force = false)
         {
             var email = loginEmailField.value?.Trim();
             var password = loginPasswordField.value?.Trim();
 
-            if (string.IsNullOrEmpty(email))
+            if ((emailTouched || force) && string.IsNullOrEmpty(email))
             {
                 _loginErrorLabel.text = "E-Mail Eingabefeld ist leer!";
                 loginButton.SetEnabled(false);
                 return;
             }
 
-            if (!Regex.IsMatch(email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+            if ((emailTouched || force) && !Regex.IsMatch(email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
             {
                 _loginErrorLabel.text = "Ungültiges E-Mail-Format!";
                 loginButton.SetEnabled(false);
                 return;
             }
 
-            if (string.IsNullOrEmpty(password))
+            if ((passwordTouched || force) && string.IsNullOrEmpty(password))
             {
                 _loginErrorLabel.text = "Passwort Eingabefeld ist leer!";
                 loginButton.SetEnabled(false);
@@ -123,31 +129,57 @@ public class Authentication : MonoBehaviour
             }
 
             _loginErrorLabel.text = "";
-            loginButton.SetEnabled(true);
+            loginButton.SetEnabled(!string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(password));
         }
+        
+        loginEmailField.RegisterCallback<FocusOutEvent>(evt =>
+        {
+            emailTouched = true;
+            ValidateLogin();
+        });
 
+        loginPasswordField.RegisterCallback<FocusOutEvent>(evt =>
+        {
+            passwordTouched = true;
+            ValidateLogin();
+        });
+        
         loginEmailField.RegisterValueChangedCallback(evt => ValidateLogin());
         loginPasswordField.RegisterValueChangedCallback(evt => ValidateLogin());
-
+        
         loginButton.clicked += () =>
         {
-            StartCoroutine(LoginUser(loginEmailField.value.Trim(), loginPasswordField.value.Trim()));
+            ValidateLogin(force: true);
+            if (string.IsNullOrEmpty(_loginErrorLabel.text))
+            {
+                StartCoroutine(LoginUser(loginEmailField.value.Trim(), loginPasswordField.value.Trim()));
+            }
         };
 
-        var loginRegisterLink = new Button { text = "Noch keinen Account?" };
-        loginRegisterLink.AddToClassList("switch-link");
-        loginRegisterLink.clicked += LoadRegisterForm;
+        var switchContainer = new VisualElement();
+        switchContainer.AddToClassList("switch-container");
+
+        var switchLabel = new Label("Noch keinen Account?");
+        switchLabel.AddToClassList("text-medium-grey");
+
+        var loginLink = new Button(() => LoadRegisterForm())
+        {
+            text = " Registrieren"
+        };
+        loginLink.AddToClassList("switch-link");
 
         loginBox.Add(loginTitle);
         loginBox.Add(loginEmailField);
         loginBox.Add(loginPasswordField);
         loginBox.Add(_loginErrorLabel);
         loginBox.Add(loginButton);
-        loginBox.Add(loginRegisterLink);
+        switchContainer.Add(switchLabel);
+        switchContainer.Add(loginLink);
+        loginBox.Add(switchContainer);
 
         _container.Add(loginBox);
     }
-
+    
     private void LoadRegisterForm()
     {
         _container.Clear();
@@ -158,13 +190,16 @@ public class Authentication : MonoBehaviour
         var registerTitle = new Label("Register");
         registerTitle.AddToClassList("text-large");
 
-        var registerEmailField = new TextField { label = "E-Mail" };
+        var registerEmailField = new TextField();
+        registerEmailField.textEdition.placeholder = "E-Mail";
         registerEmailField.AddToClassList("input");
 
-        var registerPasswordField = new TextField { label = "Passwort", isPasswordField = true };
+        var registerPasswordField = new TextField { isPasswordField = true };
+        registerPasswordField.textEdition.placeholder = "Passwort";
         registerPasswordField.AddToClassList("input");
 
-        var registerConfirmPasswordField = new TextField { label = "Passwort wiederholen", isPasswordField = true };
+        var registerConfirmPasswordField = new TextField { isPasswordField = true };
+        registerConfirmPasswordField.textEdition.placeholder = "Passwort wiederholen";
         registerConfirmPasswordField.AddToClassList("input");
 
         _registerErrorLabel = new Label();
@@ -174,41 +209,45 @@ public class Authentication : MonoBehaviour
         registerButton.AddToClassList("button");
         registerButton.SetEnabled(false);
 
-        void ValidateRegister()
+        bool emailTouched = false;
+        bool passwordTouched = false;
+        bool confirmTouched = false;
+
+        void ValidateRegister(bool force = false)
         {
             var email = registerEmailField.value?.Trim();
             var password = registerPasswordField.value?.Trim();
             var confirm = registerConfirmPasswordField.value?.Trim();
 
-            if (string.IsNullOrEmpty(email))
+            if ((emailTouched || force) && string.IsNullOrEmpty(email))
             {
                 _registerErrorLabel.text = "E-Mail Eingabefeld ist leer!";
                 registerButton.SetEnabled(false);
                 return;
             }
 
-            if (!Regex.IsMatch(email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+            if ((emailTouched || force) && !Regex.IsMatch(email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
             {
                 _registerErrorLabel.text = "Ungültiges E-Mail-Format!";
                 registerButton.SetEnabled(false);
                 return;
             }
 
-            if (string.IsNullOrEmpty(password))
+            if ((passwordTouched || force) && string.IsNullOrEmpty(password))
             {
                 _registerErrorLabel.text = "Passwort Eingabefeld ist leer!";
                 registerButton.SetEnabled(false);
                 return;
             }
 
-            if (password.Length < 6)
+            if ((passwordTouched || force) && password.Length < 6)
             {
                 _registerErrorLabel.text = "Passwort muss mindestens 6 Zeichen lang sein!";
                 registerButton.SetEnabled(false);
                 return;
             }
 
-            if (password != confirm)
+            if ((confirmTouched || force) && password != confirm)
             {
                 _registerErrorLabel.text = "Passwörter stimmen nicht überein!";
                 registerButton.SetEnabled(false);
@@ -216,21 +255,53 @@ public class Authentication : MonoBehaviour
             }
 
             _registerErrorLabel.text = "";
-            registerButton.SetEnabled(true);
+            registerButton.SetEnabled(!string.IsNullOrEmpty(email) && 
+                                      !string.IsNullOrEmpty(password) && 
+                                      password == confirm);
         }
+        
+        registerEmailField.RegisterCallback<FocusOutEvent>(evt =>
+        {
+            emailTouched = true;
+            ValidateRegister();
+        });
 
+        registerPasswordField.RegisterCallback<FocusOutEvent>(evt =>
+        {
+            passwordTouched = true;
+            ValidateRegister();
+        });
+
+        registerConfirmPasswordField.RegisterCallback<FocusOutEvent>(evt =>
+        {
+            confirmTouched = true;
+            ValidateRegister();
+        });
+        
         registerEmailField.RegisterValueChangedCallback(evt => ValidateRegister());
         registerPasswordField.RegisterValueChangedCallback(evt => ValidateRegister());
         registerConfirmPasswordField.RegisterValueChangedCallback(evt => ValidateRegister());
 
         registerButton.clicked += () =>
         {
-            StartCoroutine(RegisterUser(registerEmailField.value.Trim(), registerPasswordField.value.Trim()));
+            ValidateRegister(force: true);
+            if (string.IsNullOrEmpty(_registerErrorLabel.text))
+            {
+                StartCoroutine(RegisterUser(registerEmailField.value.Trim(), registerPasswordField.value.Trim()));
+            }
         };
 
-        var registerLoginLink = new Button { text = "Bereits einen Account?" };
-        registerLoginLink.AddToClassList("switch-link");
-        registerLoginLink.clicked += LoadLoginForm;
+        var switchContainer = new VisualElement();
+        switchContainer.AddToClassList("switch-container");
+
+        var switchLabel = new Label("Bereits einen Account?");
+        switchLabel.AddToClassList("text-medium-grey");
+
+        var loginLink = new Button(() => LoadLoginForm())
+        {
+            text = " Anmelden"
+        };
+        loginLink.AddToClassList("switch-link");
 
         registerBox.Add(registerTitle);
         registerBox.Add(registerEmailField);
@@ -238,12 +309,13 @@ public class Authentication : MonoBehaviour
         registerBox.Add(registerConfirmPasswordField);
         registerBox.Add(_registerErrorLabel);
         registerBox.Add(registerButton);
-        registerBox.Add(registerLoginLink);
+        switchContainer.Add(switchLabel);
+        switchContainer.Add(loginLink);
+        registerBox.Add(switchContainer);
 
         _container.Add(registerBox);
     }
 
-    // ReSharper disable Unity.PerformanceAnalysis
     private IEnumerator LoginUser(string email, string password)
     {
         LoadingSpinnerGeneral.Show();
@@ -265,7 +337,6 @@ public class Authentication : MonoBehaviour
         }
 
         var response = JsonUtility.FromJson<Response>(request.downloadHandler.text);
-
         if (response.success)
         {
             DataManagerGeneral.SaveData(email, response.password);
@@ -274,7 +345,6 @@ public class Authentication : MonoBehaviour
         else _loginErrorLabel.text = response.error ?? "Login fehlgeschlagen!";
     }
 
-    // ReSharper disable Unity.PerformanceAnalysis
     private IEnumerator RegisterUser(string email, string password)
     {
         LoadingSpinnerGeneral.Show();
@@ -282,13 +352,14 @@ public class Authentication : MonoBehaviour
         var postData = new AuthRequestAuthentication(email, password);
         var jsonData = JsonUtility.ToJson(postData);
 
-        using UnityWebRequest request = new UnityWebRequest(url, "POST");
+        using var request = new UnityWebRequest(url, "POST");
         request.uploadHandler = new UploadHandlerRaw(System.Text.Encoding.UTF8.GetBytes(jsonData));
         request.downloadHandler = new DownloadHandlerBuffer();
         request.SetRequestHeader("Content-Type", "application/json");
 
         yield return request.SendWebRequest();
         LoadingSpinnerGeneral.Hide();
+
         if (request.result == UnityWebRequest.Result.ConnectionError)
         {
             _registerErrorLabel.text = request.error;
@@ -296,7 +367,6 @@ public class Authentication : MonoBehaviour
         }
 
         var response = JsonUtility.FromJson<Response>(request.downloadHandler.text);
-
         if (response.success)
         {
             DataManagerGeneral.SaveData(email, response.password);

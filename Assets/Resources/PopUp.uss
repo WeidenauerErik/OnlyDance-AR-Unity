@@ -11,7 +11,7 @@
 }
 
 .popup-container {
-    background-color: var(--color-violet-1);
+    background-color: var(--color-white-1);
     padding: 20px;
     border-radius: 10px;
     width: 300px;
@@ -20,4 +20,8 @@
     align-items: center;
     justify-content: center;
     display: flex;
+}
+
+.popup-inner-container {
+    width: 100%;
 }

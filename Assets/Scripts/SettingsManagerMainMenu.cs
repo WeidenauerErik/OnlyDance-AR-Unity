@@ -39,7 +39,7 @@ public class SettingsManagerMainMenu : MonoBehaviour
     public static void SetSettingsIntoView(VisualElement mainView, MonoBehaviour coroutineOwner)
     {
         mainView.Clear();
-        mainView.Add(MainMenu.CreateHeading("Settings"));
+        mainView.Add(MainMenu.CreateHeading("Einstellungen"));
 
         var data = DataManagerGeneral.LoadData();
         var emailLabel = new Label { text = data.email };

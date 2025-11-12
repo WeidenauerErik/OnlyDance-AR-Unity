@@ -7,9 +7,15 @@
 } 
 
 .text-medium {
-    font-size: 14px;
+    font-size: 13px;
     white-space: normal;
-    width: 100%;
+}
+
+.text-medium-grey {
+    font-size: 13px;
+    color: var(--color-grey-1);
+    padding: 0;
+    margin: 0;
 }
 
 .text-small {
@@ -19,9 +25,11 @@
 }
 
 .switch-link {
+    width: auto;
     background-color: transparent;
     color: var(--color-violet-2);
-    font-size: 12px;
+    font-size: 13px;
     border-width: 0;
-    margin-top: 15px;
+    padding: 0;
+    margin: 0;
 }

@@ -22,9 +22,12 @@ unity-panel,
     align-items: center;
     justify-content: center;
     width: 80%;
-    min-height: 70%;
-    background-color: var(--color-violet-1);
-    border-radius: 15px;
-    padding: 20px;
     margin: auto;
+}
+
+.switch-container {
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    margin-top: 15px;
 }

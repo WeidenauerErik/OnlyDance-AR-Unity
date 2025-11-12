@@ -1,9 +1,13 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
+using UnityEngine.XR.ARFoundation;
+using UnityEngine.XR.ARSubsystems;
+
 
 
 [Serializable]
@@ -53,6 +57,9 @@ public class DanceController : MonoBehaviour
 
     [SerializeField] private Material activeMaterial;
     [SerializeField] private Material inactiveMaterial;
+    
+    [SerializeField] private ARRaycastManager raycastManager;
+    private List<ARRaycastHit> _hits = new List<ARRaycastHit>();
 
     private GameObject _leftFootInstance;
     private GameObject _rightFootInstance;
@@ -203,14 +210,24 @@ public class DanceController : MonoBehaviour
         _spawnBtn.style.display = DisplayStyle.None;
         _danceController.style.display = DisplayStyle.Flex;
 
-        var spawnPosition = Vector3.zero;
-        _currentStepIndex = 0;
+        Vector3 spawnPosition = Vector3.zero;
 
-        _leftFootInstance =
-            Instantiate(leftFootPrefab, spawnPosition + new Vector3(-0.2f, 0, 0), Quaternion.identity);
-        _rightFootInstance =
-            Instantiate(rightFootPrefab, spawnPosition + new Vector3(0.2f, 0, 0), Quaternion.identity);
+        // 🎯 Versuche, die Fläche direkt unter der Kamera zu treffen:
+        var screenCenter = new Vector2(Screen.width / 2, Screen.height / 2);
+        if (raycastManager.Raycast(screenCenter, _hits, TrackableType.PlaneWithinPolygon))
+        {
+            Pose hitPose = _hits[0].pose;
+            spawnPosition = hitPose.position;
+        }
+        else
+        {
+            Debug.LogWarning("Keine AR-Fläche unter der Kamera gefunden! Verwende (0,0,0) als Fallback.");
+        }
 
+        _leftFootInstance = Instantiate(leftFootPrefab, spawnPosition + new Vector3(-0.2f, 0, 0), Quaternion.identity);
+        _rightFootInstance = Instantiate(rightFootPrefab, spawnPosition + new Vector3(0.2f, 0, 0), Quaternion.identity);
+
+        // Rest wie gehabt...
         _leftFootHeelRenderer = _leftFootInstance.transform.Find("leftheel").GetComponent<Renderer>();
         _leftFootToeRenderer = _leftFootInstance.transform.Find("lefttoe").GetComponent<Renderer>();
         _rightFootHeelRenderer = _rightFootInstance.transform.Find("rightheel").GetComponent<Renderer>();

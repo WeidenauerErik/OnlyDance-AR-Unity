@@ -1,7 +1,6 @@
 .settings-emailContainer {
     background-color: var(--color-violet-1);
     border-radius: 10px;
-    height: 45px;
     width: 100%;
     display: flex;
     align-items: center;
@@ -14,4 +13,7 @@
 
 .email-label {
     -unity-text-align: middle-center;
+    font-size: 13px;
+    width: 100%;
+    padding: 10px;
 }

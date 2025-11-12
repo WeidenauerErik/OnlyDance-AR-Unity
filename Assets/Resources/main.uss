@@ -1,6 +1,6 @@
 :root {
-    --color-white-1: rgb(236, 233, 238);
-
+    --color-white-1: #f8f4fa;
+    --color-grey-1: rgb(176, 170, 181);
     --color-violet-1: rgb(215, 194, 223);
     --color-violet-2: rgb(48, 0, 73);
     --color-violet-3: rgb(67, 36, 87);
@@ -8,9 +8,9 @@
 
 .error-label {
     white-space: normal;
-    color: red;
+    color: #e53935;
     font-size: 12px;
     margin-top: 3px;
-    width: 80%;
+    width: 100%;
     -unity-text-align: middle-center;
 }

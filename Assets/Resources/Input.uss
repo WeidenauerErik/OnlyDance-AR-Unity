@@ -1,18 +1,32 @@
 .input {
     width: 100%;
-    margin-bottom: 10px;
+    margin-top: 15px;
     display: flex;
     flex-direction: column;
-}
-
-.input > .unity-text-field__input {
-    font-size: 9px;
-    padding: 10px;
-    border-radius: 10px;
     border-width: 0;
-    background-color: var(--color-white-1);
 }
 
+/* Eingabefeld */
+.input > .unity-text-field__input {
+    font-size: 14px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    border-width: 0;
+    background-color: white;
+    color: var(--color-grey-1);
+    transition: all 0.2s ease;
+    outline: none;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+/* Fokus-Zustand */
 .input > .unity-text-field__input:focus {
-    border-color: var(--color-violet-2);
+    border-color: #b58be7; /* helles Lila beim Fokus */
+    box-shadow: 0 0 6px rgba(181, 139, 231, 0.4);
+}
+
+/* Platzhalter-Text */
+.input > .unity-text-field__input::placeholder {
+    color: #b6a9c9; /* dezentes hellviolett */
+    font-size: 13px;
 }
