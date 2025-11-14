@@ -23,10 +23,7 @@ public class DanceManagerMainMenu : MonoBehaviour
 {
     public static void SetMyDancesIntoView(VisualElement mainView)
     {
-        var myDanceList = new List<Dance>
-        {
-            new Dance { id = 1, name = "Weidi Cha Cha" }
-        };
+        var myDanceList = DanceDataManager.GetAllDances();
 
         mainView.Clear();
 
@@ -41,10 +38,12 @@ public class DanceManagerMainMenu : MonoBehaviour
         importButton.RemoveFromClassList("unity-button");
         importButton.clicked += () =>
         {
-            PopUpManagerGeneral.ShowJsonImport(json =>
-            {
-                Debug.Log(json);
-            });
+			PopUpManagerGeneral.ResetInstance();
+			PopUpManagerGeneral.Initialize(); 
+            PopUpManagerGeneral.ShowJsonImport(json => {
+				Debug.Log(json);
+				SetMyDancesIntoView(mainView);
+			});
         };
         headingContainer.Add(importButton);
         

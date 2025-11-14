@@ -40,7 +40,7 @@ public class DanceCollection
 public static class DanceDataManager
 {
     private static readonly string FilePath = Path.Combine(Application.persistentDataPath, "dances.onlydance");
-    
+
     private static DanceCollection LoadCollection()
     {
         if (!File.Exists(FilePath))
@@ -58,7 +58,7 @@ public static class DanceDataManager
             return new DanceCollection();
         }
     }
-    
+
     private static void SaveCollection(DanceCollection collection)
     {
         try
@@ -72,47 +72,53 @@ public static class DanceDataManager
             PopUpManagerGeneral.ShowInfo("Fehler!", "Tänze konnten nicht gespeichert werden.");
         }
     }
-    
+
     public static void SaveDance(DanceData dance)
     {
+        Debug.Log(dance.id);
         var collection = LoadCollection();
-        
-        if (dance.id <= 0)
+        Debug.Log(collection.dances);
+
+        int index = collection.dances.FindIndex(d => d.id == dance.id);
+        if (index >= 0)
         {
-            dance.id = collection.dances.Count > 0 ? collection.dances[^1].id + 1 : 1;
+            collection.dances[index] = dance;
         }
         else
         {
-            int index = collection.dances.FindIndex(d => d.id == dance.id);
-            if (index >= 0)
-            {
-                collection.dances[index] = dance;
-                SaveCollection(collection);
-                return;
-            }
+            if (dance.id <= 0)
+                dance.id = collection.dances.Count > 0 ? collection.dances[^1].id + 1 : 1;
+
+            collection.dances.Add(dance);
         }
 
-        collection.dances.Add(dance);
         SaveCollection(collection);
     }
-    
+
+
     public static DanceData LoadDance(int id)
     {
         var collection = LoadCollection();
         return collection.dances.Find(d => d.id == id);
     }
     
-    public static List<(int id, string name)> GetAllDanceNames()
+    public static List<Dance> GetAllDances()
     {
         var collection = LoadCollection();
-        var result = new List<(int, string)>();
+        var result = new List<Dance>();
+
         foreach (var dance in collection.dances)
         {
-            result.Add((dance.id, dance.name));
+            result.Add(new Dance
+            {
+                id = dance.id,
+                name = dance.name
+            });
         }
+
         return result;
     }
-    
+
     public static void DeleteDance(int id)
     {
         var collection = LoadCollection();
@@ -121,6 +127,17 @@ public static class DanceDataManager
         {
             collection.dances.RemoveAt(index);
             SaveCollection(collection);
+        }
+    }
+    public static void DeleteAllDances()
+    {
+        try
+        {
+            if (File.Exists(FilePath)) File.Delete(FilePath);
+        }
+        catch
+        {
+            PopUpManagerGeneral.ShowInfo("Fehler!", "Daten konnten nicht gelöscht werden.");
         }
     }
 }

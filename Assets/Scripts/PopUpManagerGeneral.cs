@@ -5,32 +5,6 @@ using System.Collections.Generic;
 
 public class PopUpManagerGeneral : MonoBehaviour
 {
-	[Serializable]
-public class DanceStep
-{
-    public int id;
-
-    public float m1_x;
-    public float m1_y;
-    public bool m1_toe;
-    public bool m1_heel;
-    public float m1_rotate;
-
-    public float m2_x;
-    public float m2_y;
-    public bool m2_toe;
-    public bool m2_heel;
-    public float m2_rotate;
-}
-
-[Serializable]
-public class DanceData
-{
-    public string name;
-    public int BPM;
-    public List<DanceStep> data;
-}
-
     private static PopUpManagerGeneral _instance;
 
     private VisualElement _popupRoot;
@@ -343,13 +317,17 @@ public class DanceData
 
     _okButton.text = "Importieren";
     _okButton.SetEnabled(false);
-    _okButton.clicked -= HidePopup;
-    _okButton.clicked += () =>
+    
+    _okButton.clicked -= OnImportClicked;
+    _okButton.clicked += OnImportClicked;
+    
+    void OnImportClicked()
     {
-        onSubmit?.Invoke(jsonField.value);
+        var tempDance = JsonUtility.FromJson<DanceData>(jsonField.value);
+        DanceDataManager.SaveDance(tempDance);
         HidePopup();
-    };
-
+    }
+    
     _cancelButton.text = "Abbrechen";
     _cancelButton.style.display = DisplayStyle.Flex;
     _cancelButton.clicked -= HidePopup;
@@ -453,7 +431,6 @@ public class DanceData
         _okButton.SetEnabled(true);
     }
 });
-
 
     _popupRoot.style.display = DisplayStyle.Flex;
 }

@@ -21,6 +21,7 @@ public class MainMenu : MonoBehaviour
     [Obsolete("Obsolete")]
     void Start()
     {
+		DanceDataManager.DeleteAllDances();
         var uiDoc = FindObjectOfType<UIDocument>();
         var root = uiDoc.rootVisualElement;
 
