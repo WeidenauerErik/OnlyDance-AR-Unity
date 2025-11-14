@@ -1,62 +1,65 @@
 # OnlyDance AR Unity
 
-OnlyDance AR ist eine Augmented-Reality-Anwendung, die Nutzer*innen ermöglicht, Tanzschritte auf intuitive und immersive Weise zu erlernen.  
-Die App wurde vollständig mit **Unity** entwickelt und nutzt moderne AR-Frameworks(AR Foundation, ARCore, ARKit) sowie das **Unity UI Toolkit** für ein sauberes, leichtes Interface.
+OnlyDance AR is an augmented reality application that allows users to learn dance steps in an intuitive and immersive way.  
+The app was fully developed with **Unity** and uses modern AR frameworks (**AR Foundation**, **ARCore**, **ARKit**) as well as the **Unity UI Toolkit** for a clean and lightweight interface.
 
 ---
 
 ## 📱 Features
 
-### 🔹 AR-gestütztes Tanztraining
-- zwei Fußabdrücke am Boden zeigen die Schritte an
-- Durch einen UI-Controller kann man durch den Tanz iterieren
-- ein Musik- & Metronomplugin ist verfügbar
+### 🔹 AR-based Dance Training
+- Two footprints on the ground display the steps  
+- A UI controller allows users to iterate through the dance  
+- A music & metronome plugin is available
 
-### 🔹 Zwei Tanz-Modi
-- **Online Tänze**  
-  Von OnlyDance erstellte, klassische Choreografien  
-- **Meine Tänze**  
-  Nutzer*innen können eigene Moves und Choreos erstellen, bearbeiten und speichern
+### 🔹 Two Dance Modes
+- **Online Dances**  
+  Classic choreographies created by OnlyDance  
+- **My Dances**  
+  Users can create, edit, and save their own moves and choreographies
 
-### 🔹 Modernes UI (Unity UI Toolkit)
-- Klar strukturierte Panels, Animationen und visuelles Feedback  
-- Einheitliches UX-Design durch StyleSheets und UI Toolkit Komponenten
+### 🔹 Modern UI (Unity UI Toolkit)
+- Cleanly structured panels, animations, and visual feedback  
+- Consistent UX design using StyleSheets and UI Toolkit components
 
 ---
 
-## 🛠️ Technologien & Plugins
+## 🛠️ Technologies & Plugins
 
 ### Unity Version
-- Entwickelt mit **Unity 6**
+- Developed with **Unity 6**
 
 ### AR Plugins
-| Plugin | Beschreibung |
-|--------|--------------|
-| **AR Foundation** | Gemeinsame Schnittstelle für ARKit & ARCore |
-| **ARKit XR Plugin** | AR-Unterstützung für iOS |
-| **ARCore XR Plugin** | AR-Unterstützung für Android |
-| **UI Toolkit** | Modernes, flexibles UI-System in Unity |
+| Plugin | Description |
+|--------|-------------|
+| **AR Foundation** | Common interface for ARKit & ARCore |
+| **ARKit XR Plugin** | AR support for iOS |
+| **ARCore XR Plugin** | AR support for Android |
+| **UI Toolkit** | Modern and flexible UI system in Unity |
 
 ---
+
 ## 🚀 Deployment
 
-OnlyDance AR wurde entwickelt für:
+OnlyDance AR was developed for:
 
 - **iOS** (ARKit)  
 - **Android** (ARCore)
 
-Wichtig:
-- Kamera- und Tracking-Berechtigungen müssen aktiviert sein  
-- ARKit/ARCore-Unterstützung muss im Projekt aktiviert sein  
-
-
-## 📚 Voraussetzungen
-
-- Unity installiert  
-- AR Foundation + ARKit/ARCore Pakete importiert  
-- Kompatibles Gerät (iOS/Android)
+Important:
+- Camera and tracking permissions must be enabled  
+- ARKit/ARCore support must be activated in the project  
 
 ---
-## ✨ Autor
+
+## 📚 Requirements
+
+- Unity installed  
+- AR Foundation + ARKit/ARCore packages imported  
+- Compatible device (iOS/Android)
+
+---
+
+## ✨ Author
 
 **Erik Weidenauer**
