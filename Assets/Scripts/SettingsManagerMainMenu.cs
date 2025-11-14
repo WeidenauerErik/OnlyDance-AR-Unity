@@ -41,7 +41,7 @@ public class SettingsManagerMainMenu : MonoBehaviour
         mainView.Clear();
         mainView.Add(MainMenu.CreateHeading("Einstellungen"));
 
-        var data = DataManagerGeneral.LoadData();
+        var data = UserDataManager.LoadData();
         var emailLabel = new Label { text = data.email };
         emailLabel.AddToClassList("text-medium");
 		emailLabel.AddToClassList("email-label");
@@ -88,7 +88,7 @@ public class SettingsManagerMainMenu : MonoBehaviour
             PopUpManagerGeneral.ShowConfirm("Bist du dir sicher?", "", () =>
             {
                 Debug.Log("Logged out");
-                DataManagerGeneral.DeleteData();
+                UserDataManager.DeleteData();
                 SceneManager.LoadScene("Authentication");
             });
         };
@@ -125,8 +125,8 @@ public class SettingsManagerMainMenu : MonoBehaviour
         {
             PopUpManagerGeneral.ShowInfo("Geschafft!", "Dein Passwort wurde jetzt geändert");
             Debug.Log(response.message);
-            DataManagerGeneral.DeleteData();
-            DataManagerGeneral.SaveData(data.email, newPwd);
+            UserDataManager.DeleteData();
+            UserDataManager.SaveData(data.email, newPwd);
             
         }
         else
@@ -162,7 +162,7 @@ public class SettingsManagerMainMenu : MonoBehaviour
 
         if (response.success)
         {
-            DataManagerGeneral.DeleteData();
+            UserDataManager.DeleteData();
             SceneManager.LoadScene("Authentication");
         }
         else

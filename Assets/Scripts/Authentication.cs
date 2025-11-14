@@ -36,7 +36,7 @@ public class Authentication : MonoBehaviour
         PopUpManagerGeneral.Initialize();
         LoadingSpinnerGeneral.Initialize(_container);
 
-        var data = DataManagerGeneral.LoadDataAuthentication();
+        var data = UserDataManager.LoadDataAuthentication();
         if (data == null || string.IsNullOrEmpty(data.email) || string.IsNullOrEmpty(data.password))
         {
             Debug.Log("Loading Login Form");
@@ -66,7 +66,7 @@ public class Authentication : MonoBehaviour
         if (response.success) SceneManager.LoadScene("MainMenu");
         else
         {
-            DataManagerGeneral.DeleteData();
+            UserDataManager.DeleteData();
             SceneManager.LoadScene("Authentication");
         }
     }
@@ -339,7 +339,7 @@ public class Authentication : MonoBehaviour
         var response = JsonUtility.FromJson<Response>(request.downloadHandler.text);
         if (response.success)
         {
-            DataManagerGeneral.SaveData(email, response.password);
+            UserDataManager.SaveData(email, response.password);
             SceneManager.LoadScene("MainMenu");
         }
         else _loginErrorLabel.text = response.error ?? "Login fehlgeschlagen!";
@@ -369,7 +369,7 @@ public class Authentication : MonoBehaviour
         var response = JsonUtility.FromJson<Response>(request.downloadHandler.text);
         if (response.success)
         {
-            DataManagerGeneral.SaveData(email, response.password);
+            UserDataManager.SaveData(email, response.password);
             SceneManager.LoadScene("MainMenu");
         }
         else

@@ -8,8 +8,6 @@ using UnityEngine.UIElements;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 
-
-
 [Serializable]
 public class Step
 {

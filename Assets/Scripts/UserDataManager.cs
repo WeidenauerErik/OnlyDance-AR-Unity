@@ -16,7 +16,7 @@ public class UserData
     }
 }
 
-public static class DataManagerGeneral
+public static class UserDataManager
 {
     private static readonly string FilePath = Path.Combine(Application.persistentDataPath, "data.onlydance");
 
