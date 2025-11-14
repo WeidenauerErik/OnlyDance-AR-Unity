@@ -29,7 +29,26 @@ public class DanceManagerMainMenu : MonoBehaviour
         };
 
         mainView.Clear();
-        mainView.Add(MainMenu.CreateHeading("Meine Tänze"));
+
+        var headingContainer = new VisualElement();
+        headingContainer.AddToClassList("heading-navbar");
+        
+        headingContainer.Add(new VisualElement());
+        headingContainer.Add(MainMenu.CreateHeading("Meine Tänze"));
+        
+        var importButton = new Button();
+        importButton.AddToClassList("importJsonButton");
+        importButton.RemoveFromClassList("unity-button");
+        importButton.clicked += () =>
+        {
+            PopUpManagerGeneral.ShowJsonImport(json =>
+            {
+                Debug.Log(json);
+            });
+        };
+        headingContainer.Add(importButton);
+        
+        mainView.Add(headingContainer);
         CreateDance(mainView, myDanceList);
     }
 
@@ -101,7 +120,7 @@ public class DanceManagerMainMenu : MonoBehaviour
             container.Add(danceNameLabel);
 
             var dancePlayBtn = new Button();
-            dancePlayBtn.AddToClassList("dancePlayBtn");
+            dancePlayBtn.AddToClassList("dancePlayButton");
             dancePlayBtn.RemoveFromClassList("unity-button");
             dancePlayBtn.clicked += () =>
             {

@@ -1,9 +1,36 @@
 using System;
 using UnityEngine;
 using UnityEngine.UIElements;
+using System.Collections.Generic;
 
 public class PopUpManagerGeneral : MonoBehaviour
 {
+	[Serializable]
+public class DanceStep
+{
+    public int id;
+
+    public float m1_x;
+    public float m1_y;
+    public bool m1_toe;
+    public bool m1_heel;
+    public float m1_rotate;
+
+    public float m2_x;
+    public float m2_y;
+    public bool m2_toe;
+    public bool m2_heel;
+    public float m2_rotate;
+}
+
+[Serializable]
+public class DanceData
+{
+    public string name;
+    public int BPM;
+    public List<DanceStep> data;
+}
+
     private static PopUpManagerGeneral _instance;
 
     private VisualElement _popupRoot;
@@ -130,6 +157,17 @@ public class PopUpManagerGeneral : MonoBehaviour
         }
         _instance.InternalShowDeleteAccount(onSubmit);
     }
+	
+	public static void ShowJsonImport(Action<string> onSubmit)
+{
+    if (_instance == null)
+    {
+        Debug.LogError("PopUpManagerGeneral ist nicht initialisiert!");
+        return;
+    }
+    _instance.InternalShowJsonImport(onSubmit);
+}
+
 
     private void InternalShowDeleteAccount(Action<string> onSubmit)
     {
@@ -286,6 +324,140 @@ public class PopUpManagerGeneral : MonoBehaviour
 
         _popupRoot.style.display = DisplayStyle.Flex;
     }
+
+    private void InternalShowJsonImport(Action<string> onSubmit)
+{
+    ClearCallbacks();
+    _titleLabel.text = "Import";
+    _popupInnerContainer.Clear();
+
+    var jsonField = new TextField { multiline = true };
+    jsonField.AddToClassList("textfield");
+    jsonField.textEdition.placeholder = "Füge deinen JSON hier ein...";
+
+    var errorLabel = new Label();
+    errorLabel.AddToClassList("error-label");
+
+    _popupInnerContainer.Add(jsonField);
+    _popupInnerContainer.Add(errorLabel);
+
+    _okButton.text = "Importieren";
+    _okButton.SetEnabled(false);
+    _okButton.clicked -= HidePopup;
+    _okButton.clicked += () =>
+    {
+        onSubmit?.Invoke(jsonField.value);
+        HidePopup();
+    };
+
+    _cancelButton.text = "Abbrechen";
+    _cancelButton.style.display = DisplayStyle.Flex;
+    _cancelButton.clicked -= HidePopup;
+    _cancelButton.clicked += HidePopup;
+
+    bool Validate(string json, out string errorMessage)
+{
+    errorMessage = "";
+
+    if (string.IsNullOrWhiteSpace(json))
+    {
+        errorMessage = "JSON ist leer!";
+        return false;
+    }
+
+    DanceData dance;
+
+    try
+    {
+        dance = JsonUtility.FromJson<DanceData>(json);
+    }
+    catch (Exception e)
+    {
+        errorMessage = "JSON Fehler: " + e.Message;
+        return false;
+    }
+
+    if (dance == null)
+    {
+        errorMessage = "JSON konnte nicht geparst werden!";
+        return false;
+    }
+
+    if (string.IsNullOrWhiteSpace(dance.name))
+    {
+        errorMessage = "Fehler: 'name' fehlt oder ist leer.";
+        return false;
+    }
+
+    if (dance.BPM <= 0)
+    {
+        errorMessage = "Fehler: 'BPM' muss größer als 0 sein.";
+        return false;
+    }
+
+    if (dance.data == null || dance.data.Count == 0)
+    {
+        errorMessage = "Fehler: Die 'data' Liste ist leer.";
+        return false;
+    }
+
+    for (int i = 0; i < dance.data.Count; i++)
+    {
+        var step = dance.data[i];
+
+        if (step == null)
+        {
+            errorMessage = $"Fehler in Schritt {i + 1}: Schritt ist null!";
+            return false;
+        }
+
+        if (step.id <= 0)
+        {
+            errorMessage = $"Fehler in Schritt {i + 1}: 'id' ungültig.";
+            return false;
+        }
+
+        if (float.IsNaN(step.m1_x) || float.IsNaN(step.m1_y) || float.IsNaN(step.m1_rotate) ||
+            float.IsNaN(step.m2_x) || float.IsNaN(step.m2_y) || float.IsNaN(step.m2_rotate))
+        {
+            errorMessage = $"Fehler in Schritt {i + 1}: Ungültige Werte.";
+            return false;
+        }
+
+        if (step.m1_toe && step.m1_heel)
+        {
+            errorMessage = $"Fehler in Schritt {i + 1}: m1 kann nicht toe UND heel sein.";
+            return false;
+        }
+
+        if (step.m2_toe && step.m2_heel)
+        {
+            errorMessage = $"Fehler in Schritt {i + 1}: m2 kann nicht toe UND heel sein.";
+            return false;
+        }
+    }
+
+    return true;
+}
+
+    jsonField.RegisterValueChangedCallback(evt =>
+{
+    if (!Validate(evt.newValue, out string error))
+    {
+        errorLabel.text = error;
+        _okButton.SetEnabled(false);
+    }
+    else
+    {
+        errorLabel.text = "";
+        _okButton.SetEnabled(true);
+    }
+});
+
+
+    _popupRoot.style.display = DisplayStyle.Flex;
+}
+
 
     private static TextField CreatePasswordField(string label)
     {

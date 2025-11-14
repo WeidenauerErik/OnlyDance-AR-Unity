@@ -3,8 +3,9 @@
     white-space: normal;
     margin-bottom: 5px;
     -unity-text-align: middle-center;
-    width: 100%;
-} 
+    min-width: 100px;
+    width: auto;
+}
 
 .text-medium {
     font-size: 13px;
@@ -32,4 +33,12 @@
     border-width: 0;
     padding: 0;
     margin: 0;
+}
+
+.textfield {
+    width: 100%;
+}
+
+.textfield:focus {
+    border-color: black;
 }
