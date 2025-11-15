@@ -10,25 +10,7 @@ public class DanceData
     public int id;
     public string name;
     public int BPM;
-    public List<DanceStepWithID> data;
-}
-
-[Serializable]
-public class DanceStepWithID
-{
-    public int id;
-
-    public float m1_x;
-    public float m1_y;
-    public bool m1_toe;
-    public bool m1_heel;
-    public float m1_rotate;
-
-    public float m2_x;
-    public float m2_y;
-    public bool m2_toe;
-    public bool m2_heel;
-    public float m2_rotate;
+    public List<Step> data;
 }
 
 [Serializable]
@@ -96,11 +78,15 @@ public static class DanceDataManager
     }
 
 
-    public static DanceData LoadDance(int id)
-    {
-        var collection = LoadCollection();
-        return collection.dances.Find(d => d.id == id);
-    }
+public static Step[] LoadDanceSteps(int id)
+{
+    var collection = LoadCollection();
+    var dance = collection.dances.Find(d => d.id == id);
+
+    if (dance == null || dance.data == null) return Array.Empty<Step>();
+    return dance.data.ToArray();
+}
+
     
     public static List<Dance> GetAllDances()
     {

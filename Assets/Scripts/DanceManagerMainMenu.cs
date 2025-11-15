@@ -48,7 +48,7 @@ public class DanceManagerMainMenu : MonoBehaviour
         headingContainer.Add(importButton);
         
         mainView.Add(headingContainer);
-        CreateDance(mainView, myDanceList);
+        CreateDance(mainView, myDanceList, false);
     }
 
     public static async void SetOnlineDancesIntoView(VisualElement mainView)
@@ -73,7 +73,7 @@ public class DanceManagerMainMenu : MonoBehaviour
                 var dances = await FetchFiveDances(url);
                 mainView.Clear();
                 mainView.Add(MainMenu.CreateHeading("Online Tänze"));
-                CreateDance(mainView, dances);
+                CreateDance(mainView, dances, true);
                 LoadingSpinnerGeneral.Hide();
             }
             catch (Exception e)
@@ -107,12 +107,15 @@ public class DanceManagerMainMenu : MonoBehaviour
         return new List<Dance>(wrapper.dances);
     }
 
-    private static void CreateDance(VisualElement mainView, IEnumerable<Dance> danceList)
+    private static void CreateDance(VisualElement mainView, IEnumerable<Dance> danceList, bool isOnlineDance)
     {
+		var danceContainer = new VisualElement();
+		danceContainer.AddToClassList("dance-container");
+		
         foreach (var dance in danceList)
         {
             var container = new VisualElement();
-            container.AddToClassList("danceContainer");
+            container.AddToClassList("dance");
 
             var danceNameLabel = new Label(dance.name);
             danceNameLabel.AddToClassList("danceName");
@@ -123,12 +126,13 @@ public class DanceManagerMainMenu : MonoBehaviour
             dancePlayBtn.RemoveFromClassList("unity-button");
             dancePlayBtn.clicked += () =>
             {
-                DanceLoaderMainMenu.Instance.SetDanceCredentials(dance.name, dance.id);
+                DanceLoaderMainMenu.Instance.SetDanceCredentials(dance.name, dance.id, isOnlineDance);
                 SceneManager.LoadScene("DanceAnimator");
             };
+			container.Add(dancePlayBtn);
 
-            container.Add(dancePlayBtn);
-            mainView.Add(container);
+            danceContainer.Add(container);
         }
+		mainView.Add(danceContainer);
     }
 }

@@ -93,9 +93,16 @@ public class DanceController : MonoBehaviour
 
         PopUpManagerGeneral.Initialize();
 
-        StartCoroutine(LoadStepsFromServer());
+        if (DanceLoaderMainMenu.Instance.SelectedIsOnlineDance) StartCoroutine(LoadStepsFromServer());
+        else LoadStepsFromLocalStorage();
     }
 
+    private void LoadStepsFromLocalStorage()
+    {
+        Step[] steps = DanceDataManager.LoadDanceSteps(DanceLoaderMainMenu.Instance.SelectedDanceId);
+        SetDances(steps);
+    }
+    
     // ReSharper disable Unity.PerformanceAnalysis
     private IEnumerator LoadStepsFromServer()
     {
@@ -136,8 +143,13 @@ public class DanceController : MonoBehaviour
             PopUpManagerGeneral.ShowInfo("Fehler!", "Tanz konnte nicht geladen werden.");
             yield break;
         }
+        
+        SetDances(response.data);
+        Debug.Log($"Steps erfolgreich geladen: {_danceSteps.Length}");
+    }
 
-        Step[] steps = response.data;
+    public void SetDances(Step[] steps)
+    {
         _danceSteps = new DanceStep[steps.Length];
 
         for (int i = 0; i < steps.Length; i++)
@@ -157,8 +169,6 @@ public class DanceController : MonoBehaviour
                 rightHeel = s.m2_heel
             };
         }
-
-        Debug.Log($"Steps erfolgreich geladen: {_danceSteps.Length}");
     }
 
     public void Start()

@@ -7,6 +7,7 @@ public class DanceLoaderMainMenu : MonoBehaviour
 
     public string SelectedDance { get; private set; }
     public int SelectedDanceId { get; private set; }
+    public bool SelectedIsOnlineDance { get; private set; }
 
     private void Awake()
     {
@@ -21,9 +22,10 @@ public class DanceLoaderMainMenu : MonoBehaviour
         }
     }
 
-    public void SetDanceCredentials(string danceName, int danceId)
+    public void SetDanceCredentials(string danceName, int danceId, bool IsOnlineDance)
     {
         SelectedDance = danceName;
         SelectedDanceId = danceId;
+        SelectedIsOnlineDance = IsOnlineDance;
     }
 }
