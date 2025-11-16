@@ -12,11 +12,22 @@
     white-space: normal;
 }
 
-.text-medium-grey {
+.text-medium-grey-1 {
     font-size: 13px;
     color: var(--color-grey-1);
     padding: 0;
     margin: 0;
+    white-space: normal;
+}
+
+.text-medium-grey-2 {
+    font-size: 13px;
+    color: var(--color-grey-1);
+    padding: 0;
+    white-space: normal;
+    -unity-text-align: middle-center;
+    margin: auto;
+    width: 80%;
 }
 
 .text-small {

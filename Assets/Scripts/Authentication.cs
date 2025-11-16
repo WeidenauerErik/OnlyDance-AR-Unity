@@ -146,7 +146,7 @@ public class Authentication : MonoBehaviour
         switchContainer.AddToClassList("switch-container");
 
         var switchLabel = new Label("Noch keinen Account?");
-        switchLabel.AddToClassList("text-medium-grey");
+        switchLabel.AddToClassList("text-medium-grey-1");
 
         var loginLink = new Button(() => LoadRegisterForm())
         {
@@ -281,7 +281,7 @@ public class Authentication : MonoBehaviour
         switchContainer.AddToClassList("switch-container");
 
         var switchLabel = new Label("Bereits einen Account?");
-        switchLabel.AddToClassList("text-medium-grey");
+        switchLabel.AddToClassList("text-medium-grey-1");
 
         var loginLink = new Button(() => LoadLoginForm())
         {

@@ -323,7 +323,7 @@ public class GeneralPopUpManager : MonoBehaviour
     void OnImportClicked()
     {
         var tempDance = JsonUtility.FromJson<GeneralSerializables.DanceData>(jsonField.value);
-        MainMenuDanceDataManager.SaveDance(tempDance);
+        GeneralDanceDataManager.SaveDance(tempDance);
         HidePopup();
     }
     

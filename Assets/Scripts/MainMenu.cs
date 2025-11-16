@@ -23,6 +23,8 @@ public class MainMenu : MonoBehaviour
         var uiDoc = FindFirstObjectByType<UIDocument>();
         var root = uiDoc.rootVisualElement;
 
+		GeneralDanceDataManager.DeleteAllDances();
+
         GeneralLoadingSpinner.Initialize(root);
         GeneralPopUpManager.Initialize();
      

@@ -4,7 +4,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
-public static class MainMenuDanceDataManager
+public static class GeneralDanceDataManager
 {
     private static readonly string FilePath = Path.Combine(Application.persistentDataPath, "dances.onlydance");
 

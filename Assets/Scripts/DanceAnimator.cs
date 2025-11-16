@@ -58,7 +58,7 @@ public class DanceAnimator : MonoBehaviour
 
     private void LoadStepsFromLocalStorage()
     {
-        GeneralSerializables.Step[] steps = MainMenuDanceDataManager.LoadDanceSteps(MainMenuDanceLoader.Instance.SelectedDanceId);
+        GeneralSerializables.Step[] steps = GeneralDanceDataManager.LoadDanceSteps(MainMenuDanceLoader.Instance.SelectedDanceId);
         SetDances(steps);
     }
     

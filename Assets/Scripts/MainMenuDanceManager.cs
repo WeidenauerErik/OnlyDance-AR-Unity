@@ -10,8 +10,7 @@ public class MainMenuDanceManager : MonoBehaviour
 {
     public static void SetMyDancesIntoView(VisualElement mainView)
     {
-        var myDanceList = MainMenuDanceDataManager.GetAllDances();
-
+        var myDanceList = GeneralDanceDataManager.GetAllDances();
         mainView.Clear();
 
         var headingContainer = new VisualElement();
@@ -35,7 +34,17 @@ public class MainMenuDanceManager : MonoBehaviour
         headingContainer.Add(importButton);
         
         mainView.Add(headingContainer);
-        CreateDance(mainView, myDanceList, false);
+
+        if (myDanceList.Count == 0)
+        {
+            var error = new Label("Du musst als erstes Tänze erstellen, sodass du eigene tanzen kannst.");
+            error.AddToClassList("text-medium-grey-2");
+            mainView.Add(error);
+        }
+        else
+        {
+            CreateDance(mainView, myDanceList, false);
+        }
     }
 
     public static async void SetOnlineDancesIntoView(VisualElement mainView)
