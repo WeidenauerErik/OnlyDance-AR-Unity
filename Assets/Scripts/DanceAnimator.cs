@@ -8,47 +8,7 @@ using UnityEngine.UIElements;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 
-[Serializable]
-public class Step
-{
-    public int id;
-
-    public float m1_x;
-    public float m1_y;
-    public bool m1_toe;
-    public bool m1_heel;
-    public float m1_rotate;
-
-    public float m2_x;
-    public float m2_y;
-    public bool m2_toe;
-    public bool m2_heel;
-    public float m2_rotate;
-}
-
-[Serializable]
-public class DanceResponse
-{
-    public bool success;
-    public Step[] data;
-}
-
-[Serializable]
-public class DanceStep
-{
-    public Vector3 leftFootPosition;
-    public Vector3 rightFootPosition;
-
-    public float leftRotation;
-    public float rightRotation;
-
-    public bool leftToe;
-    public bool leftHeel;
-    public bool rightToe;
-    public bool rightHeel;
-}
-
-public class DanceController : MonoBehaviour
+public class DanceAnimator : MonoBehaviour
 {
     [SerializeField] private GameObject leftFootPrefab;
     [SerializeField] private GameObject rightFootPrefab;
@@ -67,7 +27,7 @@ public class DanceController : MonoBehaviour
     private Renderer _rightFootToeRenderer;
     private Renderer _rightFootHeelRenderer;
 
-    private DanceStep[] _danceSteps;
+    private GeneralSerializables.StepDanceAnimator[] _danceSteps;
 
     private int _currentStepIndex;
 
@@ -84,29 +44,28 @@ public class DanceController : MonoBehaviour
     private VisualElement _danceController;
 
     private bool _isPlaying = false;
-
-    [Obsolete("Obsolete")]
+    
     private void Awake()
     {
-        var uiDoc = FindObjectOfType<UIDocument>();
+        var uiDoc = FindFirstObjectByType<UIDocument>();
         var root = uiDoc.rootVisualElement;
 
-        PopUpManagerGeneral.Initialize();
+        GeneralPopUpManager.Initialize();
 
-        if (DanceLoaderMainMenu.Instance.SelectedIsOnlineDance) StartCoroutine(LoadStepsFromServer());
+        if (MainMenuDanceLoader.Instance.SelectedIsOnlineDance) StartCoroutine(LoadStepsFromServer());
         else LoadStepsFromLocalStorage();
     }
 
     private void LoadStepsFromLocalStorage()
     {
-        Step[] steps = DanceDataManager.LoadDanceSteps(DanceLoaderMainMenu.Instance.SelectedDanceId);
+        GeneralSerializables.Step[] steps = MainMenuDanceDataManager.LoadDanceSteps(MainMenuDanceLoader.Instance.SelectedDanceId);
         SetDances(steps);
     }
     
     // ReSharper disable Unity.PerformanceAnalysis
     private IEnumerator LoadStepsFromServer()
     {
-        var url = PlayerPrefs.GetString("url") + "/getDanceById/" + DanceLoaderMainMenu.Instance.SelectedDanceId;
+        var url = PlayerPrefs.GetString("url") + "/getDanceById/" + MainMenuDanceLoader.Instance.SelectedDanceId;
         using var request = UnityWebRequest.Get(url);
 
         yield return request.SendWebRequest();
@@ -114,33 +73,33 @@ public class DanceController : MonoBehaviour
         if (request.result != UnityWebRequest.Result.Success)
         {
             Debug.LogError("Fehler beim Laden der Steps: " + request.error);
-            PopUpManagerGeneral.ShowInfo("Fehler!", "Tanz konnte nicht geladen werden.");
+            GeneralPopUpManager.ShowInfo("Fehler!", "Tanz konnte nicht geladen werden.");
             yield break;
         }
 
         var json = request.downloadHandler.text;
         Debug.Log("Backend Antwort: " + json);
 
-        DanceResponse response = JsonUtility.FromJson<DanceResponse>(json);
+        GeneralSerializables.DanceResponse response = JsonUtility.FromJson<GeneralSerializables.DanceResponse>(json);
 
         if (response == null)
         {
             Debug.LogError("Fehler: JSON konnte nicht geparst werden!");
-            PopUpManagerGeneral.ShowInfo("Fehler!", "Tanz konnte nicht geladen werden.");
+            GeneralPopUpManager.ShowInfo("Fehler!", "Tanz konnte nicht geladen werden.");
             yield break;
         }
 
         if (!response.success)
         {
             Debug.LogError("Server meldet Fehler: success=false");
-            PopUpManagerGeneral.ShowInfo("Fehler!", "Tanz konnte nicht geladen werden.");
+            GeneralPopUpManager.ShowInfo("Fehler!", "Tanz konnte nicht geladen werden.");
             yield break;
         }
 
         if (response.data == null || response.data.Length == 0)
         {
             Debug.LogError("Keine Steps in der Antwort gefunden!");
-            PopUpManagerGeneral.ShowInfo("Fehler!", "Tanz konnte nicht geladen werden.");
+            GeneralPopUpManager.ShowInfo("Fehler!", "Tanz konnte nicht geladen werden.");
             yield break;
         }
         
@@ -148,14 +107,14 @@ public class DanceController : MonoBehaviour
         Debug.Log($"Steps erfolgreich geladen: {_danceSteps.Length}");
     }
 
-    public void SetDances(Step[] steps)
+    public void SetDances(GeneralSerializables.Step[] steps)
     {
-        _danceSteps = new DanceStep[steps.Length];
+        _danceSteps = new GeneralSerializables.StepDanceAnimator[steps.Length];
 
         for (int i = 0; i < steps.Length; i++)
         {
-            Step s = steps[i];
-            _danceSteps[i] = new DanceStep
+            GeneralSerializables.Step s = steps[i];
+            _danceSteps[i] = new GeneralSerializables.StepDanceAnimator
             {
                 leftFootPosition = new Vector3(s.m1_x, 0, s.m1_y),
                 rightFootPosition = new Vector3(s.m2_x, 0, s.m2_y),
@@ -201,7 +160,7 @@ public class DanceController : MonoBehaviour
         _counter.text = "0/0";
 
         _danceName = root.Q<Label>("danceName");
-        _danceName.text = DanceLoaderMainMenu.Instance.SelectedDance;
+        _danceName.text = MainMenuDanceLoader.Instance.SelectedDance;
 
         _danceController = root.Q<VisualElement>("danceController");
         _danceController.style.display = DisplayStyle.None;

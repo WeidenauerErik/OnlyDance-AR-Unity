@@ -4,44 +4,30 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
-[Serializable]
-public class DanceData
-{
-    public int id;
-    public string name;
-    public int BPM;
-    public List<Step> data;
-}
-
-[Serializable]
-public class DanceCollection
-{
-    public List<DanceData> dances = new List<DanceData>();
-}
-
-public static class DanceDataManager
+public static class MainMenuDanceDataManager
 {
     private static readonly string FilePath = Path.Combine(Application.persistentDataPath, "dances.onlydance");
 
-    private static DanceCollection LoadCollection()
+    private static GeneralSerializables.DanceCollection LoadCollection()
     {
         if (!File.Exists(FilePath))
-            return new DanceCollection();
+            return new GeneralSerializables.DanceCollection();
 
         try
         {
             using var fs = new FileStream(FilePath, FileMode.Open);
             var formatter = new BinaryFormatter();
-            return (DanceCollection)formatter.Deserialize(fs);
+            return (GeneralSerializables.DanceCollection)formatter.Deserialize(fs);
         }
-        catch
+        catch (Exception e)
         {
-            PopUpManagerGeneral.ShowInfo("Fehler!", "Tänze konnten nicht geladen werden.");
-            return new DanceCollection();
+            Debug.Log(e);
+            GeneralPopUpManager.ShowInfo("Fehler!", "Tänze konnten nicht geladen werden.");
+            return new GeneralSerializables.DanceCollection();
         }
     }
 
-    private static void SaveCollection(DanceCollection collection)
+    private static void SaveCollection(GeneralSerializables.DanceCollection collection)
     {
         try
         {
@@ -51,11 +37,11 @@ public static class DanceDataManager
         }
         catch
         {
-            PopUpManagerGeneral.ShowInfo("Fehler!", "Tänze konnten nicht gespeichert werden.");
+            GeneralPopUpManager.ShowInfo("Fehler!", "Tänze konnten nicht gespeichert werden.");
         }
     }
 
-    public static void SaveDance(DanceData dance)
+    public static void SaveDance(GeneralSerializables.DanceData dance)
     {
         Debug.Log(dance.id);
         var collection = LoadCollection();
@@ -78,24 +64,24 @@ public static class DanceDataManager
     }
 
 
-public static Step[] LoadDanceSteps(int id)
+public static GeneralSerializables.Step[] LoadDanceSteps(int id)
 {
     var collection = LoadCollection();
     var dance = collection.dances.Find(d => d.id == id);
 
-    if (dance == null || dance.data == null) return Array.Empty<Step>();
+    if (dance == null || dance.data == null) return Array.Empty<GeneralSerializables.Step>();
     return dance.data.ToArray();
 }
 
     
-    public static List<Dance> GetAllDances()
+    public static List<GeneralSerializables.Dance> GetAllDances()
     {
         var collection = LoadCollection();
-        var result = new List<Dance>();
+        var result = new List<GeneralSerializables.Dance>();
 
         foreach (var dance in collection.dances)
         {
-            result.Add(new Dance
+            result.Add(new GeneralSerializables.Dance
             {
                 id = dance.id,
                 name = dance.name
@@ -123,7 +109,7 @@ public static Step[] LoadDanceSteps(int id)
         }
         catch
         {
-            PopUpManagerGeneral.ShowInfo("Fehler!", "Daten konnten nicht gelöscht werden.");
+            GeneralPopUpManager.ShowInfo("Fehler!", "Daten konnten nicht gelöscht werden.");
         }
     }
 }

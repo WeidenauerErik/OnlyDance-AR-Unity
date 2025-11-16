@@ -3,9 +3,9 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using System.Collections.Generic;
 
-public class PopUpManagerGeneral : MonoBehaviour
+public class GeneralPopUpManager : MonoBehaviour
 {
-    private static PopUpManagerGeneral _instance;
+    private static GeneralPopUpManager _instance;
 
     private VisualElement _popupRoot;
     private Label _titleLabel;
@@ -17,8 +17,7 @@ public class PopUpManagerGeneral : MonoBehaviour
     private Action _onNoCallback;
 
     private static VisualElement _uiRoot;
-
-    [Obsolete("Obsolete")]
+    
     public static void Initialize()
     {
         if (_instance != null)
@@ -27,7 +26,7 @@ public class PopUpManagerGeneral : MonoBehaviour
             _instance = null;
         }
 
-        var uiDoc = FindObjectOfType<UIDocument>();
+        var uiDoc = FindFirstObjectByType<UIDocument>();
         if (uiDoc == null)
         {
             Debug.LogError("Kein UIDocument in der Szene gefunden!");
@@ -36,7 +35,7 @@ public class PopUpManagerGeneral : MonoBehaviour
 
         _uiRoot = uiDoc.rootVisualElement;
         var go = new GameObject("PopupManager");
-        _instance = go.AddComponent<PopUpManagerGeneral>();
+        _instance = go.AddComponent<GeneralPopUpManager>();
         _instance.Setup();
     }
 
@@ -96,7 +95,7 @@ public class PopUpManagerGeneral : MonoBehaviour
     {
         if (_instance == null)
         {
-            Debug.LogError("PopUpManagerGeneral ist nicht initialisiert!");
+            Debug.LogError("GeneralPopUpManager ist nicht initialisiert!");
             return;
         }
         _instance.InternalShowInfo(title, message);
@@ -106,7 +105,7 @@ public class PopUpManagerGeneral : MonoBehaviour
     {
         if (_instance == null)
         {
-            Debug.LogError("PopUpManagerGeneral ist nicht initialisiert!");
+            Debug.LogError("GeneralPopUpManager ist nicht initialisiert!");
             return;
         }
         _instance.InternalShowConfirm(title, message, onYes, onNo);
@@ -116,7 +115,7 @@ public class PopUpManagerGeneral : MonoBehaviour
     {
         if (_instance == null)
         {
-            Debug.LogError("PopUpManagerGeneral ist nicht initialisiert!");
+            Debug.LogError("GeneralPopUpManager ist nicht initialisiert!");
             return;
         }
         _instance.InternalShowChangePassword(onSubmit);
@@ -126,7 +125,7 @@ public class PopUpManagerGeneral : MonoBehaviour
     {
         if (_instance == null)
         {
-            Debug.LogError("PopUpManagerGeneral ist nicht initialisiert!");
+            Debug.LogError("GeneralPopUpManager ist nicht initialisiert!");
             return;
         }
         _instance.InternalShowDeleteAccount(onSubmit);
@@ -136,7 +135,7 @@ public class PopUpManagerGeneral : MonoBehaviour
 {
     if (_instance == null)
     {
-        Debug.LogError("PopUpManagerGeneral ist nicht initialisiert!");
+        Debug.LogError("GeneralPopUpManager ist nicht initialisiert!");
         return;
     }
     _instance.InternalShowJsonImport(onSubmit);
@@ -323,8 +322,8 @@ public class PopUpManagerGeneral : MonoBehaviour
     
     void OnImportClicked()
     {
-        var tempDance = JsonUtility.FromJson<DanceData>(jsonField.value);
-        DanceDataManager.SaveDance(tempDance);
+        var tempDance = JsonUtility.FromJson<GeneralSerializables.DanceData>(jsonField.value);
+        MainMenuDanceDataManager.SaveDance(tempDance);
         HidePopup();
     }
     
@@ -343,11 +342,11 @@ public class PopUpManagerGeneral : MonoBehaviour
         return false;
     }
 
-    DanceData dance;
+    GeneralSerializables.DanceData dance;
 
     try
     {
-        dance = JsonUtility.FromJson<DanceData>(json);
+        dance = JsonUtility.FromJson<GeneralSerializables.DanceData>(json);
     }
     catch (Exception e)
     {

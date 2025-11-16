@@ -3,20 +3,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
-[Serializable]
-public class UserData
-{
-    public string email;
-    public string password;
-
-    public UserData(string email, string password)
-    {
-        this.email = email;
-        this.password = password;
-    }
-}
-
-public static class UserDataManager
+public static class GeneralUserDataManager
 {
     private static readonly string FilePath = Path.Combine(Application.persistentDataPath, "data.onlydance");
 
@@ -24,7 +11,7 @@ public static class UserDataManager
     {
         try
         {
-            var data = new UserData(email, password);
+            var data = new GeneralSerializables.User(email, password);
 
             using var fs = new FileStream(FilePath, FileMode.Create);
             var formatter = new BinaryFormatter();
@@ -32,28 +19,28 @@ public static class UserDataManager
         }
         catch
         {
-            PopUpManagerGeneral.ShowInfo("Fehler!", "Daten konnten nicht gespeichert werden.");
+            GeneralPopUpManager.ShowInfo("Fehler!", "Daten konnten nicht gespeichert werden.");
         }
     }
 
-    public static UserData LoadData()
+    public static GeneralSerializables.User LoadData()
     {
         try
         {
             if (!File.Exists(FilePath))
             {
-                PopUpManagerGeneral.ShowInfo("Fehler!", "Daten konnten nicht gefunden werden.");
+                GeneralPopUpManager.ShowInfo("Fehler!", "Daten konnten nicht gefunden werden.");
                 return null;
             }
 
             using var fs = new FileStream(FilePath, FileMode.Open);
             var formatter = new BinaryFormatter();
-            var data = (UserData)formatter.Deserialize(fs);
+            var data = (GeneralSerializables.User)formatter.Deserialize(fs);
             return data;
         }
         catch
         {
-            PopUpManagerGeneral.ShowInfo("Fehler!", "Daten konnten nicht gefunden werden.");
+            GeneralPopUpManager.ShowInfo("Fehler!", "Daten konnten nicht gefunden werden.");
             return null;
         }
     }
@@ -66,11 +53,11 @@ public static class UserDataManager
         }
         catch
         {
-            PopUpManagerGeneral.ShowInfo("Fehler!", "Daten konnten nicht gelöscht werden.");
+            GeneralPopUpManager.ShowInfo("Fehler!", "Daten konnten nicht gelöscht werden.");
         }
     }
 
-    public static UserData LoadDataAuthentication()
+    public static GeneralSerializables.User LoadDataAuthentication()
     {
         try
         {
@@ -81,12 +68,12 @@ public static class UserDataManager
 
             using var fs = new FileStream(FilePath, FileMode.Open);
             var formatter = new BinaryFormatter();
-            var data = (UserData)formatter.Deserialize(fs);
+            var data = (GeneralSerializables.User)formatter.Deserialize(fs);
             return data;
         }
         catch
         {
-            PopUpManagerGeneral.ShowInfo("Fehler!", "Daten konnten nicht gefunden werden.");
+            GeneralPopUpManager.ShowInfo("Fehler!", "Daten konnten nicht gefunden werden.");
             return null;
         }
     }

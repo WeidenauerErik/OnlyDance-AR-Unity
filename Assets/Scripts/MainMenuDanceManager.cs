@@ -6,24 +6,11 @@ using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
-[Serializable]
-public class Dance
-{
-    public int id;
-    public string name;
-}
-
-[Serializable]
-public class DanceWrapper
-{
-    public Dance[] dances;
-}
-
-public class DanceManagerMainMenu : MonoBehaviour
+public class MainMenuDanceManager : MonoBehaviour
 {
     public static void SetMyDancesIntoView(VisualElement mainView)
     {
-        var myDanceList = DanceDataManager.GetAllDances();
+        var myDanceList = MainMenuDanceDataManager.GetAllDances();
 
         mainView.Clear();
 
@@ -38,9 +25,9 @@ public class DanceManagerMainMenu : MonoBehaviour
         importButton.RemoveFromClassList("unity-button");
         importButton.clicked += () =>
         {
-			PopUpManagerGeneral.ResetInstance();
-			PopUpManagerGeneral.Initialize(); 
-            PopUpManagerGeneral.ShowJsonImport(json => {
+			GeneralPopUpManager.ResetInstance();
+			GeneralPopUpManager.Initialize(); 
+            GeneralPopUpManager.ShowJsonImport(json => {
 				Debug.Log(json);
 				SetMyDancesIntoView(mainView);
 			});
@@ -53,7 +40,7 @@ public class DanceManagerMainMenu : MonoBehaviour
 
     public static async void SetOnlineDancesIntoView(VisualElement mainView)
     {
-        LoadingSpinnerGeneral.Show();
+        GeneralLoadingSpinner.Show();
         try
         {
             mainView.Clear();
@@ -74,24 +61,24 @@ public class DanceManagerMainMenu : MonoBehaviour
                 mainView.Clear();
                 mainView.Add(MainMenu.CreateHeading("Online Tänze"));
                 CreateDance(mainView, dances, true);
-                LoadingSpinnerGeneral.Hide();
+                GeneralLoadingSpinner.Hide();
             }
             catch (Exception e)
             {
               Debug.LogError($"Fehler beim Laden der Tänze: {e.Message}");
-              LoadingSpinnerGeneral.Hide();
-              PopUpManagerGeneral.ShowInfo("Fehler!", "Die Online Tänze konnten nicht geladen werden.");
+              GeneralLoadingSpinner.Hide();
+              GeneralPopUpManager.ShowInfo("Fehler!", "Die Online Tänze konnten nicht geladen werden.");
             }
         }
         catch (Exception e)
         {
             Debug.LogError(e.Message);
-            LoadingSpinnerGeneral.Hide();
-            PopUpManagerGeneral.ShowInfo("Fehler!", "Die Online Tänze konnten nicht geladen werden.");
+            GeneralLoadingSpinner.Hide();
+            GeneralPopUpManager.ShowInfo("Fehler!", "Die Online Tänze konnten nicht geladen werden.");
         }
     }
 
-    private static async Task<List<Dance>> FetchFiveDances(string url)
+    private static async Task<List<GeneralSerializables.Dance>> FetchFiveDances(string url)
     {
         using var request = UnityWebRequest.Get(url);
         var operation = request.SendWebRequest();
@@ -102,12 +89,12 @@ public class DanceManagerMainMenu : MonoBehaviour
 
         var json = request.downloadHandler.text;
         var wrappedJson = "{\"dances\":" + json + "}";
-        var wrapper = JsonUtility.FromJson<DanceWrapper>(wrappedJson);
+        var wrapper = JsonUtility.FromJson<GeneralSerializables.DanceWrapper>(wrappedJson);
 
-        return new List<Dance>(wrapper.dances);
+        return new List<GeneralSerializables.Dance>(wrapper.dances);
     }
 
-    private static void CreateDance(VisualElement mainView, IEnumerable<Dance> danceList, bool isOnlineDance)
+    private static void CreateDance(VisualElement mainView, IEnumerable<GeneralSerializables.Dance> danceList, bool isOnlineDance)
     {
 		var danceContainer = new VisualElement();
 		danceContainer.AddToClassList("dance-container");
@@ -126,7 +113,7 @@ public class DanceManagerMainMenu : MonoBehaviour
             dancePlayBtn.RemoveFromClassList("unity-button");
             dancePlayBtn.clicked += () =>
             {
-                DanceLoaderMainMenu.Instance.SetDanceCredentials(dance.name, dance.id, isOnlineDance);
+                MainMenuDanceLoader.Instance.SetDanceCredentials(dance.name, dance.id, isOnlineDance);
                 SceneManager.LoadScene("DanceAnimator");
             };
 			container.Add(dancePlayBtn);

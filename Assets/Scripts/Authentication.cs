@@ -6,37 +6,23 @@ using System.Text.RegularExpressions;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
-[Serializable]
-public class AuthRequestAuthentication
-{
-    public string email;
-    public string password;
-
-    public AuthRequestAuthentication(string email, string password)
-    {
-        this.email = email;
-        this.password = password;
-    }
-}
-
 public class Authentication : MonoBehaviour
 {
     private VisualElement _container;
     private Label _loginErrorLabel;
     private Label _registerErrorLabel;
-
-    [Obsolete("Obsolete")]
+    
     void Start()
     {
         PlayerPrefs.SetString("url", "https://onlydance.at/api");
 
-        var uiDoc = FindObjectOfType<UIDocument>();
+        var uiDoc = FindFirstObjectByType<UIDocument>();
         _container = uiDoc.rootVisualElement.Q<VisualElement>("mainContainer");
 
-        PopUpManagerGeneral.Initialize();
-        LoadingSpinnerGeneral.Initialize(_container);
+        GeneralPopUpManager.Initialize();
+        GeneralLoadingSpinner.Initialize(_container);
 
-        var data = UserDataManager.LoadDataAuthentication();
+        var data = GeneralUserDataManager.LoadDataAuthentication();
         if (data == null || string.IsNullOrEmpty(data.email) || string.IsNullOrEmpty(data.password))
         {
             Debug.Log("Loading Login Form");
@@ -52,7 +38,7 @@ public class Authentication : MonoBehaviour
     private IEnumerator CheckUserData(string email, string password)
     {
         var url = $"{PlayerPrefs.GetString("url")}/checkUser";
-        var postData = new AuthRequestAuthentication(email, password);
+        var postData = new GeneralSerializables.User(email, password);
         var jsonData = JsonUtility.ToJson(postData);
 
         using var request = new UnityWebRequest(url, "POST");
@@ -62,11 +48,11 @@ public class Authentication : MonoBehaviour
 
         yield return request.SendWebRequest();
 
-        var response = JsonUtility.FromJson<Response>(request.downloadHandler.text);
+        var response = JsonUtility.FromJson<GeneralSerializables.Response>(request.downloadHandler.text);
         if (response.success) SceneManager.LoadScene("MainMenu");
         else
         {
-            UserDataManager.DeleteData();
+            GeneralUserDataManager.DeleteData();
             SceneManager.LoadScene("Authentication");
         }
     }
@@ -318,9 +304,9 @@ public class Authentication : MonoBehaviour
 
     private IEnumerator LoginUser(string email, string password)
     {
-        LoadingSpinnerGeneral.Show();
+        GeneralLoadingSpinner.Show();
         var url = $"{PlayerPrefs.GetString("url")}/login";
-        var postData = new AuthRequestAuthentication(email, password);
+        var postData = new GeneralSerializables.User(email, password);
         var jsonData = JsonUtility.ToJson(postData);
 
         using var request = new UnityWebRequest(url, "POST");
@@ -329,17 +315,17 @@ public class Authentication : MonoBehaviour
         request.SetRequestHeader("Content-Type", "application/json");
 
         yield return request.SendWebRequest();
-        LoadingSpinnerGeneral.Hide();
+        GeneralLoadingSpinner.Hide();
         if (request.result == UnityWebRequest.Result.ConnectionError)
         {
             _loginErrorLabel.text = "Fehler beim Server: " + request.error;
             yield break;
         }
 
-        var response = JsonUtility.FromJson<Response>(request.downloadHandler.text);
+        var response = JsonUtility.FromJson<GeneralSerializables.Response>(request.downloadHandler.text);
         if (response.success)
         {
-            UserDataManager.SaveData(email, response.password);
+            GeneralUserDataManager.SaveData(email, response.password);
             SceneManager.LoadScene("MainMenu");
         }
         else _loginErrorLabel.text = response.error ?? "Login fehlgeschlagen!";
@@ -347,9 +333,9 @@ public class Authentication : MonoBehaviour
 
     private IEnumerator RegisterUser(string email, string password)
     {
-        LoadingSpinnerGeneral.Show();
+        GeneralLoadingSpinner.Show();
         var url = $"{PlayerPrefs.GetString("url")}/register";
-        var postData = new AuthRequestAuthentication(email, password);
+        var postData = new GeneralSerializables.User(email, password);
         var jsonData = JsonUtility.ToJson(postData);
 
         using var request = new UnityWebRequest(url, "POST");
@@ -358,7 +344,7 @@ public class Authentication : MonoBehaviour
         request.SetRequestHeader("Content-Type", "application/json");
 
         yield return request.SendWebRequest();
-        LoadingSpinnerGeneral.Hide();
+        GeneralLoadingSpinner.Hide();
 
         if (request.result == UnityWebRequest.Result.ConnectionError)
         {
@@ -366,10 +352,10 @@ public class Authentication : MonoBehaviour
             yield break;
         }
 
-        var response = JsonUtility.FromJson<Response>(request.downloadHandler.text);
+        var response = JsonUtility.FromJson<GeneralSerializables.Response>(request.downloadHandler.text);
         if (response.success)
         {
-            UserDataManager.SaveData(email, response.password);
+            GeneralUserDataManager.SaveData(email, response.password);
             SceneManager.LoadScene("MainMenu");
         }
         else

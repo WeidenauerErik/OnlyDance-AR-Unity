@@ -1,9 +1,9 @@
 using UnityEngine;
 
 
-public class DanceLoaderMainMenu : MonoBehaviour
+public class MainMenuDanceLoader : MonoBehaviour
 {
-    public static DanceLoaderMainMenu Instance;
+    public static MainMenuDanceLoader Instance;
 
     public string SelectedDance { get; private set; }
     public int SelectedDanceId { get; private set; }

@@ -1,0 +1,32 @@
+{
+  "name": "Weidi",
+  "BPM": 120,
+  "data": [
+    {
+      "id": 1,
+      "m1_x": -0.2,
+      "m1_y": 0.0,
+      "m1_toe": true,
+      "m1_heel": false,
+      "m1_rotate": 0.0,
+      "m2_x": 0.2,
+      "m2_y": 0.0,
+      "m2_toe": false,
+      "m2_heel": true,
+      "m2_rotate": 0.0
+    },
+    {
+      "id": 2,
+      "m1_x": 0.0,
+      "m1_y": 0.0,
+      "m1_toe": false,
+      "m1_heel": true,
+      "m1_rotate": 45.0,
+      "m2_x": 0.0,
+      "m2_y": 0.0,
+      "m2_toe": true,
+      "m2_heel": false,
+      "m2_rotate": -45.0
+    }
+  ]
+}

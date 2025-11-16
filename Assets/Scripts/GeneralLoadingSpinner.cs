@@ -3,9 +3,9 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class LoadingSpinnerGeneral : MonoBehaviour
+public class GeneralLoadingSpinner : MonoBehaviour
 {
-    private static LoadingSpinnerGeneral _instance;
+    private static GeneralLoadingSpinner _instance;
 
     private VisualElement _loadingRoot;
     private Label _loadingLabel;
@@ -25,17 +25,16 @@ public class LoadingSpinnerGeneral : MonoBehaviour
         _instance = this;
         DontDestroyOnLoad(gameObject);
     }
-
-    [Obsolete("Obsolete")]
+    
     public static void Initialize(VisualElement root)
     {
         if (_instance == null)
         {
             var go = new GameObject("LoadingManager");
-            _instance = go.AddComponent<LoadingSpinnerGeneral>();
+            _instance = go.AddComponent<GeneralLoadingSpinner>();
         }
         
-        var uiDoc = FindObjectOfType<UIDocument>();
+        var uiDoc = FindFirstObjectByType<UIDocument>();
         if (uiDoc == null)
         {
             Debug.LogError("Kein UIDocument in der Szene gefunden!");

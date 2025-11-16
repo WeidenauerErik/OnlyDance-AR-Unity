@@ -17,15 +17,14 @@ public class MainMenu : MonoBehaviour
     private VisualElement _settingsBtnIcon;
 
     private VisualElement _mainContent;
-
-    [Obsolete("Obsolete")]
+    
     void Start()
     {
-        var uiDoc = FindObjectOfType<UIDocument>();
+        var uiDoc = FindFirstObjectByType<UIDocument>();
         var root = uiDoc.rootVisualElement;
 
-        LoadingSpinnerGeneral.Initialize(root);
-        PopUpManagerGeneral.Initialize();
+        GeneralLoadingSpinner.Initialize(root);
+        GeneralPopUpManager.Initialize();
      
         _mainContent = root.Q<VisualElement>("mainContent");
 
@@ -49,7 +48,7 @@ public class MainMenu : MonoBehaviour
 
     private void MyDancesBtnClicked()
     {
-        DanceManagerMainMenu.SetMyDancesIntoView(_mainContent);
+        MainMenuDanceManager.SetMyDancesIntoView(_mainContent);
 
         _myDancesBtnLabel.AddToClassList("activeLabel");
         _onlineDancesBtnLabel.RemoveFromClassList("activeLabel");
@@ -59,11 +58,10 @@ public class MainMenu : MonoBehaviour
         _onlineDancesBtnIcon.RemoveFromClassList("activeOnlineDances");
         _settingsBtnIcon.RemoveFromClassList("activeSettings");
     }
-
-    [Obsolete("Obsolete")]
+    
     private void OnlineDancesBtnClicked()
     {
-        DanceManagerMainMenu.SetOnlineDancesIntoView(_mainContent);
+        MainMenuDanceManager.SetOnlineDancesIntoView(_mainContent);
 
         _myDancesBtnLabel.RemoveFromClassList("activeLabel");
         _onlineDancesBtnLabel.AddToClassList("activeLabel");
@@ -76,7 +74,7 @@ public class MainMenu : MonoBehaviour
 
     private void SettingsBtnClicked()
     {
-        SettingsManagerMainMenu.SetSettingsIntoView(_mainContent, this);
+        MainMenuSettingsManager.SetSettingsIntoView(_mainContent, this);
 
         _myDancesBtnLabel.RemoveFromClassList("activeLabel");
         _onlineDancesBtnLabel.RemoveFromClassList("activeLabel");

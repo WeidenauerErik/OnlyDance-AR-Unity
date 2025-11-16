@@ -6,42 +6,14 @@ using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
-[Serializable]
-public class ChangePwdRequest
-{
-    public string email;
-    public string oldPassword;
-    public string newPassword;
-
-    public ChangePwdRequest(string email, string oldPassword, string newPassword)
-    {
-        this.email = email;
-        this.oldPassword = oldPassword;
-        this.newPassword = newPassword;
-    }
-}
-
-[Serializable]
-public class DeleteAccountRequest
-{
-    public string email;
-    public string password;
-
-    public DeleteAccountRequest(string email, string password)
-    {
-        this.email = email;
-        this.password = password;
-    }
-}
-
-public class SettingsManagerMainMenu : MonoBehaviour
+public class MainMenuSettingsManager : MonoBehaviour
 {
     public static void SetSettingsIntoView(VisualElement mainView, MonoBehaviour coroutineOwner)
     {
         mainView.Clear();
         mainView.Add(MainMenu.CreateHeading("Einstellungen"));
 
-        var data = UserDataManager.LoadData();
+        var data = GeneralUserDataManager.LoadData();
         var emailLabel = new Label { text = data.email };
         emailLabel.AddToClassList("text-medium");
 		emailLabel.AddToClassList("email-label");
@@ -57,10 +29,10 @@ public class SettingsManagerMainMenu : MonoBehaviour
         changePassword.AddToClassList("settings-container");
         changePassword.clicked += () =>
         {
-            PopUpManagerGeneral.ShowChangePassword((oldPwd, newPwd, confirmPwd) =>
+            GeneralPopUpManager.ShowChangePassword((oldPwd, newPwd, confirmPwd) =>
             {
-                PopUpManagerGeneral.ResetInstance();
-                PopUpManagerGeneral.Initialize();
+                GeneralPopUpManager.ResetInstance();
+                GeneralPopUpManager.Initialize();
                 coroutineOwner.StartCoroutine(ChangePwdCoroutine(data.email, oldPwd, newPwd));
             });
         };
@@ -71,10 +43,10 @@ public class SettingsManagerMainMenu : MonoBehaviour
         deleteAccount.AddToClassList("settings-container");
         deleteAccount.clicked += () =>
         {
-            PopUpManagerGeneral.ShowDeleteAccount( (password) =>
+            GeneralPopUpManager.ShowDeleteAccount( (password) =>
             {
-                PopUpManagerGeneral.ResetInstance();
-                PopUpManagerGeneral.Initialize();
+                GeneralPopUpManager.ResetInstance();
+                GeneralPopUpManager.Initialize();
                 coroutineOwner.StartCoroutine(DeleteAccount(data.email, password));
             });
         };
@@ -85,10 +57,10 @@ public class SettingsManagerMainMenu : MonoBehaviour
         logoutBtn.AddToClassList("settings-container");
         logoutBtn.clicked += () =>
         {
-            PopUpManagerGeneral.ShowConfirm("Bist du dir sicher?", "", () =>
+            GeneralPopUpManager.ShowConfirm("Bist du dir sicher?", "", () =>
             {
                 Debug.Log("Logged out");
-                UserDataManager.DeleteData();
+                GeneralUserDataManager.DeleteData();
                 SceneManager.LoadScene("Authentication");
             });
         };
@@ -100,8 +72,8 @@ public class SettingsManagerMainMenu : MonoBehaviour
     // ReSharper disable Unity.PerformanceAnalysis
     private static IEnumerator ChangePwdCoroutine(string email, string oldPwd, string newPwd)
     {
-        var data = new ChangePwdRequest(email, oldPwd, newPwd);
-        LoadingSpinnerGeneral.Show();
+        var data = new GeneralSerializables.ChangePwdRequest(email, oldPwd, newPwd);
+        GeneralLoadingSpinner.Show();
         var url = $"{PlayerPrefs.GetString("url")}/changePassword";
         var jsonData = JsonUtility.ToJson(data);
 
@@ -111,36 +83,36 @@ public class SettingsManagerMainMenu : MonoBehaviour
         request.SetRequestHeader("Content-Type", "application/json");
 
         yield return request.SendWebRequest();
-        LoadingSpinnerGeneral.Hide();
+        GeneralLoadingSpinner.Hide();
 
         if (request.result == UnityWebRequest.Result.ConnectionError)
         {
-            PopUpManagerGeneral.ShowInfo("Fehler!", "Server wurde leider nicht erreicht!");
+            GeneralPopUpManager.ShowInfo("Fehler!", "Server wurde leider nicht erreicht!");
             yield break;
         }
 
-        var response = JsonUtility.FromJson<Response>(request.downloadHandler.text);
+        var response = JsonUtility.FromJson<GeneralSerializables.Response>(request.downloadHandler.text);
 
         if (response.success)
         {
-            PopUpManagerGeneral.ShowInfo("Geschafft!", "Dein Passwort wurde jetzt geändert");
+            GeneralPopUpManager.ShowInfo("Geschafft!", "Dein Passwort wurde jetzt geändert");
             Debug.Log(response.message);
-            UserDataManager.DeleteData();
-            UserDataManager.SaveData(data.email, newPwd);
+            GeneralUserDataManager.DeleteData();
+            GeneralUserDataManager.SaveData(data.email, newPwd);
             
         }
         else
         {
             Debug.Log(response.message);
-            PopUpManagerGeneral.ShowInfo("Fehler!", response.error ?? "Passwort konnte nicht geändert werden!");
+            GeneralPopUpManager.ShowInfo("Fehler!", response.error ?? "Passwort konnte nicht geändert werden!");
         }
     }
 
     // ReSharper disable Unity.PerformanceAnalysis
     private static IEnumerator DeleteAccount(string email, string password)
     {
-        var data = new DeleteAccountRequest(email, password);
-        LoadingSpinnerGeneral.Show();
+        var data = new GeneralSerializables.DeleteAccountRequest(email, password);
+        GeneralLoadingSpinner.Show();
         var url = $"{PlayerPrefs.GetString("url")}/deleteAccount";
         var jsonData = JsonUtility.ToJson(data);
 
@@ -150,25 +122,25 @@ public class SettingsManagerMainMenu : MonoBehaviour
         request.SetRequestHeader("Content-Type", "application/json");
 
         yield return request.SendWebRequest();
-        LoadingSpinnerGeneral.Hide();
+        GeneralLoadingSpinner.Hide();
 
         if (request.result == UnityWebRequest.Result.ConnectionError)
         {
-            PopUpManagerGeneral.ShowInfo("Fehler!", "Server wurde leider nicht erreicht!");
+            GeneralPopUpManager.ShowInfo("Fehler!", "Server wurde leider nicht erreicht!");
             yield break;
         }
 
-        var response = JsonUtility.FromJson<Response>(request.downloadHandler.text);
+        var response = JsonUtility.FromJson<GeneralSerializables.Response>(request.downloadHandler.text);
 
         if (response.success)
         {
-            UserDataManager.DeleteData();
+            GeneralUserDataManager.DeleteData();
             SceneManager.LoadScene("Authentication");
         }
         else
         {
             Debug.Log(response.message);
-            PopUpManagerGeneral.ShowInfo("Fehler!", response.error ?? "Es gab einen Fehler beim löschen deines Kontos!");
+            GeneralPopUpManager.ShowInfo("Fehler!", response.error ?? "Es gab einen Fehler beim löschen deines Kontos!");
         }
     }
 }
