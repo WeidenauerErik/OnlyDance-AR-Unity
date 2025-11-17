@@ -324,7 +324,9 @@ public class GeneralPopUpManager : MonoBehaviour
     {
         var tempDance = JsonUtility.FromJson<GeneralSerializables.DanceData>(jsonField.value);
         GeneralDanceDataManager.SaveDance(tempDance);
+        onSubmit?.Invoke(jsonField.value);
         HidePopup();
+        
     }
     
     _cancelButton.text = "Abbrechen";
@@ -417,8 +419,7 @@ public class GeneralPopUpManager : MonoBehaviour
     return true;
 }
 
-    jsonField.RegisterValueChangedCallback(evt =>
-{
+    jsonField.RegisterValueChangedCallback(evt => {
     if (!Validate(evt.newValue, out string error))
     {
         errorLabel.text = error;

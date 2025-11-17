@@ -24,12 +24,14 @@ public class MainMenuDanceManager : MonoBehaviour
         importButton.RemoveFromClassList("unity-button");
         importButton.clicked += () =>
         {
-			GeneralPopUpManager.ResetInstance();
-			GeneralPopUpManager.Initialize(); 
-            GeneralPopUpManager.ShowJsonImport(json => {
-				Debug.Log(json);
-				SetMyDancesIntoView(mainView);
-			});
+                GeneralPopUpManager.ResetInstance();
+                GeneralPopUpManager.Initialize();
+                GeneralPopUpManager.ShowJsonImport(json =>
+                {
+                    SetMyDancesIntoView(mainView);
+                    
+                });
+            
         };
         headingContainer.Add(importButton);
         
@@ -69,7 +71,13 @@ public class MainMenuDanceManager : MonoBehaviour
                 var dances = await FetchFiveDances(url);
                 mainView.Clear();
                 mainView.Add(MainMenu.CreateHeading("Online Tänze"));
-                CreateDance(mainView, dances, true);
+                if (dances.Count == 0)
+                {
+                    var error = new Label("Es wurden leider noch keine Tänze erstellt.");
+                    error.AddToClassList("text-medium-grey-2");
+                    mainView.Add(error);
+                }
+                else CreateDance(mainView, dances, true);
                 GeneralLoadingSpinner.Hide();
             }
             catch (Exception e)
