@@ -468,25 +468,25 @@ public class GeneralPopUpManager : MonoBehaviour
         buttonContainer.AddToClassList("popup-container");
         _popupInnerContainer.Add(buttonContainer);
         
-        var button1 = new Button();
-        button1.text = "Exportieren";
-        button1.AddToClassList("button");
-        button1.clicked += () =>
+        var exportBtn = new Button();
+        exportBtn.text = "Exportieren";
+        exportBtn.AddToClassList("button");
+        exportBtn.clicked += () =>
         {
             Debug.Log("Exportieren");
             HidePopup();
         };
-        buttonContainer.Add(button1);
+        buttonContainer.Add(exportBtn);
         
-        var button2 = new Button();
-        button2.text = "Bearbeiten";
-        button2.AddToClassList("button");
-        button2.clicked += () =>
+        var editBtn = new Button();
+        editBtn.text = "Bearbeiten";
+        editBtn.AddToClassList("button");
+        editBtn.clicked += () =>
         {
             Debug.Log("Bearbeiten");
             HidePopup();
         };
-        buttonContainer.Add(button2);
+        buttonContainer.Add(editBtn);
         
         var deleteBtn = new Button();
         deleteBtn.text = "Löschen";
