@@ -67,7 +67,7 @@ public class GeneralPopUpManager : MonoBehaviour
         var buttonContainer = new VisualElement();
         buttonContainer.AddToClassList("button-select");
         container.Add(buttonContainer);
-
+        
         _okButton = new Button();
         _okButton.AddToClassList("button");
         buttonContainer.Add(_okButton);
@@ -132,15 +132,24 @@ public class GeneralPopUpManager : MonoBehaviour
     }
 	
 	public static void ShowJsonImport(Action<string> onSubmit)
-{
-    if (_instance == null)
     {
-        Debug.LogError("GeneralPopUpManager ist nicht initialisiert!");
-        return;
+        if (_instance == null)
+        {
+            Debug.LogError("GeneralPopUpManager ist nicht initialisiert!");
+            return;
+        }
+        _instance.InternalShowJsonImport(onSubmit);
     }
-    _instance.InternalShowJsonImport(onSubmit);
-}
 
+    public static void ShowDanceSettings(int danceID, VisualElement mainView)
+    {
+        if (_instance == null)
+        {
+            Debug.LogError("GeneralPopUpManager ist nicht initialisiert!");
+            return;
+        }
+        _instance.InternalShowDanceSettings(danceID, mainView);
+    }
 
     private void InternalShowDeleteAccount(Action<string> onSubmit)
     {
@@ -155,6 +164,7 @@ public class GeneralPopUpManager : MonoBehaviour
         _popupInnerContainer.Add(password);
         _popupInnerContainer.Add(errorLabel);
 
+        _okButton.style.display = DisplayStyle.Flex;
         _okButton.text = "Löschen";
         _okButton.SetEnabled(false);
         _okButton.clicked -= HidePopup;
@@ -198,6 +208,7 @@ public class GeneralPopUpManager : MonoBehaviour
         messageLabel.AddToClassList("text-medium");
         
         _popupInnerContainer.Add(messageLabel);
+        _okButton.style.display = DisplayStyle.Flex;
         _okButton.text = "OK";
         _okButton.clicked -= HidePopup;
         _okButton.clicked += HidePopup;
@@ -251,6 +262,7 @@ public class GeneralPopUpManager : MonoBehaviour
         _popupInnerContainer.Add(confirmPw);
         _popupInnerContainer.Add(errorLabel);
 
+        _okButton.style.display = DisplayStyle.Flex;
         _okButton.text = "Ändern";
         _okButton.SetEnabled(false);
         _okButton.clicked -= HidePopup;
@@ -314,6 +326,7 @@ public class GeneralPopUpManager : MonoBehaviour
     _popupInnerContainer.Add(jsonField);
     _popupInnerContainer.Add(errorLabel);
 
+    _okButton.style.display = DisplayStyle.Flex;
     _okButton.text = "Importieren";
     _okButton.SetEnabled(false);
     
@@ -326,7 +339,6 @@ public class GeneralPopUpManager : MonoBehaviour
         GeneralDanceDataManager.SaveDance(tempDance);
         onSubmit?.Invoke(jsonField.value);
         HidePopup();
-        
     }
     
     _cancelButton.text = "Abbrechen";
@@ -435,7 +447,61 @@ public class GeneralPopUpManager : MonoBehaviour
     _popupRoot.style.display = DisplayStyle.Flex;
 }
 
+    private void InternalShowDanceSettings(int danceID, VisualElement mainView)
+    {
+        ClearCallbacks();
+        _titleLabel.text = "Tanz-Einstellungen";
+        _popupInnerContainer.Clear();
+        
+        var messageLabel = new Label("Hier kannst du die Einstellungen für deinen Tanz ändern.");
+        messageLabel.AddToClassList("text-medium-grey-2");
+        _popupInnerContainer.Add(messageLabel);
+        
+        _okButton.style.display = DisplayStyle.None;
+        
+        _cancelButton.text = "Abbrechen";
+        _cancelButton.style.display = DisplayStyle.Flex;
+        _cancelButton.clicked -= HidePopup;
+        _cancelButton.clicked += HidePopup;
+        
+        var buttonContainer = new VisualElement();
+        buttonContainer.AddToClassList("popup-container");
+        _popupInnerContainer.Add(buttonContainer);
+        
+        var button1 = new Button();
+        button1.text = "Exportieren";
+        button1.AddToClassList("button");
+        button1.clicked += () =>
+        {
+            Debug.Log("Exportieren");
+            HidePopup();
+        };
+        buttonContainer.Add(button1);
+        
+        var button2 = new Button();
+        button2.text = "Bearbeiten";
+        button2.AddToClassList("button");
+        button2.clicked += () =>
+        {
+            Debug.Log("Bearbeiten");
+            HidePopup();
+        };
+        buttonContainer.Add(button2);
+        
+        var deleteBtn = new Button();
+        deleteBtn.text = "Löschen";
+        deleteBtn.AddToClassList("button");
+        deleteBtn.clicked += () =>
+        {
+            GeneralDanceDataManager.DeleteDance(danceID);
+            HidePopup();
+            MainMenuDanceManager.SetMyDancesIntoView(mainView);
+        };
+        buttonContainer.Add(deleteBtn);
 
+        _popupRoot.style.display = DisplayStyle.Flex;
+    }
+    
     private static TextField CreatePasswordField(string label)
     {
         var field = new TextField { isPasswordField = true };

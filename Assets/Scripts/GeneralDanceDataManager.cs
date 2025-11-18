@@ -19,9 +19,8 @@ public static class GeneralDanceDataManager
             var formatter = new BinaryFormatter();
             return (GeneralSerializables.DanceCollection)formatter.Deserialize(fs);
         }
-        catch (Exception e)
+        catch
         {
-            Debug.Log(e);
             GeneralPopUpManager.ShowInfo("Fehler!", "Tänze konnten nicht geladen werden.");
             return new GeneralSerializables.DanceCollection();
         }
@@ -43,9 +42,7 @@ public static class GeneralDanceDataManager
 
     public static void SaveDance(GeneralSerializables.DanceData dance)
     {
-        Debug.Log(dance.id);
         var collection = LoadCollection();
-        Debug.Log(collection.dances);
 
         int index = collection.dances.FindIndex(d => d.id == dance.id);
         if (index >= 0)

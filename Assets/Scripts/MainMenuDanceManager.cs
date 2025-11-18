@@ -29,9 +29,7 @@ public class MainMenuDanceManager : MonoBehaviour
                 GeneralPopUpManager.ShowJsonImport(json =>
                 {
                     SetMyDancesIntoView(mainView);
-                    
                 });
-            
         };
         headingContainer.Add(importButton);
         
@@ -124,7 +122,7 @@ public class MainMenuDanceManager : MonoBehaviour
             var danceNameLabel = new Label(dance.name);
             danceNameLabel.AddToClassList("danceName");
             container.Add(danceNameLabel);
-
+			
             var dancePlayBtn = new Button();
             dancePlayBtn.AddToClassList("dancePlayButton");
             dancePlayBtn.RemoveFromClassList("unity-button");
@@ -133,9 +131,30 @@ public class MainMenuDanceManager : MonoBehaviour
                 MainMenuDanceLoader.Instance.SetDanceCredentials(dance.name, dance.id, isOnlineDance);
                 SceneManager.LoadScene("DanceAnimator");
             };
-			container.Add(dancePlayBtn);
+            if (!isOnlineDance) 
+            {
+                var btnContainer = new VisualElement();
+                btnContainer.AddToClassList("dance-button-container");
+                
+                var settingsBtn = new Button();
+                settingsBtn.AddToClassList("danceSettingsButton");
+                settingsBtn.RemoveFromClassList("unity-button");
+                settingsBtn.clicked += () =>
+                {
+                    GeneralPopUpManager.ShowDanceSettings(dance.id, mainView);
+                };
 
-            danceContainer.Add(container);
+                btnContainer.Add(dancePlayBtn);
+                btnContainer.Add(settingsBtn);
+
+                container.Add(btnContainer);
+                danceContainer.Add(container);
+            }
+            else
+            {
+                container.Add(dancePlayBtn);
+                danceContainer.Add(container);
+            }
         }
 		mainView.Add(danceContainer);
     }

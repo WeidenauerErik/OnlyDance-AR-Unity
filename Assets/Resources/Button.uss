@@ -28,28 +28,33 @@
     background-color: var(--color-violet-1);
 }
 
-
-.dancePlayButton {
-    background-image: resource("UIControllerPlayIcon");
-    background-size: 30% 30%;
-    border-radius: 50px;
-}
-
-.importJsonButton {
-    background-image: resource("UIControllerImportIcon");
-    border-radius: 5px;
-    background-size: 50% 50%;
-}
-
-.dancePlayButton, .importJsonButton {
+.dancePlayButton, .importJsonButton, .danceSettingsButton {
     background-color: var(--color-violet-2);
     background-repeat: no-repeat;
     background-position: center;
-    padding: 5px;
+    padding: 10px;
     width: 30px;
     height: 30px;
+    border-radius: 50px;
 }
 
-.dancePlayButton:active, .importJsonButton:active {
+.dancePlayButton:active, .importJsonButton:active, .danceSettingsButton:active {
     background-color: var(--color-violet-3);
+}
+
+.danceSettingsButton {
+    background-image: resource("SettingsIconWhite");
+    background-size: 70% 70%;
+    margin-left: 10px;
+}
+
+.dancePlayButton {
+    background-image: resource("UIControllerPlayIcon");
+    background-size: 50% 50%;
+}
+
+.importJsonButton {
+    padding: 20px;
+    background-image: resource("UIControllerImportIcon");
+    background-size: 50% 50%;
 }

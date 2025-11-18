@@ -59,7 +59,6 @@ public class MainMenuSettingsManager : MonoBehaviour
         {
             GeneralPopUpManager.ShowConfirm("Bist du dir sicher?", "", () =>
             {
-                Debug.Log("Logged out");
                 GeneralUserDataManager.DeleteData();
                 SceneManager.LoadScene("Authentication");
             });

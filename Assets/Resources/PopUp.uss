@@ -12,7 +12,7 @@
 
 .popup-container {
     background-color: var(--color-white-1);
-    padding: 20px;
+    padding: 10px;
     border-radius: 10px;
     width: 300px;
     max-width: 80%;
@@ -24,4 +24,6 @@
 
 .popup-inner-container {
     width: 100%;
+    display: flex;
+    align-items: center;
 }
