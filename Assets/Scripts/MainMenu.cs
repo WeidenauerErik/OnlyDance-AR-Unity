@@ -20,6 +20,7 @@ public class MainMenu : MonoBehaviour
     
     void Start()
     {
+       
         var uiDoc = FindFirstObjectByType<UIDocument>();
         var root = uiDoc.rootVisualElement;
 

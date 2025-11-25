@@ -52,7 +52,7 @@ public class MainMenuSettingsManager : MonoBehaviour
         };
         mainView.Add(deleteAccount);
 
-        var logoutBtn = new Button { text = "Logout" };
+        var logoutBtn = new Button { text = "Abmelden" };
         logoutBtn.AddToClassList("button");
         logoutBtn.AddToClassList("settings-container");
         logoutBtn.clicked += () =>
