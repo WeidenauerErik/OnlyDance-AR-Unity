@@ -27,6 +27,8 @@ public class Authentication : MonoBehaviour
         {
             Debug.Log("Loading Login Form");
             LoadLoginForm();
+            
+
         }
         else
         {

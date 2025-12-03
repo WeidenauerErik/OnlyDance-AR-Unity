@@ -78,8 +78,10 @@ public class GeneralPopUpManager : MonoBehaviour
         buttonContainer.Add(_cancelButton);
 
         if (styleSheet != null)
+        {
             _popupRoot.styleSheets.Add(styleSheet);
             _popupRoot.styleSheets.Add(InputStyleSheet);
+        }
 
         _uiRoot.Add(_popupRoot);
     }
@@ -93,7 +95,7 @@ public class GeneralPopUpManager : MonoBehaviour
     
     public static void ShowInfo(string title, string message)
     {
-        if (_instance == null)
+        if (!_instance)
         {
             Debug.LogError("GeneralPopUpManager ist nicht initialisiert!");
             return;
