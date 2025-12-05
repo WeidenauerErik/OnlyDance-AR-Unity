@@ -7,18 +7,14 @@
 }
 
 .input > .unity-text-field__input {
-    font-size: 14px;
+    font-size: 13px;
     padding: 12px 16px;
     border-radius: 12px;
     border-width: 0;
     background-color: white;
     color: var(--color-grey-1);
-    transition: all 0.2s ease;
-    outline: none;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
 }
 
-.input > .unity-text-field__input:focus {
+.input > .unity-text-field__input:active {
     border-color: #b58be7;
-    box-shadow: 0 0 6px rgba(181, 139, 231, 0.4);
 }

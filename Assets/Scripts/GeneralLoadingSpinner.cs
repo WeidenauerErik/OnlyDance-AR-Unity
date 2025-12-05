@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -105,7 +104,7 @@ public class GeneralLoadingSpinner : MonoBehaviour
 
     private IEnumerator AnimateDots()
     {
-        int dotCount = 0;
+        var dotCount = 0;
         while (true)
         {
             dotCount = (dotCount % 3) + 1;

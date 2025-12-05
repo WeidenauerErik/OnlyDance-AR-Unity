@@ -1,0 +1,28 @@
+﻿DropdownField {
+    height: 45px;
+    width: 80%;
+    border-radius: 20px;
+}
+
+
+DropdownField .unity-base-field__input {
+    background-color: var(--color-violet-2);
+    color: var(--color-white-1);
+    border-width: 0;
+    border-radius: 20px;
+    height: 100%;
+    font-size: 15px;
+}
+
+
+.unity-base-dropdown__container-outer {
+    display: none;
+    border-radius: 12px;
+    border-width: 0;
+    background-color: white;
+    color: var(--color-white-1);
+    
+}
+.unity-base-dropdown__container-inner {
+    display: none;
+}

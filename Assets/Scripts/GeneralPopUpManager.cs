@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using UnityEngine.UIElements;
-using System.Collections.Generic;
 
 public class GeneralPopUpManager : MonoBehaviour
 {
@@ -240,6 +239,8 @@ public class GeneralPopUpManager : MonoBehaviour
 
 
         _cancelButton.text = "Nein";
+        
+        _cancelButton.style.backgroundColor = new Color(215,194,223);
         _cancelButton.style.display = DisplayStyle.Flex;
         _cancelButton.clicked -= OnNoPressed;
         _cancelButton.clicked += OnNoPressed;
@@ -255,7 +256,7 @@ public class GeneralPopUpManager : MonoBehaviour
 
         var oldPw = CreatePasswordField("Altes Passwort");
         var newPw = CreatePasswordField("Neues Passwort");
-        var confirmPw = CreatePasswordField("Neues Passwort");
+        var confirmPw = CreatePasswordField("Passwort wiederholen");
         var errorLabel = new Label();
         errorLabel.AddToClassList("error-label");
 

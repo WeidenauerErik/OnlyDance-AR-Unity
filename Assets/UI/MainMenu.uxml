@@ -5,6 +5,7 @@
     <Style src="project://database/Assets/Resources/SettingsMainMenu.uss?fileID=7433441132597879392&amp;guid=fbb77545c8c94461b8ebfa91b6d4e095&amp;type=3#SettingsMainMenu" />
     <Style src="project://database/Assets/Resources/Button.uss?fileID=7433441132597879392&amp;guid=0da1bf426c2244b0946dcc3a05407f3a&amp;type=3#Button" />
     <Style src="project://database/Assets/Resources/Text.uss?fileID=7433441132597879392&amp;guid=3c8be3ecf32d49eabd176d669c3ceb1d&amp;type=3#Text" />
+    <Style src="project://database/Assets/Resources/Dropdown.uss?fileID=7433441132597879392&amp;guid=4ed6ae22c220419aa520a55147558d4c&amp;type=3#Dropdown" />
     <ui:VisualElement name="mainContent" style="flex-grow: 1; flex-shrink: 0;" />
     <ui:VisualElement name="navBar" style="flex-shrink: 0;">
         <ui:Button name="myDancesBtn" class="navBarContainer navBarBtn navBarBtns activeScene">

@@ -107,7 +107,7 @@ public class DanceAnimator : MonoBehaviour
         Debug.Log($"Steps erfolgreich geladen: {_danceSteps.Length}");
     }
 
-    public void SetDances(GeneralSerializables.Step[] steps)
+    private void SetDances(GeneralSerializables.Step[] steps)
     {
         _danceSteps = new GeneralSerializables.StepDanceAnimator[steps.Length];
 

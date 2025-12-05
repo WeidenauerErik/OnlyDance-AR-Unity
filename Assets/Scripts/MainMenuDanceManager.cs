@@ -43,93 +43,101 @@ public class MainMenuDanceManager : MonoBehaviour
 
     public static async void SetOnlineDancesIntoView(VisualElement mainView)
     {
-        GeneralLoadingSpinner.Show();
-
         try
         {
-            mainView.Clear();
+            GeneralLoadingSpinner.Show();
 
-            if (Application.internetReachability == NetworkReachability.NotReachable)
+            try
+            {
+                mainView.Clear();
+
+                var danceSchools = await FetchDanceSchoolsByEmail(GeneralUserDataManager.LoadData().email);
+
+                if (danceSchools.Count > 0)
+                    _selectedDanceSchoolId = danceSchools[0].id;
+
+                SetDancesForSelectedSchool(mainView, danceSchools);
+
+                GeneralLoadingSpinner.Hide();
+            }
+            catch
             {
                 GeneralLoadingSpinner.Hide();
-                GeneralPopUpManager.ShowInfo("Fehler!",
-                    "Es konnte leider keine Internetverbindung hergestellt werden.");
-                return;
+                GeneralPopUpManager.ShowInfo("Fehler!", "Die DanceSchools konnten nicht geladen werden.");
             }
-
-            var danceSchools = await FetchDanceSchoolsByEmail(GeneralUserDataManager.LoadData().email);
-
-            if (danceSchools.Count > 0)
-                _selectedDanceSchoolId = danceSchools[0].id;
-
-            SetDancesForSelectedSchool(mainView, danceSchools);
-
-            GeneralLoadingSpinner.Hide();
         }
         catch
         {
             GeneralLoadingSpinner.Hide();
-            GeneralPopUpManager.ShowInfo("Fehler!", "Die DanceSchools konnten nicht geladen werden.");
+            GeneralPopUpManager.ShowInfo("Fehler!", "Es konnte leider keine Internetverbindung hergestellt werden.");
         }
     }
 
     private static async void SetDancesForSelectedSchool(VisualElement mainView,
         List<GeneralSerializables.Dance> danceSchools)
     {
-        if (_selectedDanceSchoolId == null)
-            return;
-
-        GeneralLoadingSpinner.Show();
-
         try
         {
-            var url = $"{PlayerPrefs.GetString("url")}/getAllDances/{_selectedDanceSchoolId}";
-            var dances = await FetchDances(url);
+            if (_selectedDanceSchoolId == null)
+                return;
 
-            mainView.Clear();
+            GeneralLoadingSpinner.Show();
 
-            if (danceSchools.Count > 1)
+            try
             {
-                var dropdown = new DropdownField();
-                dropdown.choices = danceSchools.ConvertAll(ds => ds.name);
-                mainView.Add(dropdown);
-                var selectedSchool = danceSchools.Find(ds => ds.id == _selectedDanceSchoolId.Value);
-                if (selectedSchool != null)
-                    dropdown.SetValueWithoutNotify(selectedSchool.name);
-                dropdown.RegisterValueChangedCallback(evt =>
-                {
-                    var selected = danceSchools.Find(ds => ds.name == evt.newValue);
-                    if (selected != null)
-                        _selectedDanceSchoolId = selected.id;
+                var url = $"{PlayerPrefs.GetString("url")}/getAllDances/{_selectedDanceSchoolId}";
+                var dances = await FetchDances(url);
 
-                    SetDancesForSelectedSchool(mainView, danceSchools);
-                });
-                if (dances.Count == 0)
+                mainView.Clear();
+
+                if (danceSchools.Count > 1)
                 {
-                    var error = new Label("Es wurden leider noch keine Tänze für diese Tanzschule erstellt.");
-                    error.AddToClassList("text-medium-grey-2");
-                    mainView.Add(error);
+                    var dropdown = new DropdownField { choices = danceSchools.ConvertAll(ds => ds.name) };
+                    dropdown.AddToClassList("dropdown");
+                    mainView.Add(dropdown);
+                    var selectedSchool = danceSchools.Find(ds => ds.id == _selectedDanceSchoolId.Value);
+                    if (selectedSchool != null)
+                        dropdown.SetValueWithoutNotify(selectedSchool.name);
+                    dropdown.RegisterValueChangedCallback(evt =>
+                    {
+                        var selected = danceSchools.Find(ds => ds.name == evt.newValue);
+                        if (selected != null)
+                            _selectedDanceSchoolId = selected.id;
+
+                        SetDancesForSelectedSchool(mainView, danceSchools);
+                    });
+                    if (dances.Count == 0)
+                    {
+                        var error = new Label("Es wurden leider noch keine Tänze für diese Tanzschule erstellt.");
+                        error.AddToClassList("text-medium-grey-2");
+                        mainView.Add(error);
+                    }
+                    else CreateDance(mainView, dances, true);
                 }
-                else CreateDance(mainView, dances, true);
+                else
+                {
+                    mainView.Add(MainMenu.CreateHeading("Online Tänze"));
+                    if (dances.Count == 0)
+                    {
+                        var error = new Label("Es wurden leider noch keine Tänze für diese Tanzschule erstellt.");
+                        error.AddToClassList("text-medium-grey-2");
+                        mainView.Add(error);
+                    }
+                    else CreateDance(mainView, dances, true);
+                }
+                GeneralLoadingSpinner.Hide();
             }
-            else
+            catch
+
             {
-                mainView.Add(MainMenu.CreateHeading("Online Tänze"));
-                if (dances.Count == 0)
-                {
-                    var error = new Label("Es wurden leider noch keine Tänze für diese Tanzschule erstellt.");
-                    error.AddToClassList("text-medium-grey-2");
-                    mainView.Add(error);
-                }
-                else CreateDance(mainView, dances, true);
+                GeneralLoadingSpinner.Hide();
+                GeneralPopUpManager.ShowInfo("Fehler!", "Die Tänze konnten nicht geladen werden.");
             }
-            GeneralLoadingSpinner.Hide();
         }
         catch
-
         {
             GeneralLoadingSpinner.Hide();
-            GeneralPopUpManager.ShowInfo("Fehler!", "Die Tänze konnten nicht geladen werden.");
+            GeneralPopUpManager.ShowInfo("Fehler!", "Es konnte leider keine Internetverbindung hergestellt werden.");
         }
     }
 

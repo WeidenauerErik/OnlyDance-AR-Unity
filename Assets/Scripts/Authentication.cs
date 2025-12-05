@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.UIElements;
 using System.Collections;
@@ -72,12 +71,10 @@ public class Authentication : MonoBehaviour
         var loginTitle = new Label("Login");
         loginTitle.AddToClassList("text-large");
 
-        var loginEmailField = new TextField();
-        loginEmailField.textEdition.placeholder = "E-Mail";
+        var loginEmailField = new TextField { textEdition = { placeholder = "E-Mail" } };
         loginEmailField.AddToClassList("input");
 
-        var loginPasswordField = new TextField { isPasswordField = true };
-        loginPasswordField.textEdition.placeholder = "Passwort";
+        var loginPasswordField = new TextField { isPasswordField = true, textEdition = { placeholder = "Passwort" } };
         loginPasswordField.AddToClassList("input");
 
         _loginErrorLabel = new Label();
@@ -87,39 +84,9 @@ public class Authentication : MonoBehaviour
         loginButton.AddToClassList("button");
         loginButton.SetEnabled(false);
 
-        bool emailTouched = false;
-        bool passwordTouched = false;
+        var emailTouched = false;
+        var passwordTouched = false;
 
-        void ValidateLogin(bool force = false)
-        {
-            var email = loginEmailField.value?.Trim();
-            var password = loginPasswordField.value?.Trim();
-
-            if ((emailTouched || force) && string.IsNullOrEmpty(email))
-            {
-                _loginErrorLabel.text = "E-Mail Eingabefeld ist leer!";
-                loginButton.SetEnabled(false);
-                return;
-            }
-
-            if ((emailTouched || force) && !Regex.IsMatch(email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
-            {
-                _loginErrorLabel.text = "Ungültiges E-Mail-Format!";
-                loginButton.SetEnabled(false);
-                return;
-            }
-
-            if ((passwordTouched || force) && string.IsNullOrEmpty(password))
-            {
-                _loginErrorLabel.text = "Passwort Eingabefeld ist leer!";
-                loginButton.SetEnabled(false);
-                return;
-            }
-
-            _loginErrorLabel.text = "";
-            loginButton.SetEnabled(!string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(password));
-        }
-        
         loginEmailField.RegisterCallback<FocusOutEvent>(evt =>
         {
             emailTouched = true;
@@ -150,10 +117,7 @@ public class Authentication : MonoBehaviour
         var switchLabel = new Label("Noch keinen Account?");
         switchLabel.AddToClassList("text-medium-grey-1");
 
-        var loginLink = new Button(() => LoadRegisterForm())
-        {
-            text = " Registrieren"
-        };
+        var loginLink = new Button(() => LoadRegisterForm()) { text = " Registrieren" };
         loginLink.AddToClassList("switch-link");
 
         loginBox.Add(loginTitle);
@@ -166,6 +130,37 @@ public class Authentication : MonoBehaviour
         loginBox.Add(switchContainer);
 
         _container.Add(loginBox);
+        return;
+
+        void ValidateLogin(bool force = false)
+        {
+            var email = loginEmailField.value?.Trim();
+            var password = loginPasswordField.value?.Trim();
+
+            if ((emailTouched || force) && string.IsNullOrEmpty(email))
+            {
+                _loginErrorLabel.text = "E-Mail Eingabefeld ist leer!";
+                loginButton.SetEnabled(false);
+                return;
+            }
+
+            if ((emailTouched || force) && !Regex.IsMatch(email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+            {
+                _loginErrorLabel.text = "Ungültiges E-Mail-Format!";
+                loginButton.SetEnabled(false);
+                return;
+            }
+
+            if ((passwordTouched || force) && string.IsNullOrEmpty(password))
+            {
+                _loginErrorLabel.text = "Passwort Eingabefeld ist leer!";
+                loginButton.SetEnabled(false);
+                return;
+            }
+
+            _loginErrorLabel.text = "";
+            loginButton.SetEnabled(!string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(password));
+        }
     }
     
     private void LoadRegisterForm()
@@ -178,16 +173,13 @@ public class Authentication : MonoBehaviour
         var registerTitle = new Label("Register");
         registerTitle.AddToClassList("text-large");
 
-        var registerEmailField = new TextField();
-        registerEmailField.textEdition.placeholder = "E-Mail";
+        var registerEmailField = new TextField { textEdition = { placeholder = "E-Mail" } };
         registerEmailField.AddToClassList("input");
 
-        var registerPasswordField = new TextField { isPasswordField = true };
-        registerPasswordField.textEdition.placeholder = "Passwort";
+        var registerPasswordField = new TextField { isPasswordField = true, textEdition = { placeholder = "Passwort" } };
         registerPasswordField.AddToClassList("input");
 
-        var registerConfirmPasswordField = new TextField { isPasswordField = true };
-        registerConfirmPasswordField.textEdition.placeholder = "Passwort wiederholen";
+        var registerConfirmPasswordField = new TextField { isPasswordField = true, textEdition = { placeholder = "Passwort wiederholen" } };
         registerConfirmPasswordField.AddToClassList("input");
 
         _registerErrorLabel = new Label();
@@ -235,7 +227,7 @@ public class Authentication : MonoBehaviour
                 return;
             }
 
-            if ((confirmTouched || force) && password != confirm)
+            if ((confirmTouched || force) && password != null && password != confirm)
             {
                 _registerErrorLabel.text = "Passwörter stimmen nicht überein!";
                 registerButton.SetEnabled(false);
