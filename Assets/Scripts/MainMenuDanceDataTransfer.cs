@@ -1,9 +1,8 @@
 using UnityEngine;
 
-
-public class MainMenuDanceLoader : MonoBehaviour
+public class MainMenuDanceDataTransfer : MonoBehaviour
 {
-    public static MainMenuDanceLoader Instance;
+    public static MainMenuDanceDataTransfer Instance;
 
     public string SelectedDance { get; private set; }
     public int SelectedDanceId { get; private set; }
@@ -14,7 +13,7 @@ public class MainMenuDanceLoader : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); //if you switch scenes the object won't be destroyed
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -22,10 +21,10 @@ public class MainMenuDanceLoader : MonoBehaviour
         }
     }
 
-    public void SetDanceCredentials(string danceName, int danceId, bool IsOnlineDance)
+    public void SetDanceCredentials(string danceName, int danceId, bool isOnlineDance)
     {
         SelectedDance = danceName;
         SelectedDanceId = danceId;
-        SelectedIsOnlineDance = IsOnlineDance;
+        SelectedIsOnlineDance = isOnlineDance;
     }
 }

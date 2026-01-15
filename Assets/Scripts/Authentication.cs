@@ -50,7 +50,11 @@ public class Authentication : MonoBehaviour
         yield return request.SendWebRequest();
 
         var response = JsonUtility.FromJson<GeneralSerializables.Response>(request.downloadHandler.text);
-        if (response.success) SceneManager.LoadScene("MainMenu");
+        if (response.success)
+        {
+            PlayerPrefs.SetString("locationMainMenu", "myDances");
+            SceneManager.LoadScene("MainMenu");
+        }
         else
         {
             GeneralUserDataManager.DeleteData();
@@ -321,6 +325,7 @@ public class Authentication : MonoBehaviour
         {
             GeneralUserDataManager.SaveData(email, response.password);
             SceneManager.LoadScene("MainMenu");
+            PlayerPrefs.SetString("locationMainMenu", "myDances");
         }
         else _loginErrorLabel.text = response.error ?? "Login fehlgeschlagen!";
     }
@@ -345,11 +350,12 @@ public class Authentication : MonoBehaviour
             _registerErrorLabel.text = request.error;
             yield break;
         }
-
+        Debug.Log(request.downloadHandler.text);
         var response = JsonUtility.FromJson<GeneralSerializables.Response>(request.downloadHandler.text);
         if (response.success)
         {
             GeneralUserDataManager.SaveData(email, response.password);
+            PlayerPrefs.SetString("locationMainMenu", "myDances");
             SceneManager.LoadScene("MainMenu");
         }
         else

@@ -46,7 +46,8 @@ public class MainMenu : MonoBehaviour
         _settingsBtnLabel = root.Q<Label>("settingsBtnLabel");
         _settingsBtnIcon = root.Q<VisualElement>("settingsBtnIcon");
 
-        MyDancesBtnClicked();
+        if (PlayerPrefs.GetString("locationMainMenu") == "myDances") MyDancesBtnClicked();
+        else OnlineDancesBtnClicked();
     }
 
     private void MyDancesBtnClicked()

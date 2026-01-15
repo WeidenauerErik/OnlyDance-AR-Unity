@@ -52,20 +52,20 @@ public class DanceAnimator : MonoBehaviour
 
         GeneralPopUpManager.Initialize();
 
-        if (MainMenuDanceLoader.Instance.SelectedIsOnlineDance) StartCoroutine(LoadStepsFromServer());
+        if (MainMenuDanceDataTransfer.Instance.SelectedIsOnlineDance) StartCoroutine(LoadStepsFromServer());
         else LoadStepsFromLocalStorage();
     }
 
     private void LoadStepsFromLocalStorage()
     {
-        GeneralSerializables.Step[] steps = GeneralDanceDataManager.LoadDanceSteps(MainMenuDanceLoader.Instance.SelectedDanceId);
+        GeneralSerializables.Step[] steps = GeneralDanceDataManager.LoadDanceSteps(MainMenuDanceDataTransfer.Instance.SelectedDanceId);
         SetDances(steps);
     }
     
     // ReSharper disable Unity.PerformanceAnalysis
     private IEnumerator LoadStepsFromServer()
     {
-        var url = PlayerPrefs.GetString("url") + "/getDanceById/" + MainMenuDanceLoader.Instance.SelectedDanceId;
+        var url = PlayerPrefs.GetString("url") + "/getDanceById/" + MainMenuDanceDataTransfer.Instance.SelectedDanceId;
         using var request = UnityWebRequest.Get(url);
 
         yield return request.SendWebRequest();
@@ -160,7 +160,7 @@ public class DanceAnimator : MonoBehaviour
         _counter.text = "0/0";
 
         _danceName = root.Q<Label>("danceName");
-        _danceName.text = MainMenuDanceLoader.Instance.SelectedDance;
+        _danceName.text = MainMenuDanceDataTransfer.Instance.SelectedDance;
 
         _danceController = root.Q<VisualElement>("danceController");
         _danceController.style.display = DisplayStyle.None;

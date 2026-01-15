@@ -14,6 +14,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/DanceAnimator.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/ChangeDanceSchool.unity
+    guid: c5cc112f8e8b5604b83ab54c77cef1c7
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 7b2ef46eebb1a2c81b0ad77873819cea, type: 2}
     UnityEditor.XR.ARKit.ARKitSettings: {fileID: 11400000, guid: 772ed97b0f156410d8b56f759074d5e9, type: 2}

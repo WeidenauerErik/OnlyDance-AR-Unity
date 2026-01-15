@@ -240,7 +240,6 @@ public class GeneralPopUpManager : MonoBehaviour
 
         _cancelButton.text = "Nein";
         
-        _cancelButton.style.backgroundColor = new Color(215,194,223);
         _cancelButton.style.display = DisplayStyle.Flex;
         _cancelButton.clicked -= OnNoPressed;
         _cancelButton.clicked += OnNoPressed;
