@@ -178,23 +178,17 @@ public class DanceAnimator : MonoBehaviour
         _danceController.style.display = DisplayStyle.Flex;
 
         Vector3 spawnPosition = Vector3.zero;
-
-        // 🎯 Versuche, die Fläche direkt unter der Kamera zu treffen:
+        
         var screenCenter = new Vector2(Screen.width / 2, Screen.height / 2);
         if (raycastManager.Raycast(screenCenter, _hits, TrackableType.PlaneWithinPolygon))
         {
             Pose hitPose = _hits[0].pose;
             spawnPosition = hitPose.position;
         }
-        else
-        {
-            Debug.LogWarning("Keine AR-Fläche unter der Kamera gefunden! Verwende (0,0,0) als Fallback.");
-        }
 
         _leftFootInstance = Instantiate(leftFootPrefab, spawnPosition + new Vector3(-0.2f, 0, 0), Quaternion.identity);
         _rightFootInstance = Instantiate(rightFootPrefab, spawnPosition + new Vector3(0.2f, 0, 0), Quaternion.identity);
-
-        // Rest wie gehabt...
+        
         _leftFootHeelRenderer = _leftFootInstance.transform.Find("leftheel").GetComponent<Renderer>();
         _leftFootToeRenderer = _leftFootInstance.transform.Find("lefttoe").GetComponent<Renderer>();
         _rightFootHeelRenderer = _rightFootInstance.transform.Find("rightheel").GetComponent<Renderer>();

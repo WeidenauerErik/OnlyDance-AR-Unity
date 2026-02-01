@@ -12,7 +12,7 @@ public static class GeneralUserDataManager
         try
         {
             var data = new GeneralSerializables.User(email, password);
-
+            var FilePath = Path.Combine(Application.persistentDataPath, "data.onlydance");
             using var fs = new FileStream(FilePath, FileMode.Create);
             var formatter = new BinaryFormatter();
             formatter.Serialize(fs, data);

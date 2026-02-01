@@ -48,6 +48,8 @@ public class MainMenu : MonoBehaviour
 
         if (PlayerPrefs.GetString("locationMainMenu") == "myDances") MyDancesBtnClicked();
         else OnlineDancesBtnClicked();
+        
+        
     }
 
     private void MyDancesBtnClicked()
