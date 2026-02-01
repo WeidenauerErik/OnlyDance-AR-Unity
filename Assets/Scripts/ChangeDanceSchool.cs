@@ -47,19 +47,26 @@ public class ChangeDanceSchool : MonoBehaviour
 
         foreach (var school in transfer.DanceSchools)
         {
-            var btn = new Button();
-            btn.text = school.name;
-            btn.AddToClassList("danceSchoolButton");
-            btn.RemoveFromClassList("unity-button");
+            var container = new VisualElement();
+            container.AddToClassList("danceSchoolContainer");
 
+            var danceName = new Label(school.name);
+            danceName.AddToClassList("text-medium");
+
+            var btn = new Button();
+            btn.RemoveFromClassList("unity-button");
+            btn.AddToClassList("ForwardButton");
             btn.clicked += () =>
             {
                 PlayerPrefs.SetString("locationMainMenu", "onlineDances");
                 transfer.SetSelectedDanceSchoolId(school.id);
                 SceneManager.LoadScene("MainMenu");
             };
+            
+            container.Add(danceName);
+            container.Add(btn);
 
-            _mainContent.Add(btn);
+            _mainContent.Add(container);
         }
     }
 }

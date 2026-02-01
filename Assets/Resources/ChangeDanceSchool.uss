@@ -8,3 +8,8 @@
     padding-left: 10px;
     flex-grow: 1;
 }
+
+.arrow-image {
+    background-image: resource("ForwardIcon");
+    background-size: 50% 50%;
+}
