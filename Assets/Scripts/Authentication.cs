@@ -10,31 +10,21 @@ public class Authentication : MonoBehaviour
     private VisualElement _container;
     private Label _loginErrorLabel;
     private Label _registerErrorLabel;
-    
-    void Start()
+
+    private void Start()
     {
         PlayerPrefs.SetString("url", "https://onlydance.at/api");
-
         var uiDoc = FindFirstObjectByType<UIDocument>();
         _container = uiDoc.rootVisualElement.Q<VisualElement>("mainContainer");
-
-        GeneralPopUpManager.Initialize();
-        GeneralLoadingSpinner.Initialize(_container);
+        
+        GeneralPopUpManager.Initialize(); GeneralLoadingSpinner.Initialize(_container);
 
         var data = GeneralUserDataManager.LoadDataAuthentication();
-        if (data == null || string.IsNullOrEmpty(data.email) || string.IsNullOrEmpty(data.password))
-        {
-            Debug.Log("Loading Login Form");
-            LoadLoginForm();
-        }
-        else
-        {
-            Debug.Log("checkUserData");
-            StartCoroutine(CheckUserData(data.email, data.password));
-        }
+        if (data == null || string.IsNullOrEmpty(data.email) || string.IsNullOrEmpty(data.password)) LoadLoginForm();
+        else StartCoroutine(CheckUserData(data.email, data.password));
     }
 
-    private IEnumerator CheckUserData(string email, string password)
+    private static IEnumerator CheckUserData(string email, string password)
     {
         var url = $"{PlayerPrefs.GetString("url")}/checkUser";
         var postData = new GeneralSerializables.User(email, password);
@@ -198,8 +188,6 @@ public class Authentication : MonoBehaviour
         void ValidateRegister(bool force = false)
         {
             var email = registerEmailField.value?.Trim();
-            var password = registerPasswordField.value?.Trim();
-            var confirm = registerConfirmPasswordField.value?.Trim();
 
             if ((emailTouched || force) && string.IsNullOrEmpty(email))
             {
@@ -208,12 +196,16 @@ public class Authentication : MonoBehaviour
                 return;
             }
 
+
             if ((emailTouched || force) && !Regex.IsMatch(email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
             {
                 _registerErrorLabel.text = "Ungültiges E-Mail-Format!";
                 registerButton.SetEnabled(false);
                 return;
             }
+
+            var password = registerPasswordField.value?.Trim();
+            var confirm = registerConfirmPasswordField.value?.Trim();
 
             if ((passwordTouched || force) && string.IsNullOrEmpty(password))
             {
@@ -328,6 +320,7 @@ public class Authentication : MonoBehaviour
         else _loginErrorLabel.text = response.error ?? "Login fehlgeschlagen!";
     }
 
+    // ReSharper disable Unity.PerformanceAnalysis
     private IEnumerator RegisterUser(string email, string password)
     {
         GeneralLoadingSpinner.Show();

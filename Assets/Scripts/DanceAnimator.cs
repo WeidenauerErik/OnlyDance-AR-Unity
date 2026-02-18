@@ -177,7 +177,7 @@ public class DanceAnimator : MonoBehaviour
         _spawnBtn.style.display = DisplayStyle.None;
         _danceController.style.display = DisplayStyle.Flex;
 
-        Vector3 spawnPosition = Vector3.zero;
+        var spawnPosition = Vector3.zero;
         
         var screenCenter = new Vector2(Screen.width / 2, Screen.height / 2);
         if (raycastManager.Raycast(screenCenter, _hits, TrackableType.PlaneWithinPolygon))
