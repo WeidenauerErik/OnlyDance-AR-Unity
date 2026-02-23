@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using Sych.ShareAssets.Runtime;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -19,10 +17,10 @@ public class MainMenu : MonoBehaviour
     private VisualElement _settingsBtnIcon;
 
     private VisualElement _mainContent;
-
-    public void Start()
+    
+    void Start()
     {
-        Share.Item("google.com", success => { Debug.Log(success ? "Servus" : "Error"); });
+       
         var uiDoc = FindFirstObjectByType<UIDocument>();
         var root = uiDoc.rootVisualElement;
 
