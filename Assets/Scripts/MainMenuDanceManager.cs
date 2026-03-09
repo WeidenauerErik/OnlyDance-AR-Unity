@@ -39,7 +39,7 @@ public class MainMenuDanceManager : MonoBehaviour
 
         if (myDanceList.Count == 0)
         {
-            var error = new Label("Du musst als erstes Tänze erstellen, sodass du eigene tanzen kannst.");
+            var error = new Label("Keine Tänze gefunden. Bitte erstelle zuerst einen Tanz.");
             error.AddToClassList("text-medium-grey-2");
             mainView.Add(error);
         }

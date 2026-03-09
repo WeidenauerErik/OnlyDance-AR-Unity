@@ -476,19 +476,25 @@ public class GeneralPopUpManager : MonoBehaviour
         exportBtn.clicked += () =>
         {
             Debug.Log("Exportieren");
+        
+            var dance = GeneralDanceDataManager.GetDance(danceID);
+            if (dance == null)
+            {
+                Debug.LogError("Dance nicht gefunden!");
+                return;
+            }
+        
+            var subject = $"Tanz - {dance.name}";
+            var content = $"Das ist die Konfigurationsdatei von dem Tanz {dance.name}:\n{JsonUtility.ToJson(dance, true)}";
+            
+            new NativeShare()
+                .SetSubject(subject)
+                .SetText(content)
+                .Share();
+        
             HidePopup();
         };
         buttonContainer.Add(exportBtn);
-        
-        var editBtn = new Button();
-        editBtn.text = "Bearbeiten";
-        editBtn.AddToClassList("button");
-        editBtn.clicked += () =>
-        {
-            Debug.Log("Bearbeiten");
-            HidePopup();
-        };
-        buttonContainer.Add(editBtn);
         
         var deleteBtn = new Button();
         deleteBtn.text = "Löschen";

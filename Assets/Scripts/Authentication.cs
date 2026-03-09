@@ -13,6 +13,7 @@ public class Authentication : MonoBehaviour
 
     private void Start()
     {
+        Screen.orientation = ScreenOrientation.Portrait;
         PlayerPrefs.SetString("url", "https://onlydance.at/api");
         var uiDoc = FindFirstObjectByType<UIDocument>();
         _container = uiDoc.rootVisualElement.Q<VisualElement>("mainContainer");

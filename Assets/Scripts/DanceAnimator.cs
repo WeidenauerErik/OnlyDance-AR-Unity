@@ -47,6 +47,7 @@ public class DanceAnimator : MonoBehaviour
     
     private void Awake()
     {
+        Screen.orientation = ScreenOrientation.LandscapeLeft;
         var uiDoc = FindFirstObjectByType<UIDocument>();
         var root = uiDoc.rootVisualElement;
 

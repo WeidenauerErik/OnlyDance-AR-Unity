@@ -16,6 +16,7 @@
     "com.unity.xr.arcore": "6.1.1",
     "com.unity.xr.arfoundation": "6.1.1",
     "com.unity.xr.arkit": "6.0.6",
+    "com.yasirkula.nativeshare": "https://github.com/yasirkula/UnityNativeShare.git",
     "com.unity.modules.accessibility": "1.0.0",
     "com.unity.modules.ai": "1.0.0",
     "com.unity.modules.androidjni": "1.0.0",

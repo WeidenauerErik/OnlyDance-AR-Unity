@@ -20,7 +20,7 @@ public class MainMenu : MonoBehaviour
     
     void Start()
     {
-       
+        Screen.orientation = ScreenOrientation.Portrait;
         var uiDoc = FindFirstObjectByType<UIDocument>();
         var root = uiDoc.rootVisualElement;
 

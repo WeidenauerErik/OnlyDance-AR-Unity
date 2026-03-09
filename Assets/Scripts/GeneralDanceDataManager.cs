@@ -61,15 +61,20 @@ public static class GeneralDanceDataManager
     }
 
 
-public static GeneralSerializables.Step[] LoadDanceSteps(int id)
-{
-    var collection = LoadCollection();
-    var dance = collection.dances.Find(d => d.id == id);
+    public static GeneralSerializables.Step[] LoadDanceSteps(int id)
+    {
+        var collection = LoadCollection();
+        var dance = collection.dances.Find(d => d.id == id);
+    
+        if (dance == null || dance.data == null) return Array.Empty<GeneralSerializables.Step>();
+        return dance.data.ToArray();
+    }
 
-    if (dance == null || dance.data == null) return Array.Empty<GeneralSerializables.Step>();
-    return dance.data.ToArray();
-}
-
+    public static GeneralSerializables.DanceData GetDance(int id)
+    {
+        var collection = LoadCollection();
+        return collection.dances.Find(d => d.id == id);
+    }
     
     public static List<GeneralSerializables.Dance> GetAllDances()
     {
