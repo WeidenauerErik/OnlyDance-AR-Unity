@@ -10,19 +10,19 @@ Built with **Unity 6**, the app supports both **iOS (ARKit)** and **Android (ARC
 
 ## 📱 Features
 
-### 🦶 AR-Based Dance Training
+### AR-Based Dance Training
 - Footprints are projected onto the real-world floor via AR tracking
 - A step controller lets users progress through a dance at their own pace
 - Integrated music & metronome plugin keeps timing consistent
 
-### 🎭 Two Dance Modes
+### Two Dance Modes
 
 | Mode | Description |
 |---|---|
 | **Online Dances** | Curated choreographies created by the OnlyDance team |
 | **My Dances** | Users can create, edit, and save their own steps and sequences |
 
-### 🎨 Modern UI (Unity UI Toolkit)
+### Modern UI (Unity UI Toolkit)
 - Structured panels and smooth transitions
 - Consistent UX via StyleSheets and UI Toolkit components
 - Lightweight and responsive across screen sizes
