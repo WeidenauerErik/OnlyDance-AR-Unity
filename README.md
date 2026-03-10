@@ -1,62 +1,103 @@
-# OnlyDance AR Unity
+# 🕺 OnlyDance — AR App (Unity)
 
-OnlyDance AR is an augmented reality application that allows users to learn dance steps in an intuitive and immersive way.  
-The app was fully developed with **Unity** and uses modern AR frameworks (**AR Foundation**, **ARCore**, **ARKit**) as well as the **Unity UI Toolkit** for a clean and lightweight interface.
+**OnlyDance AR** is an augmented reality application that lets users learn dance choreographies in an immersive, spatial way. The app projects footprint guides directly onto the floor via AR, allowing dancers to follow along step by step in their own environment.
+
+Built with **Unity 6**, the app supports both **iOS (ARKit)** and **Android (ARCore)** and features a clean, modern UI powered by the **Unity UI Toolkit**.
+
+> 🌐 Live: [onlydance.at](https://onlydance.at) · 📦 Latest Release: **v1.4.0** (stable)
 
 ---
 
 ## 📱 Features
 
-### 🔹 AR-based Dance Training
-- Two footprints on the ground display the steps  
-- A UI controller allows users to iterate through the dance  
-- A music & metronome plugin is available
+### 🦶 AR-Based Dance Training
+- Footprints are projected onto the real-world floor via AR tracking
+- A step controller lets users progress through a dance at their own pace
+- Integrated music & metronome plugin keeps timing consistent
 
-### 🔹 Two Dance Modes
-- **Online Dances**  
-  Classic choreographies created by OnlyDance  
-- **My Dances**  
-  Users can create, edit, and save their own moves and choreographies
+### 🎭 Two Dance Modes
 
-### 🔹 Modern UI (Unity UI Toolkit)
-- Cleanly structured panels, animations, and visual feedback  
-- Consistent UX design using StyleSheets and UI Toolkit components
+| Mode | Description |
+|---|---|
+| **Online Dances** | Curated choreographies created by the OnlyDance team |
+| **My Dances** | Users can create, edit, and save their own steps and sequences |
 
----
-
-## 🛠️ Technologies & Plugins
-
-### Unity Version
-- Developed with **Unity 6**
-
-### AR Plugins
-| Plugin | Description |
-|--------|-------------|
-| **AR Foundation** | Common interface for ARKit & ARCore |
-| **ARKit XR Plugin** | AR support for iOS |
-| **ARCore XR Plugin** | AR support for Android |
-| **UI Toolkit** | Modern and flexible UI system in Unity |
+### 🎨 Modern UI (Unity UI Toolkit)
+- Structured panels and smooth transitions
+- Consistent UX via StyleSheets and UI Toolkit components
+- Lightweight and responsive across screen sizes
 
 ---
 
-## 🚀 Deployment
+## 🛠️ Tech Stack
 
-OnlyDance AR was developed for:
-
-- **iOS** (ARKit)  
-- **Android** (ARCore)
-
-Important:
-- Camera and tracking permissions must be enabled  
-- ARKit/ARCore support must be activated in the project  
+| Component | Technology |
+|---|---|
+| Engine | Unity 6 |
+| AR Framework | AR Foundation |
+| iOS Support | ARKit XR Plugin |
+| Android Support | ARCore XR Plugin |
+| UI System | Unity UI Toolkit |
+| Shaders | ShaderLab / HLSL |
+| Logic | C# |
+| Backend | [OnlyDance Symfony API](https://github.com/WeidenauerErik/OnlyDance-AR-Symfony) |
 
 ---
 
-## 📚 Requirements
+## 📦 Project Structure
 
-- Unity installed  
-- AR Foundation + ARKit/ARCore packages imported  
-- Compatible device (iOS/Android)
+```
+OnlyDance-AR-Unity/
+├── Assets/                # Scenes, Scripts, UI, Shaders, Prefabs
+├── Packages/              # Unity Package Manager dependencies
+├── ProjectSettings/       # Unity project configuration
+├── UIElementsSchema/      # UI Toolkit schema definitions
+└── .utmp/                 # Unity tooling
+```
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Unity 6 (or later)
+- AR Foundation package
+- ARKit XR Plugin (for iOS builds)
+- ARCore XR Plugin (for Android builds)
+- A compatible physical device with AR support
+
+### Setup
+
+```bash
+git clone https://github.com/WeidenauerErik/OnlyDance-AR-Unity.git
+```
+
+1. Open the project in **Unity Hub**
+2. Import AR Foundation, ARKit, and ARCore packages via the **Package Manager**
+3. Configure your backend API URL in the project settings
+4. Build and deploy to your target platform (iOS / Android)
+
+### Permissions Required
+- **Camera** — for AR world tracking
+- **Motion Tracking** — for ARKit/ARCore spatial anchors
+
+---
+
+## 📦 Releases
+
+| Version | Status |
+|---|---|
+| v1.4.0 | ✅ Latest (stable) |
+| v1.3.0 | Previous |
+
+---
+
+## 🔗 Related Repositories
+
+| Repository | Description |
+|---|---|
+| [OnlyDance-AR-Symfony](https://github.com/WeidenauerErik/OnlyDance-AR-Symfony) | Backend REST API (Symfony/PHP) |
+| [OnlyDance-WEB-Vue](https://github.com/WeidenauerErik/OnlyDance-WEB-Vue) | Web frontend (Vue 3) |
 
 ---
 
