@@ -1,10 +1,10 @@
-# 🕺 OnlyDance — AR App (Unity)
+# 🕺 DanceMaster — AR App (Unity)
 
-**OnlyDance AR** is an augmented reality application that lets users learn dance choreographies in an immersive, spatial way. The app projects footprint guides directly onto the floor via AR, allowing dancers to follow along step by step in their own environment.
+**DanceMaster AR** is an augmented reality application that lets users learn dance choreographies in an immersive, spatial way. The app projects footprint guides directly onto the floor via AR, allowing dancers to follow along step by step in their own environment.
 
 Built with **Unity 6**, the app supports both **iOS (ARKit)** and **Android (ARCore)** and features a clean, modern UI powered by the **Unity UI Toolkit**.
 
-> 🌐 Live: [onlydance.at](https://onlydance.at) · 📦 Latest Release: **v1.4.0** (stable)
+> 🌐 Live: [DanceMaster.at](https://DanceMaster.at) · 📦 Latest Release: **v1.4.0** (stable)
 
 ---
 
@@ -19,7 +19,7 @@ Built with **Unity 6**, the app supports both **iOS (ARKit)** and **Android (ARC
 
 | Mode | Description |
 |---|---|
-| **Online Dances** | Curated choreographies created by the OnlyDance team |
+| **Online Dances** | Curated choreographies created by the DanceMaster team |
 | **My Dances** | Users can create, edit, and save their own steps and sequences |
 
 ### Modern UI (Unity UI Toolkit)
@@ -40,14 +40,14 @@ Built with **Unity 6**, the app supports both **iOS (ARKit)** and **Android (ARC
 | UI System | Unity UI Toolkit |
 | Shaders | ShaderLab / HLSL |
 | Logic | C# |
-| Backend | [OnlyDance Symfony API](https://github.com/WeidenauerErik/OnlyDance-AR-Symfony) |
+| Backend | [DanceMaster Symfony API](https://github.com/WeidenauerErik/DanceMaster-AR-Symfony) |
 
 ---
 
 ## 📦 Project Structure
 
 ```
-OnlyDance-AR-Unity/
+DanceMaster-AR-Unity/
 ├── Assets/                # Scenes, Scripts, UI, Shaders, Prefabs
 ├── Packages/              # Unity Package Manager dependencies
 ├── ProjectSettings/       # Unity project configuration
@@ -69,7 +69,7 @@ OnlyDance-AR-Unity/
 ### Setup
 
 ```bash
-git clone https://github.com/WeidenauerErik/OnlyDance-AR-Unity.git
+git clone https://github.com/WeidenauerErik/DanceMaster-AR-Unity.git
 ```
 
 1. Open the project in **Unity Hub**
@@ -96,8 +96,8 @@ git clone https://github.com/WeidenauerErik/OnlyDance-AR-Unity.git
 
 | Repository | Description |
 |---|---|
-| [OnlyDance-AR-Symfony](https://github.com/WeidenauerErik/OnlyDance-AR-Symfony) | Backend REST API (Symfony/PHP) |
-| [OnlyDance-WEB-Vue](https://github.com/WeidenauerErik/OnlyDance-WEB-Vue) | Web frontend (Vue 3) |
+| [DanceMaster-AR-Symfony](https://github.com/WeidenauerErik/DanceMaster-AR-Symfony) | Backend REST API (Symfony/PHP) |
+| [DanceMaster-WEB-Vue](https://github.com/WeidenauerErik/DanceMaster-WEB-Vue) | Web frontend (Vue 3) |
 
 ---
 
